@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: ydga/Caballeros
+  branch: main
+
+media_folder: public/images
+public_folder: /Caballeros/images
+
+collections:
+  - name: news
+    label: News
+    folder: src/content/news
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Publish date, name: date, widget: datetime }
+      - { label: Summary, name: summary, widget: text, required: false }
+      - { label: Image, name: image, widget: image, required: false }
+      - { label: Article, name: body, widget: markdown }
