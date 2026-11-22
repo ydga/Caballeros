@@ -5,38 +5,40 @@ backend:
   auth_methods:
     - token
 
+locale: es
+
 media_folder: public/images
 public_folder: /Caballeros/images
 
 collections:
   - name: pages
-    label: Pages
+    label: Paginas
     folder: src/content/pages
     create: true
     delete: true
     slug: "{{slug}}"
     summary: "{{title}}"
     fields:
-      - { label: Page title, name: title, widget: string }
-      - { label: Eyebrow, name: eyebrow, widget: string, required: false }
-      - { label: Introduction, name: lede, widget: text, required: false }
-      - label: Gallery items
+      - { label: Titulo de la pagina, name: title, widget: string }
+      - { label: Encabezado, name: eyebrow, widget: string, required: false }
+      - { label: Introduccion, name: lede, widget: text, required: false }
+      - label: Elementos de la galeria
         name: items
         widget: list
         required: false
         fields:
-          - { label: Title, name: title, widget: string }
-          - { label: Label, name: label, widget: string, required: false }
-          - { label: Image, name: image, widget: image, required: false }
-      - { label: Content, name: body, widget: markdown }
+          - { label: Titulo, name: title, widget: string }
+          - { label: Texto, name: label, widget: string, required: false }
+          - { label: Imagen, name: image, widget: image, required: false }
+      - { label: Contenido, name: body, widget: markdown }
   - name: navigation
-    label: Navigation
+    label: Navegacion
     files:
       - name: main
-        label: Main navigation
+        label: Navegacion principal
         file: src/content/navigation.md
         fields:
-          - label: Navigation items
+          - label: Elementos de navegacion
             name: items
             widget: list
             summary: "{{label}} — {{slug}}"
@@ -46,16 +48,16 @@ collections:
             allow_remove: true
             allow_reorder: true
             fields:
-              - { label: Label, name: label, widget: string }
-              - { label: Path, name: slug, widget: string, hint: "Use news for the home page, or the page URL slug (for example about)." }
+              - { label: Texto, name: label, widget: string }
+              - { label: Ruta, name: slug, widget: string, hint: "Use noticias para la pagina principal, o el identificador de la pagina (por ejemplo, escuela)." }
   - name: news
-    label: News
+    label: Noticias
     folder: src/content/news
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Publish date, name: date, widget: datetime }
-      - { label: Summary, name: summary, widget: text, required: false }
-      - { label: Image, name: image, widget: image, required: false }
-      - { label: Article, name: body, widget: markdown }
+      - { label: Titulo, name: title, widget: string }
+      - { label: Fecha de publicacion, name: date, widget: datetime }
+      - { label: Resumen, name: summary, widget: text, required: false }
+      - { label: Imagen, name: image, widget: image, required: false }
+      - { label: Articulo, name: body, widget: markdown }

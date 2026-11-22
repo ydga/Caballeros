@@ -1,19 +1,19 @@
 ---
 title: Fotos
-eyebrow: Galeria fortográfica
-lede: A glimpse into life and learning at Caballeros School.
+eyebrow: Galería fotográfica
+lede: Una mirada a la vida cotidiana y al aprendizaje en Caballeros School.
 items:
-  - title: School community
-    label: Campus life
+  - title: Comunidad escolar
+    label: Vida en el plantel
     image: ''
-  - title: Learning in the classroom
-    label: Academics
+  - title: Aprendizaje en el aula
+    label: Actividades académicas
     image: ''
-  - title: Sports and activities
-    label: Activities
+  - title: Deportes y actividades
+    label: Actividades
     image: ''
-  - title: School celebrations
-    label: Community
+  - title: Celebraciones escolares
+    label: Comunidad
     image: ''
 ---
 

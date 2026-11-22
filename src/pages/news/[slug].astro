@@ -16,10 +16,10 @@ const { Content } = await render(post);
 
 <SiteLayout title={`${post.data.title} | Caballeros School`} active="news">
   <main class="article-main">
-    <a class="back" href="/Caballeros/">&larr; All news</a>
+    <a class="back" href="/Caballeros/">&larr; Todas las noticias</a>
     <article>
       <p class="date">
-        {post.data.date.toLocaleDateString('en', {
+        {post.data.date.toLocaleDateString('es', {
           year: 'numeric',
           month: 'long',
           day: 'numeric',

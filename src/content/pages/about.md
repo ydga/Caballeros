@@ -1,18 +1,18 @@
 ---
 title: Acerca
 eyebrow: Nuestra escuela
-lede: Discover our mission, values, and commitment to helping every student learn, grow, and thrive.
+lede: Conozca nuestra misión, nuestros valores y nuestro compromiso de ayudar a cada estudiante a aprender, crecer y alcanzar sus metas.
 items: []
 ---
 
-## Our Mission
+## Nuestra misión
 
-To provide high-quality education in a safe and supportive community where students develop knowledge, character, and confidence.
+Ofrecer una educación de alta calidad en una comunidad segura y solidaria donde los estudiantes desarrollen conocimientos, carácter y confianza.
 
-## Our Values
+## Nuestros valores
 
-Respect, responsibility, curiosity, integrity, teamwork, and service guide the way our students and staff learn and work together.
+El respeto, la responsabilidad, la curiosidad, la integridad, el trabajo en equipo y el servicio guían la forma en que nuestros estudiantes y colaboradores aprenden y trabajan juntos.
 
-## Our Community
+## Nuestra comunidad
 
-Caballeros School values strong partnerships among students, families, teachers, and the wider community.
+Caballeros School fomenta una colaboración sólida entre estudiantes, familias, docentes y toda la comunidad.

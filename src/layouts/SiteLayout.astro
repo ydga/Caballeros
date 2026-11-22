@@ -16,27 +16,36 @@ const {
 const base = '/Caballeros';
 const navigationEntry = await getEntry('navigation', 'navigation');
 const navigationItems = navigationEntry?.data.items ?? [
-  { label: "Director's Welcome", slug: 'welcome' },
-  { label: 'About', slug: 'about' },
-  { label: 'Gallery', slug: 'gallery' },
-  { label: 'News', slug: 'news' },
+  { label: 'Bienvenida', slug: 'bienvenida' },
+  { label: 'Nuestra escuela', slug: 'escuela' },
+  { label: 'Fotos', slug: 'fotos' },
+  { label: 'Noticias', slug: 'noticias' },
 ];
 
-const normalizeNavigationSlug = (slug: string) =>
-  slug.replace(/^\/|\/$/g, '');
+const normalizeNavigationSlug = (slug: string) => {
+  const normalizedSlug = slug.replace(/^\/|\/$/g, '');
+  const canonicalAliases: Record<string, string> = {
+    bienvenida: 'welcome',
+    escuela: 'about',
+    fotos: 'gallery',
+    noticias: 'news',
+  };
+  return canonicalAliases[normalizedSlug] ?? normalizedSlug;
+};
 
 const navigationHref = (slug: string) => {
   const normalizedSlug = normalizeNavigationSlug(slug);
-  return normalizedSlug === 'news'
-    ? `${base}/`
-    : `${base}/${normalizedSlug}/`;
+  const route = normalizedSlug === 'news'
+    ? ''
+    : normalizedSlug;
+  return route ? `${base}/${route}/` : `${base}/`;
 };
 
 const activeSlug = active ? normalizeNavigationSlug(active) : undefined;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -46,7 +55,7 @@ const activeSlug = active ? normalizeNavigationSlug(active) : undefined;
   <body>
     <header class="site-header">
       <a class="brand" href={`${base}/`}>Caballeros School</a>
-      <nav aria-label="Main navigation">
+      <nav aria-label="Navegacion principal">
         {navigationItems.map((item) => (
           <a
             class:list={[{ active: activeSlug === normalizeNavigationSlug(item.slug) }]}

@@ -1,11 +1,11 @@
 ---
 title: Dirección
-eyebrow: From the Director
+eyebrow: Del director
 lede: |-
   Estimadas familias y queridísimos alumnos:
   ¡Bienvenidos/as a nuestra página WEB!
 ---
 
-Our school community works together to encourage curiosity, academic excellence, respect, leadership, and service. We invite families to take an active role in school life and help us build bright futures for our students.
+Nuestra comunidad escolar trabaja unida para fomentar la curiosidad, la excelencia académica, el respeto, el liderazgo y el servicio. Invitamos a las familias a participar activamente en la vida escolar y a ayudarnos a construir un futuro brillante para nuestros estudiantes.
 
-We look forward to welcoming you to our community.
+Esperamos recibirles pronto en nuestra comunidad.

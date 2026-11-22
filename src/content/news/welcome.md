@@ -1,7 +1,7 @@
 ---
-title: Welcome to our school news
+title: Bienvenidos a las noticias escolares
 date: 2026-11-21
-summary: A new place for announcements, achievements, and upcoming events.
+summary: Un nuevo espacio para anuncios, logros y próximos eventos.
 ---
 
-This is the first post on our school news website. Staff editors can publish new stories from the Admin area.
+Esta es la primera publicación en el sitio de noticias de nuestra escuela. El personal puede publicar nuevas noticias desde el área de administración.
