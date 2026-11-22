@@ -43,7 +43,7 @@ const activeSlug = active;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700;900&family=Fauna+One&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700;900&family=Inter:wght@400..900&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -67,8 +67,11 @@ const activeSlug = active;
 
 <style is:global>
   :root {
-    font-family: 'Fauna One', serif;
-    color: #172036;
+    --color-accent: #be1e2d;
+    --color-heading: #414042;
+    --color-text: #6b6b6b;
+    font-family: Inter, system-ui, sans-serif;
+    color: var(--color-text);
     background: #f6f7fb;
   }
 
@@ -87,7 +90,7 @@ const activeSlug = active;
   }
 
   .brand {
-    color: #172036;
+    color: var(--color-heading);
     font-weight: 800;
     text-decoration: none;
   }
@@ -98,14 +101,14 @@ const activeSlug = active;
   }
 
   nav a {
-    color: #64708a;
+    color: var(--color-text);
     font-weight: 700;
     text-decoration: none;
   }
 
   nav a:hover,
   nav a.active {
-    color: #3155d9;
+    color: var(--color-accent);
   }
 
   main {
@@ -120,7 +123,7 @@ const activeSlug = active;
   }
 
   .eyebrow {
-    color: #3155d9;
+    color: var(--color-accent);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .12em;
@@ -132,13 +135,22 @@ const activeSlug = active;
     line-height: 1.05;
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-heading);
+  }
+
   h1 {
     font-family: 'Cinzel', serif;
     font-weight: 500;
   }
 
   .lede {
-    color: #64708a;
+    color: var(--color-text);
     font-size: clamp(1.05rem, 2vw, 1.25rem);
     line-height: 1.65;
   }
