@@ -20,8 +20,8 @@ const posts = (await getCollection('news'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
-const getTwoLetterMonth = (date: Date) =>
-  date.toLocaleDateString('es', { month: 'long' }).slice(0, 2).toUpperCase();
+const getFullMonth = (date: Date) =>
+  date.toLocaleDateString('es', { month: 'long' });
 ---
 
 <SiteLayout
@@ -112,7 +112,7 @@ const getTwoLetterMonth = (date: Date) =>
               <div class="card-content">
                 <p class="date">
                   <span class="date-day">{post.data.date.getDate()}</span>
-                  <span class="date-month">{getTwoLetterMonth(post.data.date)}</span>
+                  <span class="date-month">{getFullMonth(post.data.date)}</span>
                 </p>
                 <h3><a href={`${base}/news/${post.id}/`}>{post.data.title}</a></h3>
                 {post.data.summary && <p>{post.data.summary}</p>}
@@ -515,9 +515,9 @@ const getTwoLetterMonth = (date: Date) =>
 
   .date-month {
     margin-top: .25rem;
+    color: var(--color-accent);
     font-size: .8rem;
     font-weight: 800;
-    letter-spacing: .12em;
   }
 
   figure {
