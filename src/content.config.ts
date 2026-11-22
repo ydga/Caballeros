@@ -27,4 +27,17 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { news, pages };
+const homepage = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/home' }),
+  schema: z.object({
+    hero_title: z.string(),
+    hero_button_label: z.string(),
+    about_button_label: z.string(),
+    news_eyebrow: z.string(),
+    news_title: z.string(),
+    news_link_label: z.string(),
+    gallery_link_label: z.string(),
+  }),
+});
+
+export const collections = { news, pages, homepage };

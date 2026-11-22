@@ -3,16 +3,18 @@ import { getCollection, getEntry } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
 const base = '/Caballeros';
-const [welcomePage, aboutPage, galleryPage] = await Promise.all([
+const [homeContent, welcomePage, aboutPage, galleryPage] = await Promise.all([
+  getEntry('homepage', 'index'),
   getEntry('pages', 'welcome'),
   getEntry('pages', 'about'),
   getEntry('pages', 'gallery'),
 ]);
 
-if (!welcomePage || !aboutPage || !galleryPage) {
+if (!homeContent || !welcomePage || !aboutPage || !galleryPage) {
   throw new Error('Missing homepage content');
 }
 
+const home = homeContent.data;
 const posts = (await getCollection('news'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
@@ -27,9 +29,9 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
   <main class="home">
     <section class="hero">
       <p class="eyebrow">{welcomePage.data.eyebrow ?? 'Bienvenidos'}</p>
-      <h1>Caballeros School</h1>
+      <h1>{home.hero_title}</h1>
       {welcomePage.data.lede && <p class="hero-copy">{welcomePage.data.lede}</p>}
-      <a class="button button-light" href={`${base}/welcome/`}>Mensaje de Dirección</a>
+      <a class="button button-light" href={`${base}/welcome/`}>{home.hero_button_label}</a>
     </section>
 
     <section class="home-row about-row">
@@ -38,16 +40,16 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
         <h2>{aboutPage.data.title}</h2>
         {aboutPage.data.lede && <p class="row-copy">{aboutPage.data.lede}</p>}
       </div>
-      <a class="button" href={`${base}/about/`}>Conozca nuestra escuela</a>
+      <a class="button" href={`${base}/about/`}>{home.about_button_label}</a>
     </section>
 
     <section class="home-row">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Manténgase al día</p>
-          <h2>Noticias escolares</h2>
+          <p class="eyebrow">{home.news_eyebrow}</p>
+          <h2>{home.news_title}</h2>
         </div>
-        <a class="text-link" href={`${base}/news/`}>Todas las noticias →</a>
+        <a class="text-link" href={`${base}/news/`}>{home.news_link_label}</a>
       </div>
       {posts.length > 0 ? (
         <div class="post-grid">
@@ -78,7 +80,7 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
           <h2>{galleryPage.data.title}</h2>
           {galleryPage.data.lede && <p class="row-copy">{galleryPage.data.lede}</p>}
         </div>
-        <a class="text-link" href={`${base}/gallery/`}>Ver la galería →</a>
+        <a class="text-link" href={`${base}/gallery/`}>{home.gallery_link_label}</a>
       </div>
       {galleryItems.length > 0 ? (
         <div class="gallery-grid">
