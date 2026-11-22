@@ -1,7 +1,8 @@
 ---
-title: About Caballeros School
-eyebrow: Our school
+title: Acerca
+eyebrow: Nuestra escuela
 lede: Discover our mission, values, and commitment to helping every student learn, grow, and thrive.
+items: []
 ---
 
 ## Our Mission
