@@ -1,5 +1,5 @@
 ---
-title: Dirección
+title: Bienvenida
 order: 1
 hide_from_navigation: false
 eyebrow: Del director
