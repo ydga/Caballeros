@@ -1,5 +1,5 @@
 ---
-title: Director's Welcome
+title: Welcome
 eyebrow: From the Director
 lede: Welcome to Caballeros School. We are committed to providing a caring, challenging, and inspiring learning environment for every student.
 ---
