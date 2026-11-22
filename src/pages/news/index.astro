@@ -23,15 +23,17 @@ const posts = (await getCollection('news')).sort(
         {posts.map((post) => (
           <article class="card">
             {post.data.image && <img src={post.data.image} alt="" />}
-            <p class="date">
-              {post.data.date.toLocaleDateString('es', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </p>
-            <h2><a href={`${base}/news/${post.id}/`}>{post.data.title}</a></h2>
-            {post.data.summary && <p>{post.data.summary}</p>}
+            <div class="card-content">
+              <p class="date">
+                {post.data.date.toLocaleDateString('es', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </p>
+              <h2><a href={`${base}/news/${post.id}/`}>{post.data.title}</a></h2>
+              {post.data.summary && <p>{post.data.summary}</p>}
+            </div>
           </article>
         ))}
       </div>
@@ -44,8 +46,9 @@ const posts = (await getCollection('news')).sort(
 <style>
   .intro { margin-bottom: 2.5rem; }
   .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
-  .card { background: #fff; border-radius: 16px; padding: 1.25rem; box-shadow: 0 8px 30px rgb(23 32 54 / 8%); }
-  .card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; }
+  .card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgb(23 32 54 / 8%); }
+  .card img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .card-content { padding: 1.25rem; }
   .card h2 { line-height: 1.15; }
   .card a { color: inherit; }
   .date { color: var(--color-text); font-size: .9rem; }
