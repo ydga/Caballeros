@@ -2,10 +2,10 @@
 title: Bienvenida
 order: 1
 hide_from_navigation: false
-eyebrow: Del director
+eyebrow: Direccion
 lede: |-
-  Estimadas familias y queridísimos alumnos:
-  ¡Bienvenidos/as a nuestra página WEB!
+  Estimadas familias y queridísimos alumnos sean
+  bienvenidos/as a nuestra página WEB!
 items: []
 ---
 
@@ -26,4 +26,5 @@ Seguiremos trabajando, día a día, para adaptar nuestro Proyecto Educativo a la
 Cordialmente,
 
 **Alexandra González Jiménez**
-La Directora del CEIP Caballeros de Santiago
+
+Directora del CEIP Caballeros de Santiago
