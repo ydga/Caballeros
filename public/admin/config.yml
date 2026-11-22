@@ -2,6 +2,8 @@ backend:
   name: github
   repo: ydga/Caballeros
   branch: main
+  auth_methods:
+    - token
 
 media_folder: public/images
 public_folder: /Caballeros/images
