@@ -20,6 +20,8 @@ const posts = (await getCollection('news'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
+const getTwoLetterMonth = (date: Date) =>
+  date.toLocaleDateString('es', { month: 'long' }).slice(0, 2).toUpperCase();
 ---
 
 <SiteLayout
@@ -107,14 +109,10 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
         <div class="post-grid">
           {posts.map((post) => (
             <article class="card">
-              {post.data.image && <img src={post.data.image} alt="" />}
               <div class="card-content">
                 <p class="date">
-                  {post.data.date.toLocaleDateString('es', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
+                  <span class="date-day">{post.data.date.getDate()}</span>
+                  <span class="date-month">{getTwoLetterMonth(post.data.date)}</span>
                 </p>
                 <h3><a href={`${base}/news/${post.id}/`}>{post.data.title}</a></h3>
                 {post.data.summary && <p>{post.data.summary}</p>}
@@ -158,12 +156,15 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
   </main>
 
   <footer class="site-footer">
-    <a class="footer-brand" href={`${base}/`}>Caballeros School</a>
-    <nav aria-label="Enlaces del pie de página">
-      <a href={`${base}/about/`}>Acerca</a>
-      <a href={`${base}/news/`}>Noticias</a>
-      <a href={`${base}/gallery/`}>Fotos</a>
-    </nav>
+    <div class="site-footer-content">
+      <a class="footer-brand" href={`${base}/`}>Caballeros School</a>
+      <address>Dirección: Pl. de Valdelasgranas, 3, Centro, 14002 Córdoba</address>
+      <nav aria-label="Enlaces del pie de página">
+        <a href={`${base}/about/`}>Acerca</a>
+        <a href={`${base}/news/`}>Noticias</a>
+        <a href={`${base}/gallery/`}>Fotos</a>
+      </nav>
+    </div>
   </footer>
 </SiteLayout>
 
@@ -250,7 +251,9 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
 
 <style>
   .home {
-    max-width: none;
+    max-width: 1200px;
+    box-sizing: border-box;
+    margin: 0 auto;
     padding: 0;
   }
 
@@ -400,6 +403,7 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
   }
 
   .home-row {
+    box-sizing: border-box;
     max-width: 1200px;
     margin: 0 auto;
     padding: clamp(3rem, 7vw, 5rem) 1.25rem;
@@ -452,7 +456,8 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
     flex-shrink: 0;
     padding: .8rem 1.1rem;
     border-radius: 999px;
-    background: #f7e5e7;
+    color: #fff;
+    background: var(--color-accent);
   }
 
   .button-light {
@@ -479,13 +484,6 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
     box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
   }
 
-  .card img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-  }
-
   .card-content {
     padding: 1.25rem;
   }
@@ -499,8 +497,27 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
   }
 
   .date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+    margin: 0 0 .75rem;
     color: var(--color-text);
-    font-size: .9rem;
+    line-height: 1;
+  }
+
+  .date-day {
+    color: var(--color-accent);
+    font-family: Parkinsans, sans-serif;
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 700;
+  }
+
+  .date-month {
+    margin-top: .25rem;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .12em;
   }
 
   figure {
@@ -537,18 +554,28 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
   }
 
   .site-footer {
+    color: #fff;
+    background: #3a3a3a;
+  }
+
+  .site-footer-content {
     display: flex;
     justify-content: space-between;
     gap: 1.5rem;
-    padding: 2rem clamp(1.25rem, 5vw, 5rem);
-    color: #fff;
-    background: #172036;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem;
   }
 
   .site-footer nav {
     display: flex;
     flex-wrap: wrap;
     gap: 1.25rem;
+  }
+
+  .site-footer address {
+    font-style: normal;
   }
 
   .site-footer a {
@@ -560,7 +587,7 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
   @media (max-width: 640px) {
     .about-row,
     .section-heading,
-    .site-footer {
+    .site-footer-content {
       align-items: flex-start;
       flex-direction: column;
     }
