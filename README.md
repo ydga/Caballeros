@@ -18,6 +18,9 @@ GitHub Pages must use **GitHub Actions** as the build source. The included workf
 Open `/admin/` on the deployed site and sign in with a GitHub personal access
 token that has write access to this repository.
 
-To edit the home page, use **Inicio** in the CMS for its main title and button
-labels. The welcome message, school introduction, and gallery content are edited
-under **Paginas**; the news section is populated from **Noticias**.
+To edit the home page, use **Inicio** in the CMS to add or edit hero slides,
+including their cover photos, titles, subtitles, and CTA links. You can also edit
+the other home page button labels there. The slideshow advances automatically
+and includes pause, arrow, and dot controls. The welcome message, school
+introduction, and gallery content are edited under **Paginas**; the news section
+is populated from **Noticias**.

@@ -1,6 +1,13 @@
 {
-  "hero_title": "CEIP Caballeros de Santiago",
-  "hero_button_label": "Mensaje de Dirección",
+  "hero_slides": [
+    {
+      "image": "https://www.spain.info/export/sites/segtur/.content/imagenes/cabeceras-grandes/andalucia/vistas-cordoba-s158982617.jpg",
+      "title": "CEIP Caballeros de Santiago",
+      "subtitle": "Estimadas familias y queridísimos alumnos: ¡Bienvenidos/as a nuestra página WEB!",
+      "cta_label": "Mensaje de Dirección",
+      "cta_url": "/Caballeros/welcome/"
+    }
+  ],
   "about_button_label": "Conozca nuestra escuela",
   "news_eyebrow": "Manténgase al día",
   "news_title": "Noticias escolares",

@@ -30,8 +30,13 @@ const pages = defineCollection({
 const homepage = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/home' }),
   schema: z.object({
-    hero_title: z.string(),
-    hero_button_label: z.string(),
+    hero_slides: z.array(z.object({
+      image: z.string().min(1),
+      title: z.string(),
+      subtitle: z.string(),
+      cta_label: z.string(),
+      cta_url: z.string().min(1),
+    })).min(1),
     about_button_label: z.string(),
     news_eyebrow: z.string(),
     news_title: z.string(),

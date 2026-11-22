@@ -18,8 +18,16 @@ collections:
         label: Contenido de la página de inicio
         file: src/content/home/index.json
         fields:
-          - { label: Título principal, name: hero_title, widget: string }
-          - { label: Texto del botón del mensaje de dirección, name: hero_button_label, widget: string }
+          - label: Diapositivas principales
+            name: hero_slides
+            widget: list
+            min: 1
+            fields:
+              - { label: Foto de fondo, name: image, widget: image }
+              - { label: Título, name: title, widget: string }
+              - { label: Subtítulo, name: subtitle, widget: text }
+              - { label: Texto del botón, name: cta_label, widget: string }
+              - { label: Enlace del botón, name: cta_url, widget: string }
           - { label: Texto del botón de nuestra escuela, name: about_button_label, widget: string }
           - { label: Texto pequeño de noticias, name: news_eyebrow, widget: string }
           - { label: Título de noticias, name: news_title, widget: string }

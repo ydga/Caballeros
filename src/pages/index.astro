@@ -15,6 +15,7 @@ if (!homeContent || !welcomePage || !aboutPage || !galleryPage) {
 }
 
 const home = homeContent.data;
+const heroSlides = home.hero_slides;
 const posts = (await getCollection('news'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
@@ -27,11 +28,57 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
   active="home"
 >
   <main class="home">
-    <section class="hero">
-      <p class="eyebrow">{welcomePage.data.eyebrow ?? 'Bienvenidos'}</p>
-      <h1>{home.hero_title}</h1>
-      {welcomePage.data.lede && <p class="hero-copy">{welcomePage.data.lede}</p>}
-      <a class="button button-light" href={`${base}/welcome/`}>{home.hero_button_label}</a>
+    <section
+      class="hero"
+      data-slideshow
+      aria-label="Presentación destacada"
+      aria-roledescription="carrusel"
+    >
+      {heroSlides.map((slide, index) => (
+        <article class="hero-slide" data-slide hidden={index !== 0} aria-hidden={index !== 0}>
+          <img
+            class="hero-image"
+            src={slide.image}
+            alt=""
+            loading={index === 0 ? 'eager' : 'lazy'}
+          />
+          <div class="hero-content">
+            <h1>{slide.title}</h1>
+            <p class="hero-copy">{slide.subtitle}</p>
+            <a class="button button-light" href={slide.cta_url}>{slide.cta_label}</a>
+          </div>
+        </article>
+      ))}
+      {heroSlides.length > 1 && (
+        <div class="hero-controls" role="group" aria-label="Controles de la presentación">
+          <button class="hero-control" type="button" data-previous aria-label="Diapositiva anterior">
+            <span aria-hidden="true">←</span>
+          </button>
+          <div class="hero-dots">
+            {heroSlides.map((slide, index) => (
+              <button
+                class="hero-dot"
+                type="button"
+                data-dot={index}
+                aria-label={`Mostrar diapositiva ${index + 1}`}
+                aria-current={index === 0 ? 'true' : undefined}
+              />
+            ))}
+          </div>
+          <button class="hero-control" type="button" data-next aria-label="Diapositiva siguiente">
+            <span aria-hidden="true">→</span>
+          </button>
+          <button
+            class="hero-control hero-pause"
+            type="button"
+            data-pause
+            aria-label="Pausar la presentación"
+            aria-pressed="false"
+          >
+            <span aria-hidden="true">Ⅱ</span>
+          </button>
+        </div>
+      )}
     </section>
 
     <section class="home-row about-row">
@@ -113,6 +160,87 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
   </footer>
 </SiteLayout>
 
+<script>
+  document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((slideshow) => {
+    const slides = Array.from(slideshow.querySelectorAll<HTMLElement>('[data-slide]'));
+    const dots = Array.from(slideshow.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+    const previous = slideshow.querySelector<HTMLButtonElement>('[data-previous]');
+    const next = slideshow.querySelector<HTMLButtonElement>('[data-next]');
+    const pause = slideshow.querySelector<HTMLButtonElement>('[data-pause]');
+    const pauseIcon = pause?.querySelector<HTMLSpanElement>('span');
+
+    if (slides.length < 2 || !previous || !next || !pause || !pauseIcon) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let activeIndex = 0;
+    let isPaused = false;
+    let isHovered = false;
+    let hasFocus = false;
+    let timer: number | undefined;
+
+    const updateTimer = () => {
+      window.clearInterval(timer);
+      if (!reducedMotion.matches && !isPaused && !isHovered && !hasFocus && !document.hidden) {
+        timer = window.setInterval(() => showSlide(activeIndex + 1), 6000);
+      }
+    };
+
+    const showSlide = (index: number) => {
+      activeIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        const isActive = slideIndex === activeIndex;
+        slide.hidden = !isActive;
+        slide.setAttribute('aria-hidden', String(!isActive));
+      });
+      dots.forEach((dot, dotIndex) => {
+        if (dotIndex === activeIndex) {
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+      updateTimer();
+    };
+
+    previous.addEventListener('click', () => showSlide(activeIndex - 1));
+    next.addEventListener('click', () => showSlide(activeIndex + 1));
+    dots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)));
+    pause.addEventListener('click', () => {
+      isPaused = !isPaused;
+      pause.setAttribute('aria-pressed', String(isPaused));
+      pause.setAttribute(
+        'aria-label',
+        isPaused ? 'Reanudar la presentación' : 'Pausar la presentación',
+      );
+      pauseIcon.textContent = isPaused ? '▶' : 'Ⅱ';
+      updateTimer();
+    });
+
+    slideshow.addEventListener('mouseenter', () => {
+      isHovered = true;
+      updateTimer();
+    });
+    slideshow.addEventListener('mouseleave', () => {
+      isHovered = false;
+      updateTimer();
+    });
+    slideshow.addEventListener('focusin', () => {
+      hasFocus = true;
+      updateTimer();
+    });
+    slideshow.addEventListener('focusout', (event) => {
+      if (!(event.relatedTarget instanceof Node) || !slideshow.contains(event.relatedTarget)) {
+        hasFocus = false;
+        updateTimer();
+      }
+    });
+    document.addEventListener('visibilitychange', updateTimer);
+    reducedMotion.addEventListener('change', updateTimer);
+
+    updateTimer();
+  });
+</script>
+
 <style>
   .home {
     max-width: none;
@@ -120,9 +248,45 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
   }
 
   .hero {
-    padding: clamp(4rem, 10vw, 8rem) clamp(1.25rem, 9vw, 8rem);
+    position: relative;
+    min-height: clamp(32rem, 75vh, 48rem);
+    overflow: hidden;
     color: #fff;
-    background: linear-gradient(120deg, #172036, #3155d9);
+    background: #172036;
+  }
+
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-items: center;
+    padding: clamp(4rem, 10vw, 8rem) clamp(1.25rem, 9vw, 8rem) 6rem;
+  }
+
+  .hero-slide[hidden] {
+    display: none;
+  }
+
+  .hero-slide::after {
+    position: absolute;
+    z-index: 1;
+    background: linear-gradient(90deg, rgb(12 18 32 / 82%), rgb(12 18 32 / 25%));
+    content: '';
+    inset: 0;
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 850px);
   }
 
   .hero .eyebrow {
@@ -140,6 +304,62 @@ const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
     color: #e4e9ff;
     font-size: clamp(1.1rem, 2vw, 1.35rem);
     line-height: 1.65;
+  }
+
+  .hero-controls {
+    position: absolute;
+    z-index: 3;
+    right: clamp(1.25rem, 5vw, 5rem);
+    bottom: 1.5rem;
+    left: clamp(1.25rem, 5vw, 5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+  }
+
+  .hero-control,
+  .hero-dot {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 0;
+    color: #172036;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .hero-control {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    font-size: 1.25rem;
+  }
+
+  .hero-dots {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+
+  .hero-dot {
+    width: .75rem;
+    height: .75rem;
+    padding: 0;
+    border-radius: 50%;
+    opacity: .7;
+  }
+
+  .hero-dot[aria-current='true'] {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+    opacity: 1;
+  }
+
+  .hero-control:focus-visible,
+  .hero-dot:focus-visible {
+    outline: 3px solid #3155d9;
+    outline-offset: 3px;
   }
 
   .home-row {
