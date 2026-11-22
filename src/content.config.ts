@@ -11,4 +11,18 @@ const news = defineCollection({
   }),
 });
 
-export const collections = { news };
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
+  schema: z.object({
+    title: z.string(),
+    eyebrow: z.string().optional(),
+    lede: z.string().optional(),
+    items: z.array(z.object({
+      title: z.string(),
+      label: z.string().optional(),
+      image: z.string().optional(),
+    })).optional(),
+  }),
+});
+
+export const collections = { news, pages };

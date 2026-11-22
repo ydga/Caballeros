@@ -1,0 +1,38 @@
+---
+import { getEntry, render } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const page = await getEntry('pages', 'welcome');
+if (!page) {
+  throw new Error('Missing welcome page content');
+}
+const { Content } = await render(page);
+---
+
+<SiteLayout
+  title={`${page.data.title} | Caballeros School`}
+  description={page.data.lede}
+  active="welcome"
+>
+  <main>
+    <header class="page-heading">
+      {page.data.eyebrow && <p class="eyebrow">{page.data.eyebrow}</p>}
+      <h1>{page.data.title}</h1>
+    </header>
+    <article class="welcome-card">
+      {page.data.lede && <p class="lede">{page.data.lede}</p>}
+      <div class="content"><Content /></div>
+    </article>
+  </main>
+</SiteLayout>
+
+<style>
+  .welcome-card {
+    max-width: 760px;
+    background: #fff;
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
+    line-height: 1.75;
+  }
+</style>

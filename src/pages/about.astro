@@ -1,0 +1,54 @@
+---
+import { getEntry, render } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const page = await getEntry('pages', 'about');
+if (!page) {
+  throw new Error('Missing about page content');
+}
+const { Content } = await render(page);
+---
+
+<SiteLayout
+  title={`${page.data.title} | Caballeros School`}
+  description={page.data.lede}
+  active="about"
+>
+  <main>
+    <header class="page-heading">
+      {page.data.eyebrow && <p class="eyebrow">{page.data.eyebrow}</p>}
+      <h1>{page.data.title}</h1>
+      {page.data.lede && <p class="lede">{page.data.lede}</p>}
+    </header>
+    <div class="about-content"><Content /></div>
+  </main>
+</SiteLayout>
+
+<style>
+  .about-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .about-content :global(h2),
+  .about-content :global(p) {
+    margin-top: 0;
+  }
+
+  .about-content :global(h2) {
+    grid-row: 1;
+  }
+
+  .about-content :global(p) {
+    grid-row: 2;
+  }
+
+  .about-content {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
+    line-height: 1.7;
+  }
+</style>

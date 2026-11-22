@@ -1,0 +1,79 @@
+---
+import { getEntry } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const page = await getEntry('pages', 'gallery');
+if (!page) {
+  throw new Error('Missing gallery page content');
+}
+const galleryItems = page.data.items ?? [];
+---
+
+<SiteLayout
+  title={`${page.data.title} | Caballeros School`}
+  description={page.data.lede}
+  active="gallery"
+>
+  <main>
+    <header class="page-heading">
+      {page.data.eyebrow && <p class="eyebrow">{page.data.eyebrow}</p>}
+      <h1>{page.data.title}</h1>
+      {page.data.lede && <p class="lede">{page.data.lede}</p>}
+    </header>
+
+    <div class="gallery-grid">
+      {galleryItems.map((item) => (
+        <figure>
+          {item.image ? (
+            <img class="gallery-image" src={item.image} alt={item.title} />
+          ) : (
+            <div class="placeholder" role="img" aria-label={item.title}>
+              <span>{item.label}</span>
+            </div>
+          )}
+          <figcaption>{item.title}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </main>
+</SiteLayout>
+
+<style>
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  .placeholder {
+    display: grid;
+    place-items: end start;
+    aspect-ratio: 4 / 3;
+    padding: 1rem;
+    border-radius: 16px;
+    background:
+      linear-gradient(135deg, rgb(49 85 217 / 20%), rgb(23 32 54 / 70%)),
+      #dfe5f3;
+  }
+
+  .placeholder span {
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .gallery-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  figcaption {
+    padding-top: .75rem;
+    font-weight: 700;
+  }
+</style>

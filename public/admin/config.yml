@@ -9,6 +9,40 @@ media_folder: public/images
 public_folder: /Caballeros/images
 
 collections:
+  - name: pages
+    label: Pages
+    files:
+      - name: welcome
+        label: "Director's Welcome"
+        file: src/content/pages/welcome.md
+        fields:
+          - { label: Page title, name: title, widget: string }
+          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+          - { label: Introduction, name: lede, widget: text, required: false }
+          - { label: Message, name: body, widget: markdown }
+      - name: about
+        label: About the School
+        file: src/content/pages/about.md
+        fields:
+          - { label: Page title, name: title, widget: string }
+          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+          - { label: Introduction, name: lede, widget: text, required: false }
+          - { label: Content, name: body, widget: markdown }
+      - name: gallery
+        label: Gallery
+        file: src/content/pages/gallery.md
+        fields:
+          - { label: Page title, name: title, widget: string }
+          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+          - { label: Introduction, name: lede, widget: text, required: false }
+          - label: Gallery items
+            name: items
+            widget: list
+            required: false
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Label, name: label, widget: string, required: false }
+              - { label: Image, name: image, widget: image, required: false }
   - name: news
     label: News
     folder: src/content/news

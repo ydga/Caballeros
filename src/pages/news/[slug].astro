@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('news');
@@ -13,41 +14,26 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{post.data.title}</title>
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="/Caballeros/">School News</a>
-    </header>
-    <main>
-      <a class="back" href="/Caballeros/">&larr; All news</a>
-      <article>
-        <p class="date">
-          {post.data.date.toLocaleDateString('en', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </p>
-        <h1>{post.data.title}</h1>
-        {post.data.image && <img class="hero" src={post.data.image} alt="" />}
-        <div class="content"><Content /></div>
-      </article>
-    </main>
-  </body>
-</html>
+<SiteLayout title={`${post.data.title} | Caballeros School`} active="news">
+  <main class="article-main">
+    <a class="back" href="/Caballeros/">&larr; All news</a>
+    <article>
+      <p class="date">
+        {post.data.date.toLocaleDateString('en', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })}
+      </p>
+      <h1>{post.data.title}</h1>
+      {post.data.image && <img class="hero" src={post.data.image} alt="" />}
+      <div class="content"><Content /></div>
+    </article>
+  </main>
+</SiteLayout>
 
 <style>
-  :root { font-family: Inter, system-ui, sans-serif; color: #172036; background: #f6f7fb; }
-  body { margin: 0; }
-  .site-header { padding: 1.25rem clamp(1.25rem, 5vw, 5rem); background: #fff; border-bottom: 1px solid #dde2ec; }
-  .brand { color: #172036; font-weight: 800; text-decoration: none; }
-  main { max-width: 760px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .article-main { max-width: 760px; }
   .back { color: #3155d9; text-decoration: none; }
   article { background: #fff; margin-top: 1.25rem; padding: clamp(1.25rem, 5vw, 3rem); border-radius: 16px; }
   h1 { margin: .25rem 0 1.5rem; font-size: clamp(2.25rem, 7vw, 4rem); line-height: 1.05; }
