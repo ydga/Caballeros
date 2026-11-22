@@ -15,18 +15,20 @@ const {
 
 const base = '/Caballeros';
 const pages = await getCollection('pages');
-const navigationItems = pages
-  .filter((page) => !page.data.hide_from_navigation)
-  .sort((a, b) => a.data.order - b.data.order)
-  .map((page) => ({
+const navigationItems = [
+  { label: 'Inicio', slug: 'home' },
+  ...pages
+    .filter((page) => !page.data.hide_from_navigation)
+    .sort((a, b) => a.data.order - b.data.order)
+    .map((page) => ({
     label: page.data.title,
     slug: page.id,
-  }));
-
-navigationItems.push({ label: 'Noticias', slug: 'news' });
+    })),
+  { label: 'Noticias', slug: 'news' },
+];
 
 const navigationHref = (slug: string) =>
-  slug === 'news' ? `${base}/` : `${base}/${slug}/`;
+  slug === 'home' ? `${base}/` : `${base}/${slug}/`;
 
 const activeSlug = active;
 ---

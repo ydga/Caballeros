@@ -1,47 +1,305 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
-const posts = (await getCollection('news')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const base = '/Caballeros';
+const [welcomePage, aboutPage, galleryPage] = await Promise.all([
+  getEntry('pages', 'welcome'),
+  getEntry('pages', 'about'),
+  getEntry('pages', 'gallery'),
+]);
+
+if (!welcomePage || !aboutPage || !galleryPage) {
+  throw new Error('Missing homepage content');
+}
+
+const posts = (await getCollection('news'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
 ---
 
-<SiteLayout title="Noticias escolares | Caballeros School" description="Noticias y anuncios escolares" active="news">
-  <main>
-    <section class="intro">
-      <p class="eyebrow">Ultimas novedades</p>
-      <h1>Noticias y anuncios</h1>
+<SiteLayout
+  title="Inicio | Caballeros School"
+  description={welcomePage.data.lede ?? 'Bienvenidos a Caballeros School'}
+  active="home"
+>
+  <main class="home">
+    <section class="hero">
+      <p class="eyebrow">{welcomePage.data.eyebrow ?? 'Bienvenidos'}</p>
+      <h1>Caballeros School</h1>
+      {welcomePage.data.lede && <p class="hero-copy">{welcomePage.data.lede}</p>}
+      <a class="button button-light" href={`${base}/welcome/`}>Mensaje de Dirección</a>
     </section>
-    {posts.length > 0 ? (
-      <div class="post-grid">
-        {posts.map((post) => (
-          <article class="card">
-            {post.data.image && <img src={post.data.image} alt="" />}
-            <p class="date">
-              {post.data.date.toLocaleDateString('es', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </p>
-            <h2><a href={`/Caballeros/news/${post.id}/`}>{post.data.title}</a></h2>
-            {post.data.summary && <p>{post.data.summary}</p>}
-          </article>
-        ))}
+
+    <section class="home-row about-row">
+      <div>
+        <p class="eyebrow">{aboutPage.data.eyebrow ?? 'Nuestra escuela'}</p>
+        <h2>{aboutPage.data.title}</h2>
+        {aboutPage.data.lede && <p class="row-copy">{aboutPage.data.lede}</p>}
       </div>
-    ) : (
-      <p>Todavia no hay noticias.</p>
-    )}
+      <a class="button" href={`${base}/about/`}>Conozca nuestra escuela</a>
+    </section>
+
+    <section class="home-row">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Manténgase al día</p>
+          <h2>Noticias escolares</h2>
+        </div>
+        <a class="text-link" href={`${base}/news/`}>Todas las noticias →</a>
+      </div>
+      {posts.length > 0 ? (
+        <div class="post-grid">
+          {posts.map((post) => (
+            <article class="card">
+              {post.data.image && <img src={post.data.image} alt="" />}
+              <p class="date">
+                {post.data.date.toLocaleDateString('es', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </p>
+              <h3><a href={`${base}/news/${post.id}/`}>{post.data.title}</a></h3>
+              {post.data.summary && <p>{post.data.summary}</p>}
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>Todavía no hay noticias.</p>
+      )}
+    </section>
+
+    <section class="home-row">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Nuestra comunidad</p>
+          <h2>{galleryPage.data.title}</h2>
+          {galleryPage.data.lede && <p class="row-copy">{galleryPage.data.lede}</p>}
+        </div>
+        <a class="text-link" href={`${base}/gallery/`}>Ver la galería →</a>
+      </div>
+      {galleryItems.length > 0 ? (
+        <div class="gallery-grid">
+          {galleryItems.map((item) => (
+            <figure>
+              {item.image ? (
+                <img class="gallery-image" src={item.image} alt={item.title} />
+              ) : (
+                <div class="placeholder" role="img" aria-label={item.title}>
+                  <span>{item.label ?? item.title}</span>
+                </div>
+              )}
+              <figcaption>{item.title}</figcaption>
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <p>Próximamente compartiremos momentos de nuestra comunidad escolar.</p>
+      )}
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <a class="footer-brand" href={`${base}/`}>Caballeros School</a>
+    <nav aria-label="Enlaces del pie de página">
+      <a href={`${base}/about/`}>Acerca</a>
+      <a href={`${base}/news/`}>Noticias</a>
+      <a href={`${base}/gallery/`}>Fotos</a>
+    </nav>
+  </footer>
 </SiteLayout>
 
 <style>
-  .intro { margin-bottom: 2.5rem; }
-  .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
-  .card { background: #fff; border-radius: 16px; padding: 1.25rem; box-shadow: 0 8px 30px rgb(23 32 54 / 8%); }
-  .card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; }
-  .card h2 { line-height: 1.15; }
-  .card a { color: inherit; }
-  .date { color: #64708a; font-size: .9rem; }
+  .home {
+    max-width: none;
+    padding: 0;
+  }
+
+  .hero {
+    padding: clamp(4rem, 10vw, 8rem) clamp(1.25rem, 9vw, 8rem);
+    color: #fff;
+    background: linear-gradient(120deg, #172036, #3155d9);
+  }
+
+  .hero .eyebrow {
+    color: #dbe3ff;
+  }
+
+  .hero h1 {
+    max-width: 850px;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-copy {
+    max-width: 680px;
+    margin: 0 0 2rem;
+    color: #e4e9ff;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.65;
+  }
+
+  .home-row {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(3rem, 7vw, 5rem) 1.25rem;
+  }
+
+  .about-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .home-row h2 {
+    margin: .25rem 0 1rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+
+  .row-copy {
+    max-width: 720px;
+    color: #64708a;
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-heading h2 {
+    margin-bottom: 0;
+  }
+
+  .section-heading .row-copy {
+    margin-bottom: 0;
+  }
+
+  .button,
+  .text-link {
+    display: inline-block;
+    color: #3155d9;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .button {
+    flex-shrink: 0;
+    padding: .8rem 1.1rem;
+    border-radius: 999px;
+    background: #e9edff;
+  }
+
+  .button-light {
+    color: #172036;
+    background: #fff;
+  }
+
+  .text-link:hover,
+  .button:hover {
+    text-decoration: underline;
+  }
+
+  .post-grid,
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    padding: 1.25rem;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
+  }
+
+  .card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .card h3 {
+    line-height: 1.2;
+  }
+
+  .card h3 a {
+    color: inherit;
+  }
+
+  .date {
+    color: #64708a;
+    font-size: .9rem;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  .gallery-image,
+  .placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+  }
+
+  .gallery-image {
+    object-fit: cover;
+  }
+
+  .placeholder {
+    display: grid;
+    place-items: end start;
+    box-sizing: border-box;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgb(49 85 217 / 20%), rgb(23 32 54 / 70%)), #dfe5f3;
+  }
+
+  .placeholder span {
+    color: #fff;
+    font-weight: 800;
+  }
+
+  figcaption {
+    padding-top: .75rem;
+    font-weight: 700;
+  }
+
+  .site-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 2rem clamp(1.25rem, 5vw, 5rem);
+    color: #fff;
+    background: #172036;
+  }
+
+  .site-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .site-footer a {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    .about-row,
+    .section-heading,
+    .site-footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
 </style>

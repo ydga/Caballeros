@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+const base = '/Caballeros';
+const posts = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<SiteLayout
+  title="Noticias escolares | Caballeros School"
+  description="Noticias y anuncios escolares"
+  active="news"
+>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">Últimas novedades</p>
+      <h1>Noticias y anuncios</h1>
+    </section>
+    {posts.length > 0 ? (
+      <div class="post-grid">
+        {posts.map((post) => (
+          <article class="card">
+            {post.data.image && <img src={post.data.image} alt="" />}
+            <p class="date">
+              {post.data.date.toLocaleDateString('es', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </p>
+            <h2><a href={`${base}/news/${post.id}/`}>{post.data.title}</a></h2>
+            {post.data.summary && <p>{post.data.summary}</p>}
+          </article>
+        ))}
+      </div>
+    ) : (
+      <p>Todavía no hay noticias.</p>
+    )}
+  </main>
+</SiteLayout>
+
+<style>
+  .intro { margin-bottom: 2.5rem; }
+  .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+  .card { background: #fff; border-radius: 16px; padding: 1.25rem; box-shadow: 0 8px 30px rgb(23 32 54 / 8%); }
+  .card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; }
+  .card h2 { line-height: 1.15; }
+  .card a { color: inherit; }
+  .date { color: #64708a; font-size: .9rem; }
+</style>
