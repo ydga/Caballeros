@@ -15,6 +15,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    summary: "{{title}}"
     fields:
       - { label: Page title, name: title, widget: string }
       - { label: Eyebrow, name: eyebrow, widget: string, required: false }
@@ -38,6 +39,12 @@ collections:
           - label: Navigation items
             name: items
             widget: list
+            summary: "{{label}} — {{slug}}"
+            identifier_field: label
+            collapsed: false
+            allow_add: true
+            allow_remove: true
+            allow_reorder: true
             fields:
               - { label: Label, name: label, widget: string }
               - { label: Path, name: slug, widget: string, hint: "Use news for the home page, or the page URL slug (for example about)." }

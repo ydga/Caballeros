@@ -3,7 +3,7 @@ import { getCollection, getEntry, render } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
 export async function getStaticPaths() {
-  const reserved = new Set(['about', 'gallery', 'welcome']);
+  const reserved = new Set(['about', 'gallery', 'welcome', 'news', 'index']);
   const pages = await getCollection('pages');
 
   return pages
