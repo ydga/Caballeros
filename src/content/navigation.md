@@ -1,11 +1,11 @@
 ---
 items:
-  - label: "Director's Welcome"
-    slug: welcome
-  - label: About
-    slug: about
-  - label: Gallery
-    slug: gallery
-  - label: News
-    slug: news
+  - label: Bienvenida
+    slug: bienvenida
+  - label: Nuestra escuela
+    slug: escuela
+  - label: Fotos
+    slug: fotos
+  - label: Noticias
+    slug: noticias
 ---
