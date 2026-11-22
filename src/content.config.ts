@@ -25,4 +25,14 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { news, pages };
+const navigation = defineCollection({
+  loader: glob({ pattern: 'navigation.md', base: './src/content' }),
+  schema: z.object({
+    items: z.array(z.object({
+      label: z.string(),
+      slug: z.string(),
+    })),
+  }),
+});
+
+export const collections = { news, pages, navigation };

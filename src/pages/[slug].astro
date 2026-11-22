@@ -1,0 +1,54 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+export async function getStaticPaths() {
+  const reserved = new Set(['about', 'gallery', 'welcome']);
+  const pages = await getCollection('pages');
+
+  return pages
+    .filter((page) => !reserved.has(page.id))
+    .map((page) => ({
+      params: { slug: page.id },
+      props: { page },
+    }));
+}
+
+const { slug } = Astro.params;
+const { page } = Astro.props;
+const activePage = await getEntry('pages', slug);
+
+if (!page && !activePage) {
+  return Astro.redirect('/Caballeros/');
+}
+
+const currentPage = page ?? activePage!;
+const { Content } = await render(currentPage);
+---
+
+<SiteLayout
+  title={`${currentPage.data.title} | Caballeros School`}
+  description={currentPage.data.lede}
+  active={slug}
+>
+  <main>
+    <header class="page-heading">
+      {currentPage.data.eyebrow && <p class="eyebrow">{currentPage.data.eyebrow}</p>}
+      <h1>{currentPage.data.title}</h1>
+      {currentPage.data.lede && <p class="lede">{currentPage.data.lede}</p>}
+    </header>
+    <article class="page-card">
+      <div class="content"><Content /></div>
+    </article>
+  </main>
+</SiteLayout>
+
+<style>
+  .page-card {
+    background: #fff;
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
+    line-height: 1.75;
+  }
+</style>

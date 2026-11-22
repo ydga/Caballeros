@@ -11,38 +11,36 @@ public_folder: /Caballeros/images
 collections:
   - name: pages
     label: Pages
+    folder: src/content/pages
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Page title, name: title, widget: string }
+      - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+      - { label: Introduction, name: lede, widget: text, required: false }
+      - label: Gallery items
+        name: items
+        widget: list
+        required: false
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Label, name: label, widget: string, required: false }
+          - { label: Image, name: image, widget: image, required: false }
+      - { label: Content, name: body, widget: markdown }
+  - name: navigation
+    label: Navigation
     files:
-      - name: welcome
-        label: "Director's Welcome"
-        file: src/content/pages/welcome.md
+      - name: main
+        label: Main navigation
+        file: src/content/navigation.md
         fields:
-          - { label: Page title, name: title, widget: string }
-          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
-          - { label: Introduction, name: lede, widget: text, required: false }
-          - { label: Message, name: body, widget: markdown }
-      - name: about
-        label: About the School
-        file: src/content/pages/about.md
-        fields:
-          - { label: Page title, name: title, widget: string }
-          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
-          - { label: Introduction, name: lede, widget: text, required: false }
-          - { label: Content, name: body, widget: markdown }
-      - name: gallery
-        label: Gallery
-        file: src/content/pages/gallery.md
-        fields:
-          - { label: Page title, name: title, widget: string }
-          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
-          - { label: Introduction, name: lede, widget: text, required: false }
-          - label: Gallery items
+          - label: Navigation items
             name: items
             widget: list
-            required: false
             fields:
-              - { label: Title, name: title, widget: string }
-              - { label: Label, name: label, widget: string, required: false }
-              - { label: Image, name: image, widget: image, required: false }
+              - { label: Label, name: label, widget: string }
+              - { label: Path, name: slug, widget: string, hint: "Use news for the home page, or the page URL slug (for example about)." }
   - name: news
     label: News
     folder: src/content/news

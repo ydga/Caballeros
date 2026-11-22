@@ -2,8 +2,10 @@
 interface Props {
   title: string;
   description?: string;
-  active?: 'news' | 'welcome' | 'about' | 'gallery';
+  active?: string;
 }
+
+import { getEntry } from 'astro:content';
 
 const {
   title,
@@ -12,6 +14,11 @@ const {
 } = Astro.props;
 
 const base = '/Caballeros';
+const navigationEntry = await getEntry('navigation', 'navigation');
+const navigationItems = navigationEntry?.data.items ?? [];
+
+const navigationHref = (slug: string) =>
+  slug === 'news' ? `${base}/` : `${base}/${slug.replace(/^\/|\/$/g, '')}/`;
 ---
 
 <!doctype html>
@@ -26,10 +33,14 @@ const base = '/Caballeros';
     <header class="site-header">
       <a class="brand" href={`${base}/`}>Caballeros School</a>
       <nav aria-label="Main navigation">
-        <a class:list={[{ active: active === 'welcome' }]} href={`${base}/welcome/`}>Director's Welcome</a>
-        <a class:list={[{ active: active === 'about' }]} href={`${base}/about/`}>About</a>
-        <a class:list={[{ active: active === 'gallery' }]} href={`${base}/gallery/`}>Gallery</a>
-        <a class:list={[{ active: active === 'news' }]} href={`${base}/`}>News</a>
+        {navigationItems.map((item) => (
+          <a
+            class:list={[{ active: active === item.slug }]}
+            href={navigationHref(item.slug)}
+          >
+            {item.label}
+          </a>
+        ))}
       </nav>
     </header>
     <slot />
