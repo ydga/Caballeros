@@ -5,7 +5,7 @@ interface Props {
   active?: string;
 }
 
-import { getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 const {
   title,
@@ -14,34 +14,21 @@ const {
 } = Astro.props;
 
 const base = '/Caballeros';
-const navigationEntry = await getEntry('navigation', 'navigation');
-const navigationItems = navigationEntry?.data.items ?? [
-  { label: 'Bienvenida', slug: 'bienvenida' },
-  { label: 'Nuestra escuela', slug: 'escuela' },
-  { label: 'Fotos', slug: 'fotos' },
-  { label: 'Noticias', slug: 'noticias' },
-];
+const pages = await getCollection('pages');
+const navigationItems = pages
+  .filter((page) => !page.data.hide_from_navigation)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((page) => ({
+    label: page.data.title,
+    slug: page.id,
+  }));
 
-const normalizeNavigationSlug = (slug: string) => {
-  const normalizedSlug = slug.replace(/^\/|\/$/g, '');
-  const canonicalAliases: Record<string, string> = {
-    bienvenida: 'welcome',
-    escuela: 'about',
-    fotos: 'gallery',
-    noticias: 'news',
-  };
-  return canonicalAliases[normalizedSlug] ?? normalizedSlug;
-};
+navigationItems.push({ label: 'Noticias', slug: 'news' });
 
-const navigationHref = (slug: string) => {
-  const normalizedSlug = normalizeNavigationSlug(slug);
-  const route = normalizedSlug === 'news'
-    ? ''
-    : normalizedSlug;
-  return route ? `${base}/${route}/` : `${base}/`;
-};
+const navigationHref = (slug: string) =>
+  slug === 'news' ? `${base}/` : `${base}/${slug}/`;
 
-const activeSlug = active ? normalizeNavigationSlug(active) : undefined;
+const activeSlug = active;
 ---
 
 <!doctype html>
@@ -58,7 +45,7 @@ const activeSlug = active ? normalizeNavigationSlug(active) : undefined;
       <nav aria-label="Navegacion principal">
         {navigationItems.map((item) => (
           <a
-            class:list={[{ active: activeSlug === normalizeNavigationSlug(item.slug) }]}
+            class:list={[{ active: activeSlug === item.slug }]}
             href={navigationHref(item.slug)}
           >
             {item.label}

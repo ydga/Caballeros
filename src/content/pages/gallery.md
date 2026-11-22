@@ -1,5 +1,6 @@
 ---
 title: Fotos
+order: 3
 eyebrow: Galería fotográfica
 lede: Una mirada a la vida cotidiana y al aprendizaje en Caballeros School.
 items:

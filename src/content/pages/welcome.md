@@ -1,5 +1,6 @@
 ---
 title: Dirección
+order: 1
 eyebrow: Del director
 lede: |-
   Estimadas familias y queridísimos alumnos:

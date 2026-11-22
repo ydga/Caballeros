@@ -15,6 +15,8 @@ const pages = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
+    order: z.coerce.number().optional().default(100),
+    hide_from_navigation: z.boolean().optional().default(false),
     eyebrow: z.string().optional(),
     lede: z.string().optional(),
     items: z.array(z.object({
@@ -25,14 +27,4 @@ const pages = defineCollection({
   }),
 });
 
-const navigation = defineCollection({
-  loader: glob({ pattern: 'navigation.md', base: './src/content' }),
-  schema: z.object({
-    items: z.array(z.object({
-      label: z.string(),
-      slug: z.string(),
-    })),
-  }),
-});
-
-export const collections = { news, pages, navigation };
+export const collections = { news, pages };

@@ -1,5 +1,6 @@
 ---
 title: Acerca
+order: 2
 eyebrow: Nuestra escuela
 lede: Conozca nuestra misión, nuestros valores y nuestro compromiso de ayudar a cada estudiante a aprender, crecer y alcanzar sus metas.
 items: []

@@ -18,8 +18,13 @@ collections:
     delete: true
     slug: "{{slug}}"
     summary: "{{title}}"
+    sortable_fields:
+      - title
+      - order
     fields:
       - { label: Titulo de la pagina, name: title, widget: string }
+      - { label: Orden en la navegacion, name: order, widget: number, value_type: int, min: 1, default: 100 }
+      - { label: Ocultar de la navegacion, name: hide_from_navigation, widget: boolean, default: false, required: false }
       - { label: Encabezado, name: eyebrow, widget: string, required: false }
       - { label: Introduccion, name: lede, widget: text, required: false }
       - label: Elementos de la galeria
@@ -31,25 +36,6 @@ collections:
           - { label: Texto, name: label, widget: string, required: false }
           - { label: Imagen, name: image, widget: image, required: false }
       - { label: Contenido, name: body, widget: markdown }
-  - name: navigation
-    label: Navegacion
-    files:
-      - name: main
-        label: Navegacion principal
-        file: src/content/navigation.md
-        fields:
-          - label: Elementos de navegacion
-            name: items
-            widget: list
-            summary: "{{label}} — {{slug}}"
-            identifier_field: label
-            collapsed: false
-            allow_add: true
-            allow_remove: true
-            allow_reorder: true
-            fields:
-              - { label: Texto, name: label, widget: string }
-              - { label: Ruta, name: slug, widget: string, hint: "Use noticias para la pagina principal, o el identificador de la pagina (por ejemplo, escuela)." }
   - name: news
     label: Noticias
     folder: src/content/news
