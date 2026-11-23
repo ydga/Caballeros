@@ -11,7 +11,7 @@ items:
     image: /Caballeros/images/taylor-heery-g7dUm6lRvtQ-unsplash.jpg
   - title: Aprendizaje en el aula
     label: Actividades académicas
-    image: ''
+    image: /Caballeros/images/salah-darwish-6hl__HAWP4w-unsplash.jpg
   - title: Deportes y actividades
     label: Actividades
     image: ''
