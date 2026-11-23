@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
 import { ChevronLeft, ChevronRight, Pause, Play } from '@lucide/astro';
+import DownloadFiles from '../components/DownloadFiles.astro';
 import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
@@ -207,6 +208,9 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
         <p>Próximamente compartiremos momentos de nuestra comunidad escolar.</p>
       )}
     </section>
+    <div class="home-row">
+      <DownloadFiles files={home.downloads} />
+    </div>
   </main>
 
   <PhotoLightbox />

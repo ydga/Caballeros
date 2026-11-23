@@ -56,6 +56,13 @@ collections:
           - { label: Título de noticias, name: news_title, widget: string }
           - { label: Enlace a todas las noticias, name: news_link_label, widget: string }
           - { label: Enlace a la galería, name: gallery_link_label, widget: string }
+          - label: Archivos para descargar
+            name: downloads
+            widget: list
+            required: false
+            fields:
+              - { label: Nombre para mostrar, name: title, widget: string, required: false }
+              - { label: Archivo, name: file, widget: file }
   - name: social
     label: Redes sociales
     files:

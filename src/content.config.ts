@@ -65,6 +65,10 @@ const homepage = defineCollection({
     news_title: z.string(),
     news_link_label: z.string(),
     gallery_link_label: z.string(),
+    downloads: z.array(z.object({
+      title: z.string().optional(),
+      file: z.string().min(1),
+    })).optional(),
   }),
 });
 
