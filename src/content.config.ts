@@ -26,11 +26,17 @@ const events = defineCollection({
     date: z.coerce.date(),
     time: z.string().optional(),
     location: z.string().optional(),
+    main_image: z.string().optional(),
     external_url: z.union([
       z.string().url().refine((value) => /^https?:\/\//i.test(value)),
       z.literal(''),
     ]).optional(),
+    external_link_label: z.string().optional(),
     summary: z.string().optional(),
+    downloads: z.array(z.object({
+      title: z.string().optional(),
+      file: z.string().min(1),
+    })).optional(),
   }),
 });
 

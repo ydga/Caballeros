@@ -1,6 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { Clock3, ExternalLink, MapPin, X } from '@lucide/astro';
+import DownloadFiles from './DownloadFiles.astro';
+import MainImage from './MainImage.astro';
 
 interface Props {
   events: CollectionEntry<'events'>[];
@@ -77,6 +79,7 @@ const { events } = Astro.props;
           })}
         </time>
         <h2 id={`event-dialog-title-${index}`}>{data.title}</h2>
+        <MainImage src={data.main_image} alt={data.title} />
         {(data.time || data.location) && (
           <div class="event-dialog-meta">
             {data.time && (
@@ -101,10 +104,11 @@ const { events } = Astro.props;
             target="_blank"
             rel="noopener noreferrer"
           >
-            Enlace externo
+            {data.external_link_label || 'Enlace externo'}
             <ExternalLink aria-hidden="true" size={16} />
           </a>
         )}
+        <DownloadFiles files={data.downloads} headingId={`event-downloads-title-${index}`} />
       </dialog>
     </div>
   ))}

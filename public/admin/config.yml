@@ -184,12 +184,21 @@ collections:
             time_format: false
           - { label: Hora, name: time, widget: string, required: false }
           - { label: Lugar, name: location, widget: string, required: false }
+          - { label: Imagen principal, name: main_image, widget: image, required: false }
+          - { label: Resumen, name: summary, widget: text, required: false }
+          - label: Archivos para descargar
+            name: downloads
+            widget: list
+            required: false
+            fields:
+              - { label: Nombre para mostrar, name: title, widget: string, required: false }
+              - { label: Archivo, name: file, widget: file }
+          - { label: Texto del enlace externo, name: external_link_label, widget: string, required: false }
           - label: Enlace externo
             name: external_url
             widget: string
             required: false
             pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
-          - { label: Resumen, name: summary, widget: text, required: false }
   - name: social
     label: Redes sociales
     files:

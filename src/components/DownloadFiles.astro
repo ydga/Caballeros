@@ -1,15 +1,16 @@
 ---
 interface Props {
   files?: Array<{ title?: string; file: string }>;
+  headingId?: string;
 }
 
-const { files = [] } = Astro.props;
+const { files = [], headingId = 'downloads-title' } = Astro.props;
 const getFileName = (path: string) => path.split('/').pop() || 'Archivo';
 ---
 
 {files.length > 0 && (
-  <section class="downloads" aria-labelledby="downloads-title">
-    <h2 id="downloads-title">Archivos para descargar</h2>
+  <section class="downloads" aria-labelledby={headingId}>
+    <h2 id={headingId}>Archivos para descargar</h2>
     <ul>
       {files.map((item) => (
         <li>
