@@ -51,11 +51,34 @@ collections:
                 condition:
                   field: cta_type
                   value: external
+          - { label: Encabezado pequeño de nuestra escuela, name: about_eyebrow, widget: string }
+          - { label: Título de nuestra escuela, name: about_title, widget: string }
           - { label: Texto del botón de nuestra escuela, name: about_button_label, widget: string }
+          - label: Destino del botón de nuestra escuela
+            name: about_link_url
+            widget: string
+            pattern: ["^(?:/Caballeros/|https?://).+$", "Usa una ruta /Caballeros/... o una URL http(s)"]
           - { label: Texto pequeño de noticias, name: news_eyebrow, widget: string }
           - { label: Título de noticias, name: news_title, widget: string }
           - { label: Enlace a todas las noticias, name: news_link_label, widget: string }
+          - label: Destino del enlace de noticias
+            name: news_link_url
+            widget: string
+            pattern: ["^(?:/Caballeros/|https?://).+$", "Usa una ruta /Caballeros/... o una URL http(s)"]
+          - { label: Texto pequeño de eventos, name: events_eyebrow, widget: string }
+          - { label: Título de eventos, name: events_title, widget: string }
+          - { label: Enlace a todos los eventos, name: events_link_label, widget: string }
+          - label: Destino del enlace de eventos
+            name: events_link_url
+            widget: string
+            pattern: ["^(?:/Caballeros/|https?://).+$", "Usa una ruta /Caballeros/... o una URL http(s)"]
+          - { label: Texto pequeño de galería, name: gallery_eyebrow, widget: string }
+          - { label: Título de galería, name: gallery_title, widget: string }
           - { label: Enlace a la galería, name: gallery_link_label, widget: string }
+          - label: Destino del enlace de galería
+            name: gallery_link_url
+            widget: string
+            pattern: ["^(?:/Caballeros/|https?://).+$", "Usa una ruta /Caballeros/... o una URL http(s)"]
           - label: Archivos para descargar
             name: downloads
             widget: list

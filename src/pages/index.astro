@@ -134,10 +134,10 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
 
     <section class="home-row about-row">
       <div>
-        <p class="eyebrow">{aboutPage.data.eyebrow ?? 'Nuestra escuela'}</p>
-        <h2>{aboutPage.data.title}</h2>
+        <p class="eyebrow">{home.about_eyebrow}</p>
+        <h2>{home.about_title}</h2>
         {aboutPage.data.lede && <p class="row-copy">{aboutPage.data.lede}</p>}
-        <a class="button" href={`${base}/about/`}>{home.about_button_label}</a>
+        <a class="button" href={home.about_link_url}>{home.about_button_label}</a>
       </div>
       <img
         class="about-logo"
@@ -154,7 +154,7 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
           <p class="eyebrow">{home.news_eyebrow}</p>
           <h2>{home.news_title}</h2>
         </div>
-        <a class="text-link" href={`${base}/news/`}>{home.news_link_label}</a>
+        <a class="text-link" href={home.news_link_url}>{home.news_link_label}</a>
       </div>
       {posts.length > 0 ? (
         <div class="post-grid">
@@ -199,10 +199,10 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
     <section class="home-row">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Agenda escolar</p>
-          <h2>Próximos eventos</h2>
+          <p class="eyebrow">{home.events_eyebrow}</p>
+          <h2>{home.events_title}</h2>
         </div>
-        <a class="text-link" href={`${base}/events/`}>Ver todos los eventos</a>
+        <a class="text-link" href={home.events_link_url}>{home.events_link_label}</a>
       </div>
       {upcomingEvents.length > 0 ? (
         <EventList events={upcomingEvents.slice(0, 3)} />
@@ -214,11 +214,11 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
     <section class="home-row">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Nuestra comunidad</p>
-          <h2>{galleryPage.data.title}</h2>
+          <p class="eyebrow">{home.gallery_eyebrow}</p>
+          <h2>{home.gallery_title}</h2>
           {galleryPage.data.lede && <p class="row-copy">{galleryPage.data.lede}</p>}
         </div>
-        <a class="text-link" href={`${base}/gallery/`}>{home.gallery_link_label}</a>
+        <a class="text-link" href={home.gallery_link_url}>{home.gallery_link_label}</a>
       </div>
       {galleryItems.length > 0 ? (
         <div class="gallery-grid">
