@@ -69,16 +69,16 @@ const activeSlug = active;
             </a>
           ))}
         </div>
-        <a
-          class:list={[
-            'nav-contact',
-            { active: activeSlug === contactNavigationItem.slug },
-          ]}
-          href={navigationHref(contactNavigationItem.slug)}
-        >
-          {contactNavigationItem.label}
-        </a>
       </nav>
+      <a
+        class:list={[
+          'nav-contact',
+          { active: activeSlug === contactNavigationItem.slug },
+        ]}
+        href={navigationHref(contactNavigationItem.slug)}
+      >
+        {contactNavigationItem.label}
+      </a>
     </header>
     <slot />
   </body>
@@ -147,7 +147,8 @@ const activeSlug = active;
     gap: .25rem;
   }
 
-  .site-header nav a {
+  .site-header nav a,
+  .nav-contact {
     color: var(--color-text);
     font-weight: 500;
     text-decoration: none;
@@ -155,25 +156,28 @@ const activeSlug = active;
     border-radius: 999px;
   }
 
-  .site-header nav a:hover {
+  .site-header nav a:hover,
+  .nav-contact:hover {
     background: #f6f7fb;
     color: var(--color-heading);
   }
 
-  .site-header nav a.active {
+  .site-header nav a.active,
+  .nav-contact.active {
     background: #fff;
     color: var(--color-accent);
     box-shadow: 0 4px 16px rgb(23 32 54 / 8%);
   }
 
-  .site-header nav a.nav-contact {
-    margin-left: .25rem;
+  .nav-contact {
+    grid-column: 3;
+    justify-self: end;
     background: var(--color-accent);
     color: #fff;
   }
 
-  .site-header nav a.nav-contact:hover,
-  .site-header nav a.nav-contact.active {
+  .nav-contact:hover,
+  .nav-contact.active {
     background: #a71825;
     color: #fff;
     box-shadow: 0 4px 16px rgb(190 30 45 / 20%);
@@ -242,8 +246,8 @@ const activeSlug = active;
       flex-wrap: wrap;
     }
 
-    .site-header nav a.nav-contact {
-      margin-left: 0;
+    .nav-contact {
+      align-self: flex-end;
     }
   }
 </style>
