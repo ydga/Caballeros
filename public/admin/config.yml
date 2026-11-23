@@ -37,17 +37,16 @@ collections:
               - label: Página de destino
                 name: cta_page
                 widget: relation
-                required: true
+                required: false
                 collection: pages
                 search_fields: [title]
                 value_field: "{{slug}}"
                 display_fields: [title]
-                condition:
-                  field: cta_type
-                  value: page
+                hint: Busca por título y selecciona una página existente.
               - label: URL externa
                 name: cta_external_url
                 widget: string
+                required: false
                 pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
                 condition:
                   field: cta_type
