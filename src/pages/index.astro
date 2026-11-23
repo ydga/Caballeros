@@ -43,36 +43,6 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
 >
   <main class="home">
     <section class="home-intro" aria-labelledby="home-title">
-      <div class="intro-shape intro-shape-square" data-intro-shape aria-hidden="true">
-        <video
-          src={`${base}/images/8499773-hd_1920_1080_30fps.mp4`}
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-        />
-      </div>
-      <div class="intro-shape intro-shape-circle" data-intro-shape aria-hidden="true">
-        <video
-          src={`${base}/images/8499773-hd_1920_1080_30fps.mp4`}
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-        />
-      </div>
-      <div class="intro-shape intro-shape-triangle" data-intro-shape aria-hidden="true">
-        <video
-          src={`${base}/images/8499773-hd_1920_1080_30fps.mp4`}
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-        />
-      </div>
       <h1 id="home-title">Pequeñas mentes, grandes sueños, infinitas posibilidades.</h1>
       <p class="home-tagline">Enseñanza que deja huella!</p>
     </section>
@@ -324,39 +294,18 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
     updateTimer();
   });
 
-  const intro = document.querySelector<HTMLElement>('.home-intro');
-  const introShapes = Array.from(
-    intro?.querySelectorAll<HTMLElement>('[data-intro-shape]') ?? [],
-  );
-  const introVideos = Array.from(
-    intro?.querySelectorAll<HTMLVideoElement>('.intro-shape video') ?? [],
-  );
   const hero = document.querySelector<HTMLElement>('.hero');
   const heroImages = Array.from(
     hero?.querySelectorAll<HTMLElement>('.hero-image') ?? [],
   );
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const introStart = intro
-    ? window.scrollY + intro.getBoundingClientRect().top
-    : 0;
   let parallaxFrame = 0;
 
   const updateParallax = () => {
     parallaxFrame = 0;
     if (reducedMotion.matches) {
-      intro?.style.removeProperty('transform');
-      introShapes.forEach((shape) => shape.style.removeProperty('--parallax-y'));
       heroImages.forEach((image) => image.style.removeProperty('transform'));
       return;
-    }
-
-    if (intro) {
-      const distance = Math.min(Math.max(window.scrollY - introStart, 0), 400);
-      intro.style.transform = `translate3d(0, ${-distance * 0.16}px, 0)`;
-      introShapes.forEach((shape, index) => {
-        const depth = [0.18, 0.3, 0.12][index] ?? 0.18;
-        shape.style.setProperty('--parallax-y', `${-distance * depth}px`);
-      });
     }
 
     if (hero) {
@@ -376,10 +325,6 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
   window.addEventListener('scroll', scheduleParallax, { passive: true });
   window.addEventListener('resize', scheduleParallax);
   reducedMotion.addEventListener('change', scheduleParallax);
-  if (reducedMotion.matches) introVideos.forEach((video) => video.pause());
-  reducedMotion.addEventListener('change', () => {
-    if (reducedMotion.matches) introVideos.forEach((video) => video.pause());
-  });
   scheduleParallax();
 </script>
 
@@ -392,92 +337,10 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
   }
 
   .home-intro {
-    position: relative;
-    isolation: isolate;
     width: min(1200px, calc(100% - 2.5rem));
     box-sizing: border-box;
     margin: 0 auto;
     padding: 8rem 1.5rem;
-    will-change: transform;
-  }
-
-  .intro-shape {
-    position: absolute;
-    z-index: -1;
-    width: 200px;
-    aspect-ratio: 1;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: .8;
-    transform: translate3d(0, var(--parallax-y, 0px), 0);
-    will-change: transform, translate, rotate;
-  }
-
-  .intro-shape video {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .intro-shape-square {
-    top: 5%;
-    left: 7%;
-    border-radius: 24px;
-    animation: float-square 8s ease-in-out infinite;
-  }
-
-  .intro-shape-circle {
-    top: 17%;
-    right: 8%;
-    border-radius: 50%;
-    animation: float-circle 10s ease-in-out -2.5s infinite;
-  }
-
-  .intro-shape-triangle {
-    bottom: 3%;
-    left: 24%;
-    clip-path: polygon(50% 0, 0 100%, 100% 100%);
-    animation: float-triangle 9s ease-in-out -4s infinite;
-  }
-
-  @keyframes float-square {
-    0%,
-    100% {
-      translate: 0 0;
-      rotate: -4deg;
-    }
-
-    50% {
-      translate: 12px -16px;
-      rotate: 3deg;
-    }
-  }
-
-  @keyframes float-circle {
-    0%,
-    100% {
-      translate: 0 0;
-      rotate: 0deg;
-    }
-
-    50% {
-      translate: -10px 18px;
-      rotate: 5deg;
-    }
-  }
-
-  @keyframes float-triangle {
-    0%,
-    100% {
-      translate: 0 0;
-      rotate: 5deg;
-    }
-
-    50% {
-      translate: 14px -12px;
-      rotate: -4deg;
-    }
   }
 
   .home-intro h1 {
@@ -814,26 +677,6 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
   }
 
   @media (max-width: 640px) {
-    .intro-shape {
-      width: 120px;
-      opacity: .55;
-    }
-
-    .intro-shape-square {
-      top: 2%;
-      left: 1%;
-    }
-
-    .intro-shape-circle {
-      top: 8%;
-      right: 1%;
-    }
-
-    .intro-shape-triangle {
-      bottom: 1%;
-      left: 20%;
-    }
-
     .about-row,
     .section-heading {
       align-items: flex-start;
@@ -843,13 +686,6 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
     .about-logo {
       width: 134px;
       height: 134px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .intro-shape {
-      animation: none;
-      will-change: auto;
     }
   }
 </style>
