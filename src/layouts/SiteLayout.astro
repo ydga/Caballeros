@@ -132,18 +132,15 @@ const navigationHref = (slug: string) =>
       <slot />
       {showSideNav && sideNavParent && (
         <aside class="page-sidenav">
-          <p class="page-sidenav-heading">
-            <a
-              class:list={[{ active: active === sideNavParent.id }]}
-              href={navigationHref(sideNavParent.id)}
-            >
-              {sideNavParent.data.nav_label || sideNavParent.data.title}
-            </a>
-          </p>
           <nav aria-label={`Secciones de ${sideNavParent.data.nav_label || sideNavParent.data.title}`}>
-            {sideNavItems.map((item) => (
+            {[sideNavParent, ...sideNavItems].map((item) => (
               <a
-                class:list={[{ active: active === item.id }]}
+                class:list={[
+                  {
+                    active: active === item.id,
+                    parent: item.id === sideNavParent.id,
+                  },
+                ]}
                 href={navigationHref(item.id)}
                 aria-current={active === item.id ? 'page' : undefined}
               >
@@ -370,16 +367,9 @@ const navigationHref = (slug: string) =>
     margin: 3.5rem 1.25rem 5rem 0;
   }
 
-  .page-sidenav-heading {
-    margin: 0 0 .75rem;
-    font-weight: 600;
-  }
-
   .page-sidenav nav {
     display: grid;
     gap: .25rem;
-    padding-left: .75rem;
-    border-left: 1px solid #d8d3ca;
   }
 
   .page-sidenav a {
@@ -387,6 +377,10 @@ const navigationHref = (slug: string) =>
     padding: .5rem .65rem;
     color: var(--color-text);
     text-decoration: none;
+  }
+
+  .page-sidenav a.parent {
+    font-weight: 600;
   }
 
   .page-sidenav a:hover {
