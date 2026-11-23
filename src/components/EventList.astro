@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Clock3, MapPin } from '@lucide/astro';
 
 interface Props {
   events: CollectionEntry<'events'>[];
@@ -13,13 +14,29 @@ const { events } = Astro.props;
     <article class="event-card">
       <time class="event-date" datetime={data.date.toISOString().slice(0, 10)}>
         <span class="event-day">{data.date.toLocaleDateString('es-ES', { day: 'numeric', timeZone: 'UTC' })}</span>
-        <span class="event-month">{data.date.toLocaleDateString('es-ES', { month: 'long', timeZone: 'UTC' })}</span>
+        <span class="event-month">
+          {data.date.toLocaleDateString('es-ES', { month: 'long', timeZone: 'UTC' }).slice(0, 3).toLocaleUpperCase('es-ES')}
+        </span>
         <span class="event-year">{data.date.toLocaleDateString('es-ES', { year: 'numeric', timeZone: 'UTC' })}</span>
       </time>
       <div class="event-details">
         <h3>{data.title}</h3>
-        {data.time && <p class="event-meta">{data.time}</p>}
-        {data.location && <p class="event-meta">{data.location}</p>}
+        {(data.time || data.location) && (
+          <div class="event-meta-group">
+            {data.time && (
+              <p class="event-meta">
+                <Clock3 aria-hidden="true" size={16} />
+                <span>{data.time}</span>
+              </p>
+            )}
+            {data.location && (
+              <p class="event-meta">
+                <MapPin aria-hidden="true" size={16} />
+                <span>{data.location}</span>
+              </p>
+            )}
+          </div>
+        )}
         {data.summary && <p class="event-summary">{data.summary}</p>}
       </div>
     </article>
@@ -53,7 +70,7 @@ const { events } = Astro.props;
     color: var(--color-accent);
     line-height: 1.15;
     text-align: center;
-    text-transform: capitalize;
+    text-transform: uppercase;
   }
 
   .event-day {
@@ -78,7 +95,15 @@ const { events } = Astro.props;
 
   .event-details h3 {
     margin: 0 0 .5rem;
+    font-size: 2rem;
     line-height: 1.25;
+  }
+
+  .event-meta-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .35rem 1rem;
   }
 
   .event-meta,
@@ -87,6 +112,9 @@ const { events } = Astro.props;
   }
 
   .event-meta {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
     color: var(--color-heading);
     font-size: .95rem;
     font-weight: 500;

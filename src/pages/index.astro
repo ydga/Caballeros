@@ -33,8 +33,8 @@ const posts = (await getCollection('news'))
   .slice(0, 3);
 const upcomingEvents = getUpcomingEvents(allEvents);
 const galleryItems = (galleryPage.data.items ?? []).slice(0, 4);
-const getFullMonth = (date: Date) =>
-  date.toLocaleDateString('es', { month: 'long' });
+const getShortMonth = (date: Date) =>
+  date.toLocaleDateString('es', { month: 'long' }).slice(0, 3).toLocaleUpperCase('es');
 const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
   slide.cta_type === 'page'
     ? `${base}/${slide.cta_page}/`
@@ -165,7 +165,7 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
               <div class="card-content">
                 <p class="date">
                   <span class="date-day">{post.data.date.getDate()}</span>
-                  <span class="date-month">{getFullMonth(post.data.date)}</span>
+                  <span class="date-month">{getShortMonth(post.data.date)}</span>
                 </p>
                 <h3><a href={`${base}/news/${post.id}/`}>{post.data.title}</a></h3>
                 {post.data.summary && <p>{post.data.summary}</p>}
