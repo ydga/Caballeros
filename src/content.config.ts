@@ -34,7 +34,7 @@ const homepage = defineCollection({
     hero_slides: z.array(z.object({
       image: z.string().min(1),
       title: z.string(),
-      subtitle: z.string(),
+      subtitle: z.string().optional(),
       cta_label: z.string(),
       cta_url: z.string().min(1),
     })).min(1),

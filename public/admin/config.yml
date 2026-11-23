@@ -25,7 +25,7 @@ collections:
             fields:
               - { label: Imagen o video MP4 de fondo, name: image, widget: file }
               - { label: Título, name: title, widget: string }
-              - { label: Subtítulo, name: subtitle, widget: text }
+              - { label: Subtítulo, name: subtitle, widget: text, required: false }
               - { label: Texto del botón, name: cta_label, widget: string }
               - { label: Enlace del botón, name: cta_url, widget: string }
           - { label: Texto del botón de nuestra escuela, name: about_button_label, widget: string }
