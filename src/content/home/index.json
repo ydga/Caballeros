@@ -2,15 +2,15 @@
   "hero_slides": [
     {
       "image": "https://www.spain.info/export/sites/segtur/.content/imagenes/cabeceras-grandes/andalucia/vistas-cordoba-s158982617.jpg",
-      "title": "CEIP Caballeros de Santiago",
-      "subtitle": "Estimadas familias y queridísimos alumnos: ¡Bienvenidos a nuestra página WEB!",
-      "cta_label": "Mensaje de Dirección",
+      "title": "Ubicada en el centro histórico de Córdoba",
+      "subtitle": "...",
+      "cta_label": "Mensaje de bienvenida",
       "cta_url": "/Caballeros/welcome/"
     },
     {
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaF4m845iQXVvKEub4wd1z1C_J5SRKz2Af0alqwsjFrFEcqJUP0R2gkic&s=10",
-      "title": "Hello world",
-      "subtitle": "Registro nuevo ingreso",
+      "title": "Inscripciones abiertas pare el ciclo escolar 2027-2028",
+      "subtitle": "Registro",
       "cta_label": "Nuevo ingreso",
       "cta_url": "/registro"
     }
