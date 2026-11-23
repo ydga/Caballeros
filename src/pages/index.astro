@@ -434,8 +434,10 @@ const getFullMonth = (date: Date) =>
     border-radius: 50%;
   }
 
-  .about-row > .button {
-    order: 2;
+  .about-row .row-copy + .button {
+    display: block;
+    width: fit-content;
+    margin-top: 1rem;
   }
 
   .about-row > div {
