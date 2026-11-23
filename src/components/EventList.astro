@@ -6,14 +6,20 @@ import MainImage from './MainImage.astro';
 
 interface Props {
   events: CollectionEntry<'events'>[];
+  filterable?: boolean;
 }
 
-const { events } = Astro.props;
+const { events, filterable = false } = Astro.props;
 ---
 
 <div class="event-list">
   {events.map(({ data }, index) => (
-    <div class="event-entry">
+    <div
+      class="event-entry"
+      data-event-filter-item={filterable ? '' : undefined}
+      data-event-month={filterable ? String(data.date.getUTCMonth() + 1) : undefined}
+      data-event-year={filterable ? String(data.date.getUTCFullYear()) : undefined}
+    >
       <article class="event-card">
         <div class="event-date-column">
           <time class="event-date" datetime={data.date.toISOString().slice(0, 10)}>

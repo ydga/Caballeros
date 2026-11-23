@@ -5,6 +5,13 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 
 const events = (await getCollection('events'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const eventYears = [...new Set(events.map(({ data }) => data.date.getUTCFullYear()))]
+  .sort((a, b) => b - a);
+const eventMonths = Array.from({ length: 12 }, (_, month) => ({
+  value: String(month + 1),
+  label: new Date(Date.UTC(2020, month, 1))
+    .toLocaleDateString('es-ES', { month: 'long', timeZone: 'UTC' }),
+}));
 ---
 
 <SiteLayout
@@ -19,14 +26,98 @@ const events = (await getCollection('events'))
       <p class="lede">Consulta las actividades y fechas importantes del colegio.</p>
     </header>
     {events.length > 0 ? (
-      <EventList events={events} />
+      <>
+        <div class="event-filters" data-event-filters>
+          <label>
+            <span>Mes</span>
+            <select data-event-month-filter>
+              <option value="">Todos los meses</option>
+              {eventMonths.map((month) => (
+                <option value={month.value}>{month.label}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            <span>Año</span>
+            <select data-event-year-filter>
+              <option value="">Todos los años</option>
+              {eventYears.map((year) => (
+                <option value={year}>{year}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <EventList events={events} filterable />
+        <p class="empty-state" data-event-no-results hidden>
+          No hay eventos para el mes y año seleccionados.
+        </p>
+      </>
     ) : (
       <p class="empty-state">Todavía no hay eventos publicados.</p>
     )}
   </main>
 </SiteLayout>
 
+<script>
+  const filters = document.querySelector<HTMLElement>('[data-event-filters]');
+
+  if (filters) {
+    const monthSelect = filters.querySelector<HTMLSelectElement>('[data-event-month-filter]');
+    const yearSelect = filters.querySelector<HTMLSelectElement>('[data-event-year-filter]');
+    const entries = document.querySelectorAll<HTMLElement>('[data-event-filter-item]');
+    const noResults = document.querySelector<HTMLElement>('[data-event-no-results]');
+
+    if (!monthSelect || !yearSelect || !noResults) {
+      throw new Error('Event filter controls are missing.');
+    }
+
+    const updateEvents = () => {
+      let visibleEvents = 0;
+
+      entries.forEach((entry) => {
+        const matchesMonth =
+          !monthSelect.value || entry.dataset.eventMonth === monthSelect.value;
+        const matchesYear =
+          !yearSelect.value || entry.dataset.eventYear === yearSelect.value;
+        const isVisible = matchesMonth && matchesYear;
+
+        entry.hidden = !isVisible;
+        if (isVisible) visibleEvents += 1;
+      });
+
+      noResults.hidden = visibleEvents > 0;
+    };
+
+    monthSelect.addEventListener('change', updateEvents);
+    yearSelect.addEventListener('change', updateEvents);
+  }
+</script>
+
 <style>
+  .event-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .event-filters label {
+    display: grid;
+    gap: .35rem;
+    color: var(--color-heading);
+    font-weight: 500;
+  }
+
+  .event-filters select {
+    min-width: 10rem;
+    padding: .6rem .75rem;
+    border: 1px solid rgb(23 32 54 / 22%);
+    border-radius: 8px;
+    color: var(--color-text);
+    background: #fff;
+    font: inherit;
+  }
+
   .empty-state {
     padding: 1.5rem;
     border-radius: 16px;
