@@ -11,7 +11,7 @@
     },
     {
       "image": "https://images.trvl-media.com/place/6121510/22c7dcea-b61e-46ad-bd47-41defae9a44e.jpg",
-      "title": "Ubicada en el centro histórico de Córdoba",
+      "title": "Ubicado en el centro histórico de Córdoba",
       "subtitle": "",
       "cta_label": "Visita nuestra fotogalería",
       "cta_type": "page",
@@ -26,6 +26,15 @@
       "cta_type": "page",
       "cta_page": "about",
       "cta_external_url": ""
+    },
+    {
+      "image": "https://estaticos-cdn.prensaiberica.es/clip/ec8d8f50-1649-407b-aa11-c6577d3ffe07_16-9-discover-aspect-ratio_default_0_x800y300.webp",
+      "title": "Reportaje en el Diario de Córdoba",
+      "subtitle": "La vuelta al mundo en 80 días!",
+      "cta_label": "Ver reportaje",
+      "cta_type": "external",
+      "cta_page": "",
+      "cta_external_url": "https://www.diariocordoba.com/educacion/2026/04/15/aventura-salir-aula-ceip-caballeros-129098156.html"
     }
   ],
   "about_eyebrow": "Acerca de",
