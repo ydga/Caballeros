@@ -37,6 +37,7 @@ collections:
               - label: Página de destino
                 name: cta_page
                 widget: relation
+                required: true
                 collection: pages
                 search_fields: [title]
                 value_field: "{{slug}}"
