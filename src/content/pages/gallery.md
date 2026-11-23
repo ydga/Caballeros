@@ -1,7 +1,7 @@
 ---
-title: Galería de fotos
+title: Fotografías
 nav_label: Galería
-eyebrow: ''
+eyebrow: Galeria
 order: 3
 hide_from_navigation: false
 lede: Una mirada a la vida cotidiana y al aprendizaje en nuestro colegio.
