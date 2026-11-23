@@ -69,6 +69,7 @@ const activeSlug = active;
     />
   </head>
   <body>
+    <div class="nav-fade" aria-hidden="true"></div>
     <header class="site-header">
       <a class="brand" href={`${base}/`} aria-label="Caballeros School - Inicio">
         <img
@@ -176,6 +177,22 @@ const activeSlug = active;
     flex-direction: column;
     margin: 0;
     font-size: 16px;
+  }
+
+  .nav-fade {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 8rem;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgb(248 246 241 / 100%) 0,
+      rgb(248 246 241 / 96%) 52%,
+      rgb(248 246 241 / 0%) 100%
+    );
   }
 
   .site-header {
@@ -405,6 +422,10 @@ const activeSlug = active;
   }
 
   @media (max-width: 760px) {
+    .nav-fade {
+      height: 11rem;
+    }
+
     .site-header {
       display: flex;
       align-items: flex-start;
