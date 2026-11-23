@@ -51,12 +51,11 @@ const regularNavigationItems = [
   { label: 'Noticias', slug: 'news' },
 ];
 const mobileNavigationItems = [
-  { label: 'Inicio', slug: 'home', isChild: false },
+  { label: 'Inicio', slug: 'home' },
   ...topLevelPages.flatMap((page) => [
     {
       label: page.data.nav_label || page.data.title,
       slug: page.id,
-      isChild: false,
     },
     ...childPages
       .filter((child) => child.data.parent_page === page.id)
@@ -64,12 +63,11 @@ const mobileNavigationItems = [
       .map((child) => ({
         label: child.data.nav_label || child.data.title,
         slug: child.id,
-        isChild: true,
       })),
   ]),
-  { label: 'Eventos', slug: 'events', isChild: false },
-  { label: 'Noticias', slug: 'news', isChild: false },
-  { label: contactNavigationItem.label, slug: contactNavigationItem.slug, isChild: false },
+  { label: 'Eventos', slug: 'events' },
+  { label: 'Noticias', slug: 'news' },
+  { label: contactNavigationItem.label, slug: contactNavigationItem.slug },
 ];
 const activePage = pages.find((page) => page.id === active);
 const sideNavParent = activePage?.data.parent_page
@@ -180,7 +178,6 @@ const navigationHref = (slug: string) =>
                       active:
                         active === item.slug ||
                         activePage?.data.parent_page === item.slug,
-                      child: item.isChild,
                     },
                   ]}
                   href={navigationHref(item.slug)}
@@ -219,7 +216,6 @@ const navigationHref = (slug: string) =>
                   {
                     active: active === item.id,
                     parent: item.id === sideNavParent.id,
-                    child: item.data.parent_page === sideNavParent.id,
                   },
                 ]}
                 href={navigationHref(item.id)}
@@ -541,10 +537,6 @@ const navigationHref = (slug: string) =>
 
   .page-sidenav a.parent {
     font-weight: 600;
-  }
-
-  .page-sidenav a.child {
-    padding-left: 1.5rem;
   }
 
   .page-sidenav a:hover {
