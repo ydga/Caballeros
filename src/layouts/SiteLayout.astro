@@ -7,6 +7,7 @@ interface Props {
 
 import { getCollection, getEntry } from 'astro:content';
 import { faFacebook, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { Mail } from '@lucide/astro';
 
 const {
   title,
@@ -87,14 +88,6 @@ const navigationHref = (slug: string) =>
   <body>
     <div class="nav-fade" aria-hidden="true"></div>
     <header class="site-header">
-      <a class="brand" href={`${base}/`} aria-label="Caballeros School - Inicio">
-        <img
-          src={`${base}/images/caballerosdesantiago.svg`}
-          alt=""
-          width="128"
-          height="38"
-        />
-      </a>
       <button
         class="menu-toggle"
         type="button"
@@ -109,6 +102,21 @@ const navigationHref = (slug: string) =>
           <span></span>
         </span>
       </button>
+      <a class="brand" href={`${base}/`} aria-label="Caballeros School - Inicio">
+        <img
+          src={`${base}/images/caballerosdesantiago.svg`}
+          alt=""
+          width="128"
+          height="38"
+        />
+      </a>
+      <a
+        class="mobile-contact"
+        href={navigationHref(contactNavigationItem.slug)}
+        aria-label="Contacto"
+      >
+        <Mail aria-hidden="true" size={20} />
+      </a>
       <div class="site-menu" id="site-menu" data-site-menu aria-hidden="false">
         <button
           class="site-menu-backdrop"
@@ -353,6 +361,7 @@ const navigationHref = (slug: string) =>
   }
 
   .menu-toggle,
+  .mobile-contact,
   .site-menu-backdrop,
   .site-menu-close {
     display: none;
@@ -414,6 +423,7 @@ const navigationHref = (slug: string) =>
   }
 
   .menu-toggle:focus-visible,
+  .mobile-contact:focus-visible,
   .site-menu-close:focus-visible {
     outline: 3px solid var(--color-accent);
     outline-offset: 3px;
@@ -649,12 +659,18 @@ const navigationHref = (slug: string) =>
     }
 
     .site-header {
-      display: flex;
+      display: grid;
+      grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
       align-items: center;
-      justify-content: space-between;
+      gap: .5rem;
       margin-top: 1rem;
       padding: .5rem .75rem .5rem 1rem;
       border-radius: 999px;
+    }
+
+    .brand {
+      grid-column: 2;
+      justify-self: center;
     }
 
     .brand img {
@@ -662,6 +678,8 @@ const navigationHref = (slug: string) =>
     }
 
     .menu-toggle {
+      grid-column: 1;
+      justify-self: start;
       display: grid;
       width: 2.75rem;
       height: 2.75rem;
@@ -672,6 +690,19 @@ const navigationHref = (slug: string) =>
       color: var(--color-heading);
       background: #f6f7fb;
       cursor: pointer;
+    }
+
+    .mobile-contact {
+      grid-column: 3;
+      justify-self: end;
+      display: grid;
+      width: 2.75rem;
+      height: 2.75rem;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--color-heading);
+      background: #f6f7fb;
+      text-decoration: none;
     }
 
     .menu-toggle-icon {
