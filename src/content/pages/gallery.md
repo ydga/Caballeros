@@ -11,7 +11,7 @@ items:
     image: /Caballeros/images/whatsapp-image-2026-04-20-at-09.40.03.webp
   - title: Aprendizaje en el aula
     label: Actividades académicas
-    image: /Caballeros/images/salah-darwish-6hl__HAWP4w-unsplash.jpg
+    image: /Caballeros/images/whatsapp-image-2026-04-08-at-09.19.02-1.webp
   - title: Deportes y actividades
     label: Actividades
     image: ''
