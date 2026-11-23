@@ -12,9 +12,6 @@ items:
   - title: Aprendizaje en el aula
     label: Actividades académicas
     image: /Caballeros/images/whatsapp-image-2026-04-08-at-09.19.02-1.webp
-  - title: Deportes y actividades
-    label: Actividades
-    image: ''
   - title: Celebraciones escolares
     label: Comunidad
     image: /Caballeros/images/whatsapp-image-2026-04-08-at-09.19.03-2.webp
