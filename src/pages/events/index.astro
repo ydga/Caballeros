@@ -5,7 +5,13 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 
 const events = (await getCollection('events'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const eventYears = [...new Set(events.map(({ data }) => data.date.getUTCFullYear()))]
+const buildDate = new Date();
+const currentMonth = String(buildDate.getUTCMonth() + 1);
+const currentYear = String(buildDate.getUTCFullYear());
+const eventYears = [...new Set([
+  buildDate.getUTCFullYear(),
+  ...events.map(({ data }) => data.date.getUTCFullYear()),
+])]
   .sort((a, b) => b - a);
 const eventMonths = Array.from({ length: 12 }, (_, month) => ({
   value: String(month + 1),
@@ -28,24 +34,20 @@ const eventMonths = Array.from({ length: 12 }, (_, month) => ({
     {events.length > 0 ? (
       <>
         <div class="event-filters" data-event-filters>
-          <label>
-            <span>Mes</span>
-            <select data-event-month-filter>
-              <option value="">Todos los meses</option>
-              {eventMonths.map((month) => (
-                <option value={month.value}>{month.label}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Año</span>
-            <select data-event-year-filter>
-              <option value="">Todos los años</option>
-              {eventYears.map((year) => (
-                <option value={year}>{year}</option>
-              ))}
-            </select>
-          </label>
+          <select aria-label="Mes" data-event-month-filter>
+            {eventMonths.map((month) => (
+              <option value={month.value} selected={month.value === currentMonth}>
+                {month.label}
+              </option>
+            ))}
+          </select>
+          <select aria-label="Año" data-event-year-filter>
+            {eventYears.map((year) => (
+              <option value={year} selected={String(year) === currentYear}>
+                {year}
+              </option>
+            ))}
+          </select>
         </div>
         <EventList events={events} filterable />
         <p class="empty-state" data-event-no-results hidden>
@@ -71,14 +73,23 @@ const eventMonths = Array.from({ length: 12 }, (_, month) => ({
       throw new Error('Event filter controls are missing.');
     }
 
+    const now = new Date();
+    const currentMonth = String(now.getMonth() + 1);
+    const currentYear = String(now.getFullYear());
+
+    if (![...yearSelect.options].some((option) => option.value === currentYear)) {
+      const currentYearOption = new Option(currentYear, currentYear);
+      const firstOlderYear = [...yearSelect.options]
+        .find((option) => Number(option.value) < Number(currentYear));
+      yearSelect.insertBefore(currentYearOption, firstOlderYear ?? null);
+    }
+
     const updateEvents = () => {
       let visibleEvents = 0;
 
       entries.forEach((entry) => {
-        const matchesMonth =
-          !monthSelect.value || entry.dataset.eventMonth === monthSelect.value;
-        const matchesYear =
-          !yearSelect.value || entry.dataset.eventYear === yearSelect.value;
+        const matchesMonth = entry.dataset.eventMonth === monthSelect.value;
+        const matchesYear = entry.dataset.eventYear === yearSelect.value;
         const isVisible = matchesMonth && matchesYear;
 
         entry.hidden = !isVisible;
@@ -88,8 +99,11 @@ const eventMonths = Array.from({ length: 12 }, (_, month) => ({
       noResults.hidden = visibleEvents > 0;
     };
 
+    monthSelect.value = currentMonth;
+    yearSelect.value = currentYear;
     monthSelect.addEventListener('change', updateEvents);
     yearSelect.addEventListener('change', updateEvents);
+    updateEvents();
   }
 </script>
 
@@ -99,13 +113,6 @@ const eventMonths = Array.from({ length: 12 }, (_, month) => ({
     flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 1.25rem;
-  }
-
-  .event-filters label {
-    display: grid;
-    gap: .35rem;
-    color: var(--color-heading);
-    font-weight: 500;
   }
 
   .event-filters select {
