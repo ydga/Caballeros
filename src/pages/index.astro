@@ -59,9 +59,6 @@ const getFullMonth = (date: Date) =>
       ))}
       {heroSlides.length > 1 && (
         <div class="hero-controls" role="group" aria-label="Controles de la presentación">
-          <button class="hero-control" type="button" data-previous aria-label="Diapositiva anterior">
-            <ChevronLeft aria-hidden="true" size={20} />
-          </button>
           <div class="hero-dots">
             {heroSlides.map((slide, index) => (
               <button
@@ -73,19 +70,24 @@ const getFullMonth = (date: Date) =>
               />
             ))}
           </div>
-          <button class="hero-control" type="button" data-next aria-label="Diapositiva siguiente">
-            <ChevronRight aria-hidden="true" size={20} />
-          </button>
-          <button
-            class="hero-control hero-pause"
-            type="button"
-            data-pause
-            aria-label="Pausar la presentación"
-            aria-pressed="false"
-          >
-            <span class="pause-icon" aria-hidden="true"><Pause size={18} /></span>
-            <span class="play-icon" aria-hidden="true" hidden><Play size={18} /></span>
-          </button>
+          <div class="hero-control-actions">
+            <button class="hero-control" type="button" data-previous aria-label="Diapositiva anterior">
+              <ChevronLeft aria-hidden="true" size={16} />
+            </button>
+            <button class="hero-control" type="button" data-next aria-label="Diapositiva siguiente">
+              <ChevronRight aria-hidden="true" size={16} />
+            </button>
+            <button
+              class="hero-control hero-pause"
+              type="button"
+              data-pause
+              aria-label="Pausar la presentación"
+              aria-pressed="false"
+            >
+              <span class="pause-icon" aria-hidden="true"><Pause size={16} /></span>
+              <span class="play-icon" aria-hidden="true" hidden><Play size={16} /></span>
+            </button>
+          </div>
         </div>
       )}
     </section>
@@ -364,7 +366,7 @@ const getFullMonth = (date: Date) =>
     left: clamp(1.25rem, 5vw, 5rem);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: .75rem;
   }
 
@@ -374,14 +376,14 @@ const getFullMonth = (date: Date) =>
     flex: 0 0 auto;
     place-items: center;
     border: 0;
-    color: #6b6b6b;
-    background: #fff;
+    color: #fff;
+    background: rgb(0 0 0 / 80%);
     cursor: pointer;
   }
 
   .hero-control {
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.25rem;
+    height: 2.25rem;
     border-radius: 8px;
   }
 
@@ -390,6 +392,12 @@ const getFullMonth = (date: Date) =>
   }
 
   .hero-dots {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+
+  .hero-control-actions {
     display: flex;
     align-items: center;
     gap: .5rem;
