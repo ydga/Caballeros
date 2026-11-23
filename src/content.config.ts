@@ -17,7 +17,6 @@ const pages = defineCollection({
     title: z.string(),
     order: z.coerce.number().optional().default(100),
     hide_from_navigation: z.boolean().optional().default(false),
-    eyebrow: z.string().optional(),
     lede: z.string().optional(),
     items: z.array(z.object({
       title: z.string(),
@@ -38,7 +37,6 @@ const homepage = defineCollection({
       cta_url: z.string().min(1),
     })).min(1),
     about_button_label: z.string(),
-    news_eyebrow: z.string(),
     news_title: z.string(),
     news_link_label: z.string(),
     gallery_link_label: z.string(),

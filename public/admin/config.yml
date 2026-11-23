@@ -29,7 +29,6 @@ collections:
               - { label: Texto del botón, name: cta_label, widget: string }
               - { label: Enlace del botón, name: cta_url, widget: string }
           - { label: Texto del botón de nuestra escuela, name: about_button_label, widget: string }
-          - { label: Texto pequeño de noticias, name: news_eyebrow, widget: string }
           - { label: Título de noticias, name: news_title, widget: string }
           - { label: Enlace a todas las noticias, name: news_link_label, widget: string }
           - { label: Enlace a la galería, name: gallery_link_label, widget: string }
@@ -47,7 +46,6 @@ collections:
       - { label: Titulo de la pagina, name: title, widget: string }
       - { label: Orden en la navegacion, name: order, widget: number, value_type: int, min: 1, default: 100 }
       - { label: Ocultar de la navegacion, name: hide_from_navigation, widget: boolean, default: false, required: false }
-      - { label: Encabezado, name: eyebrow, widget: string, required: false }
       - { label: Introduccion, name: lede, widget: text, required: false }
       - label: Elementos de la galeria
         name: items

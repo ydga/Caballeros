@@ -17,7 +17,6 @@ const { Content } = await render(page);
   <main>
     <header class="page-heading">
       <h1>{page.data.title}</h1>
-      {page.data.eyebrow && <p class="eyebrow">{page.data.eyebrow}</p>}
     </header>
     <article class="welcome-card">
       {page.data.lede && <p class="lede">{page.data.lede}</p>}
