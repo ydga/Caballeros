@@ -5,7 +5,7 @@ interface Props {
   active?: string;
 }
 
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 const {
   title,
@@ -14,7 +14,14 @@ const {
 } = Astro.props;
 
 const base = '/Caballeros';
-const pages = await getCollection('pages');
+const [pages, socialEntry] = await Promise.all([
+  getCollection('pages'),
+  getEntry('social', 'index'),
+]);
+if (!socialEntry) {
+  throw new Error('Missing social links content');
+}
+const socialLinks = socialEntry.data;
 const regularNavigationItems = [
   { label: 'Inicio', slug: 'home' },
   ...pages
@@ -103,13 +110,43 @@ const activeSlug = active;
             </p>
           </address>
         </div>
-        <img
-          class="footer-jda"
-          src={`${base}/images/JdA.svg`}
-          alt="Junta de Andalucía"
-          width="135"
-          height="36"
-        />
+        <div class="footer-side">
+          {(socialLinks.instagram || socialLinks.youtube || socialLinks.facebook) && (
+            <nav class="footer-social-links" aria-label="Redes sociales">
+              {socialLinks.instagram && (
+                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+                </a>
+              )}
+              {socialLinks.youtube && (
+                <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                    <path d="M22 8a2.5 2.5 0 0 0-1.7-1.7C18.8 6 12 6 12 6s-6.8 0-8.3.3A2.5 2.5 0 0 0 2 8a26 26 0 0 0-.5 4 26 26 0 0 0 .5 4 2.5 2.5 0 0 0 1.7 1.7C5.2 18 12 18 12 18s6.8 0 8.3-.3A2.5 2.5 0 0 0 22 16a26 26 0 0 0 .5-4A26 26 0 0 0 22 8Z" />
+                    <path d="m10 9 5 3-5 3z" />
+                  </svg>
+                </a>
+              )}
+              {socialLinks.facebook && (
+                <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.884v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
+                  </svg>
+                </a>
+              )}
+            </nav>
+          )}
+          <img
+            class="footer-jda"
+            src={`${base}/images/JdA.svg`}
+            alt="Junta de Andalucía"
+            width="135"
+            height="36"
+          />
+        </div>
       </div>
     </footer>
   </body>
@@ -305,6 +342,34 @@ const activeSlug = active;
     text-align: left;
   }
 
+  .footer-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+
+  .footer-social-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer-social-links a {
+    display: inline-flex;
+    transition: opacity 150ms ease;
+  }
+
+  .footer-social-links a:hover {
+    opacity: .75;
+  }
+
+  .footer-social-links a:focus-visible {
+    border-radius: 3px;
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
+
   .footer-jda {
     justify-self: end;
     display: block;
@@ -354,8 +419,8 @@ const activeSlug = active;
       justify-items: start;
     }
 
-    .footer-jda {
-      justify-self: start;
+    .footer-side {
+      align-items: flex-start;
     }
   }
 </style>

@@ -56,6 +56,31 @@ collections:
           - { label: Título de noticias, name: news_title, widget: string }
           - { label: Enlace a todas las noticias, name: news_link_label, widget: string }
           - { label: Enlace a la galería, name: gallery_link_label, widget: string }
+  - name: social
+    label: Redes sociales
+    files:
+      - name: social
+        label: Enlaces de redes sociales
+        file: src/content/social/index.json
+        fields:
+          - label: Instagram
+            name: instagram
+            widget: string
+            required: false
+            hint: Deja el campo vacío para ocultar su logo en el pie de página.
+            pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
+          - label: YouTube
+            name: youtube
+            widget: string
+            required: false
+            hint: Deja el campo vacío para ocultar su logo en el pie de página.
+            pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
+          - label: Facebook
+            name: facebook
+            widget: string
+            required: false
+            hint: Deja el campo vacío para ocultar su logo en el pie de página.
+            pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
   - name: pages
     label: Paginas
     folder: src/content/pages

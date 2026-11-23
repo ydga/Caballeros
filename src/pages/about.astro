@@ -21,8 +21,10 @@ const { Content } = await render(page);
       <h1>{page.data.title}</h1>
       {page.data.lede && <p class="lede">{page.data.lede}</p>}
     </header>
-    <div class="about-content"><Content /></div>
-    <DownloadFiles files={page.data.downloads} />
+    <div class="about-content">
+      <Content />
+      <DownloadFiles files={page.data.downloads} />
+    </div>
   </main>
 </SiteLayout>
 
@@ -44,6 +46,10 @@ const { Content } = await render(page);
 
   .about-content :global(p) {
     grid-row: 2;
+  }
+
+  .about-content :global(.downloads) {
+    grid-column: 1 / -1;
   }
 
   .about-content {

@@ -68,4 +68,18 @@ const homepage = defineCollection({
   }),
 });
 
-export const collections = { news, pages, homepage };
+const socialUrl = z.union([
+  z.string().url().refine((value) => /^https?:\/\//i.test(value)),
+  z.literal(''),
+]).optional();
+
+const social = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/social' }),
+  schema: z.object({
+    instagram: socialUrl,
+    youtube: socialUrl,
+    facebook: socialUrl,
+  }),
+});
+
+export const collections = { news, pages, homepage, social };
