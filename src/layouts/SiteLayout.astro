@@ -368,40 +368,33 @@ const navigationHref = (slug: string) =>
     position: sticky;
     top: 7rem;
     margin: 3.5rem 1.25rem 5rem 0;
-    padding: 1rem;
-    border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
   }
 
   .page-sidenav-heading {
     margin: 0 0 .75rem;
-    padding-bottom: .75rem;
-    border-bottom: 1px solid #e8e5df;
     font-weight: 600;
   }
 
   .page-sidenav nav {
     display: grid;
     gap: .25rem;
+    padding-left: .75rem;
+    border-left: 1px solid #d8d3ca;
   }
 
   .page-sidenav a {
     display: block;
     padding: .5rem .65rem;
-    border-radius: 8px;
     color: var(--color-text);
     text-decoration: none;
   }
 
   .page-sidenav a:hover {
-    background: #f6f7fb;
     color: var(--color-heading);
   }
 
   .page-sidenav a.active {
     color: var(--color-accent);
-    background: #f6f7fb;
     font-weight: 600;
   }
 

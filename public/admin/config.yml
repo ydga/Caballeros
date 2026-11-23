@@ -69,7 +69,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
-    summary: "{{title}}"
+    summary: "{{parent_page | ternary('  ', '')}}{{title}}"
     sortable_fields:
       - title
       - order
