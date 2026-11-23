@@ -11,11 +11,20 @@
     },
     {
       "image": "/Caballeros/images/Sunlit Orange Tree Courtyard.png",
-      "title": "Ubicada en el centro histórico de Córdoba",
+      "title": "Nuestra directora te da la bienvenida!",
       "subtitle": "",
-      "cta_label": "Mensaje de bienvenida",
+      "cta_label": "Leer mensaje",
       "cta_type": "page",
       "cta_page": "welcome",
+      "cta_external_url": ""
+    },
+    {
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7Q1L_iKI8a2ASk9Vqy4qVEN0DBB0ZhNaI1JKcUdJCIPXUvkdXogjCGwg&s=10",
+      "title": "Ubicada en el centro histórico de Córdoba",
+      "subtitle": "",
+      "cta_label": "Visita nuestra fotogalería",
+      "cta_type": "page",
+      "cta_page": "gallery",
       "cta_external_url": ""
     }
   ],
