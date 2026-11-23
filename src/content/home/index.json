@@ -17,6 +17,15 @@
       "cta_type": "page",
       "cta_page": "gallery",
       "cta_external_url": ""
+    },
+    {
+      "image": "/Caballeros/images/Watercolor School Courtyard Gathering.png",
+      "title": "Conoce nuestro colegio",
+      "subtitle": "",
+      "cta_label": "Quienes somos?",
+      "cta_type": "page",
+      "cta_page": "about",
+      "cta_external_url": ""
     }
   ],
   "about_button_label": "Conozca nuestra escuela",
