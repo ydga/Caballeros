@@ -1,8 +1,8 @@
 ---
-title: Acerca
+title: Acerca de nuestra escuela
 order: 2
 hide_from_navigation: false
-eyebrow: De nuestra escuela
+eyebrow: ''
 lede: Conozca nuestra misión, nuestros valores y nuestro compromiso de ayudar a cada estudiante a aprender, crecer y alcanzar sus metas.
 items: []
 ---
