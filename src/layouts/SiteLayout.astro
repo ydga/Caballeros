@@ -36,17 +36,40 @@ const socialIcons = {
   youtube: getIconData(faYoutube),
   facebook: getIconData(faFacebook),
 };
+const contactNavigationItem = { label: 'Contacto', slug: 'contact' };
+const topLevelPages = pages
+  .filter((page) => !page.data.hide_from_navigation && !page.data.parent_page)
+  .sort((a, b) => a.data.order - b.data.order);
+const childPages = pages.filter((page) => !page.data.hide_from_navigation);
 const regularNavigationItems = [
   { label: 'Inicio', slug: 'home' },
-  ...pages
-    .filter((page) => !page.data.hide_from_navigation && !page.data.parent_page)
-    .sort((a, b) => a.data.order - b.data.order)
-    .map((page) => ({
-      label: page.data.nav_label || page.data.title,
-      slug: page.id,
-    })),
+  ...topLevelPages.map((page) => ({
+    label: page.data.nav_label || page.data.title,
+    slug: page.id,
+  })),
   { label: 'Eventos', slug: 'events' },
   { label: 'Noticias', slug: 'news' },
+];
+const mobileNavigationItems = [
+  { label: 'Inicio', slug: 'home', isChild: false },
+  ...topLevelPages.flatMap((page) => [
+    {
+      label: page.data.nav_label || page.data.title,
+      slug: page.id,
+      isChild: false,
+    },
+    ...childPages
+      .filter((child) => child.data.parent_page === page.id)
+      .sort((a, b) => a.data.order - b.data.order)
+      .map((child) => ({
+        label: child.data.nav_label || child.data.title,
+        slug: child.id,
+        isChild: true,
+      })),
+  ]),
+  { label: 'Eventos', slug: 'events', isChild: false },
+  { label: 'Noticias', slug: 'news', isChild: false },
+  { label: contactNavigationItem.label, slug: contactNavigationItem.slug, isChild: false },
 ];
 const activePage = pages.find((page) => page.id === active);
 const sideNavParent = activePage?.data.parent_page
@@ -65,7 +88,6 @@ const showSideNav =
   Boolean(sideNavParent) &&
   !sideNavParent?.data.hide_from_navigation &&
   sideNavItems.length > 0;
-const contactNavigationItem = { label: 'Contacto', slug: 'contact' };
 
 const navigationHref = (slug: string) =>
   slug === 'home' ? `${base}/` : `${base}/${slug}/`;
@@ -145,6 +167,24 @@ const navigationHref = (slug: string) =>
                     },
                   ]}
                   href={navigationHref(item.slug)}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+            <div class="mobile-nav-pages">
+              {mobileNavigationItems.map((item) => (
+                <a
+                  class:list={[
+                    {
+                      active:
+                        active === item.slug ||
+                        activePage?.data.parent_page === item.slug,
+                      child: item.isChild,
+                    },
+                  ]}
+                  href={navigationHref(item.slug)}
+                  aria-current={active === item.slug ? 'page' : undefined}
                 >
                   {item.label}
                 </a>
@@ -398,6 +438,10 @@ const navigationHref = (slug: string) =>
     align-items: center;
     justify-content: center;
     gap: .25rem;
+  }
+
+  .mobile-nav-pages {
+    display: none;
   }
 
   .site-header nav a,
@@ -802,11 +846,12 @@ const navigationHref = (slug: string) =>
     }
 
     .site-menu-panel .nav-pages {
+      display: none;
+    }
+
+    .site-menu-panel .mobile-nav-pages {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
-      grid-auto-flow: row;
-      align-items: stretch;
-      justify-content: stretch;
       gap: .25rem;
     }
 
@@ -816,15 +861,16 @@ const navigationHref = (slug: string) =>
       border-radius: 8px;
     }
 
+    .site-menu-panel nav a.child {
+      padding-left: 1.75rem;
+    }
+
     .site-menu-panel nav a.active {
       background: #f6f7fb;
     }
 
     .site-menu-panel .nav-contact {
-      grid-column: auto;
-      justify-self: stretch;
-      align-self: stretch;
-      justify-content: center;
+      display: none;
     }
 
     .page-content--with-sidenav {
