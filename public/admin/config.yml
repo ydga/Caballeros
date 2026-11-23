@@ -63,31 +63,6 @@ collections:
             fields:
               - { label: Nombre para mostrar, name: title, widget: string, required: false }
               - { label: Archivo, name: file, widget: file }
-  - name: social
-    label: Redes sociales
-    files:
-      - name: social
-        label: Enlaces de redes sociales
-        file: src/content/social/index.json
-        fields:
-          - label: Instagram
-            name: instagram
-            widget: string
-            required: false
-            hint: Deja el campo vacío para ocultar su logo en el pie de página.
-            pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
-          - label: YouTube
-            name: youtube
-            widget: string
-            required: false
-            hint: Deja el campo vacío para ocultar su logo en el pie de página.
-            pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
-          - label: Facebook
-            name: facebook
-            widget: string
-            required: false
-            hint: Deja el campo vacío para ocultar su logo en el pie de página.
-            pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
   - name: pages
     label: Paginas
     folder: src/content/pages
@@ -126,6 +101,7 @@ collections:
     folder: src/content/news
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} · {{title}}"
     fields:
       - { label: Titulo, name: title, widget: string }
       - { label: Fecha de publicacion, name: date, widget: datetime }
@@ -157,7 +133,7 @@ collections:
           - bulleted-list
           - numbered-list
   - name: events
-    label: Eventos escolares
+    label: Eventos
     folder: src/content/events
     create: true
     delete: true
@@ -181,3 +157,28 @@ collections:
             required: false
             pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
           - { label: Resumen, name: summary, widget: text, required: false }
+  - name: social
+    label: Redes sociales
+    files:
+      - name: social
+        label: Enlaces de redes sociales
+        file: src/content/social/index.json
+        fields:
+          - label: Instagram
+            name: instagram
+            widget: string
+            required: false
+            hint: Deja el campo vacío para ocultar su logo en el pie de página.
+            pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
+          - label: YouTube
+            name: youtube
+            widget: string
+            required: false
+            hint: Deja el campo vacío para ocultar su logo en el pie de página.
+            pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
+          - label: Facebook
+            name: facebook
+            widget: string
+            required: false
+            hint: Deja el campo vacío para ocultar su logo en el pie de página.
+            pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
