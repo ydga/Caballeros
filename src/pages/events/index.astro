@@ -1,4 +1,5 @@
 ---
+import { ChevronDown } from '@lucide/astro';
 import { getCollection } from 'astro:content';
 import EventList from '../../components/EventList.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
@@ -34,20 +35,30 @@ const eventMonths = Array.from({ length: 12 }, (_, month) => ({
     {events.length > 0 ? (
       <>
         <div class="event-filters" data-event-filters>
-          <select aria-label="Mes" data-event-month-filter>
-            {eventMonths.map((month) => (
-              <option value={month.value} selected={month.value === currentMonth}>
-                {month.label}
-              </option>
-            ))}
-          </select>
-          <select aria-label="Año" data-event-year-filter>
-            {eventYears.map((year) => (
-              <option value={year} selected={String(year) === currentYear}>
-                {year}
-              </option>
-            ))}
-          </select>
+          <div class="event-filter-control">
+            <span data-event-month-label aria-hidden="true">
+              {eventMonths[Number(currentMonth) - 1].label}
+            </span>
+            <select aria-label="Mes" data-event-month-filter>
+              {eventMonths.map((month) => (
+                <option value={month.value} selected={month.value === currentMonth}>
+                  {month.label}
+                </option>
+              ))}
+            </select>
+            <ChevronDown aria-hidden="true" size={16} />
+          </div>
+          <div class="event-filter-control">
+            <span data-event-year-label aria-hidden="true">{currentYear}</span>
+            <select aria-label="Año" data-event-year-filter>
+              {eventYears.map((year) => (
+                <option value={year} selected={String(year) === currentYear}>
+                  {year}
+                </option>
+              ))}
+            </select>
+            <ChevronDown aria-hidden="true" size={16} />
+          </div>
         </div>
         <EventList events={events} filterable />
         <p class="empty-state" data-event-no-results hidden>
@@ -66,10 +77,12 @@ const eventMonths = Array.from({ length: 12 }, (_, month) => ({
   if (filters) {
     const monthSelect = filters.querySelector<HTMLSelectElement>('[data-event-month-filter]');
     const yearSelect = filters.querySelector<HTMLSelectElement>('[data-event-year-filter]');
+    const monthLabel = filters.querySelector<HTMLElement>('[data-event-month-label]');
+    const yearLabel = filters.querySelector<HTMLElement>('[data-event-year-label]');
     const entries = document.querySelectorAll<HTMLElement>('[data-event-filter-item]');
     const noResults = document.querySelector<HTMLElement>('[data-event-no-results]');
 
-    if (!monthSelect || !yearSelect || !noResults) {
+    if (!monthSelect || !yearSelect || !monthLabel || !yearLabel || !noResults) {
       throw new Error('Event filter controls are missing.');
     }
 
@@ -86,6 +99,8 @@ const eventMonths = Array.from({ length: 12 }, (_, month) => ({
 
     const updateEvents = () => {
       let visibleEvents = 0;
+      monthLabel.textContent = monthSelect.selectedOptions[0]?.textContent?.trim() ?? '';
+      yearLabel.textContent = yearSelect.selectedOptions[0]?.textContent?.trim() ?? '';
 
       entries.forEach((entry) => {
         const matchesMonth = entry.dataset.eventMonth === monthSelect.value;
@@ -115,23 +130,35 @@ const eventMonths = Array.from({ length: 12 }, (_, month) => ({
     margin-bottom: 1.25rem;
   }
 
-  .event-filters select {
-    min-width: 10rem;
-    padding: .6rem .75rem;
-    border: 1px solid rgb(23 32 54 / 22%);
-    border-radius: 8px;
+  .event-filter-control {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: .2rem;
     color: var(--color-text);
-    background: transparent;
     font: inherit;
+    cursor: pointer;
   }
 
-  .event-filters select:hover {
-    background: rgb(255 255 255 / 35%);
+  .event-filter-control select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    opacity: 0;
+    cursor: pointer;
   }
 
-  .event-filters select:focus-visible {
+  .event-filter-control:focus-within {
     outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  .event-filter-control svg {
+    flex: 0 0 auto;
   }
 
   .empty-state {
