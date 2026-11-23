@@ -13,6 +13,13 @@
       "subtitle": "...",
       "cta_label": "Registro nuevo ingreso",
       "cta_url": "/registro"
+    },
+    {
+      "image": "https://www.cordoba.es/sites/default/files/inline-images/servicios/educacion-e-infancia/2026/Cartel_actividades_verano_2026.jpg",
+      "title": "Escuela de verano 2026",
+      "subtitle": "...",
+      "cta_label": "Más informacion",
+      "cta_url": "/verano2026"
     }
   ],
   "about_button_label": "Conozca nuestra escuela",
