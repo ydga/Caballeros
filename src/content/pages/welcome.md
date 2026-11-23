@@ -6,7 +6,9 @@ eyebrow: Direccion
 order: 1
 hide_from_navigation: false
 lede: ''
+main_image: /Caballeros/images/Watercolor School Courtyard Gathering.png
 items: []
+downloads: []
 ---
 
 Es motivo de profunda alegría daros la bienvenida desde la web del CEIP Caballeros de Santiago.
