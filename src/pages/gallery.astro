@@ -25,22 +25,9 @@ const galleryItems = page.data.items ?? [];
       {page.data.lede && <p class="lede">{page.data.lede}</p>}
     </header>
 
-    <div class="gallery-content">
-      <div class="content"><Content /></div>
-    </div>
+    <div class="content"><Content /></div>
     <GalleryGrid items={galleryItems} />
     <DownloadFiles files={page.data.downloads} />
   </main>
   <PhotoLightbox />
 </SiteLayout>
-
-<style>
-  .gallery-content {
-    margin-bottom: 2rem;
-    padding: clamp(1.5rem, 5vw, 3rem);
-    border-radius: 16px;
-    background: #fff;
-    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
-    line-height: 1.75;
-  }
-</style>
