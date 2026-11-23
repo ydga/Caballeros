@@ -17,8 +17,5 @@ items:
   - title: Celebraciones escolares
     label: Comunidad
     image: /Caballeros/images/whatsapp-image-2026-04-08-at-09.19.03-2.webp
-  - title: Illustracion con inteligencia artificial
-    label: ''
-    image: ''
 downloads: []
 ---
