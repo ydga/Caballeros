@@ -1,5 +1,5 @@
 ---
-title: Bienvenidos/as a nuestra nueva página WEB!
+title: Bienvenidos/as a nuestra página web!
 nav_label: Bienvenida
 eyebrow: Direccion
 order: 1
