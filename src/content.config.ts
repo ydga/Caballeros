@@ -7,7 +7,10 @@ const news = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     summary: z.string().optional(),
-    image: z.string().optional(),
+    gallery: z.array(z.object({
+      title: z.string().optional(),
+      image: z.string().min(1),
+    })).optional(),
   }),
 });
 

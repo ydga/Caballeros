@@ -68,5 +68,22 @@ collections:
       - { label: Titulo, name: title, widget: string }
       - { label: Fecha de publicacion, name: date, widget: datetime }
       - { label: Resumen, name: summary, widget: text, required: false }
-      - { label: Imagen, name: image, widget: image, required: false }
-      - { label: Articulo, name: body, widget: markdown }
+      - label: Galeria de imagenes
+        name: gallery
+        widget: list
+        required: false
+        fields:
+          - { label: Titulo, name: title, widget: string, required: false }
+          - { label: Imagen, name: image, widget: image }
+      - label: Articulo
+        name: body
+        widget: markdown
+        buttons:
+          - bold
+          - italic
+          - link
+          - heading-two
+          - heading-three
+          - quote
+          - bulleted-list
+          - numbered-list

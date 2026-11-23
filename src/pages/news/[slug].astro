@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import PhotoLightbox from '../../components/PhotoLightbox.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 
 export async function getStaticPaths() {
@@ -12,6 +13,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const galleryItems = post.data.gallery ?? [];
 ---
 
 <SiteLayout title={`${post.data.title} | Caballeros School`} active="news">
@@ -26,10 +28,26 @@ const { Content } = await render(post);
         })}
       </p>
       <h1>{post.data.title}</h1>
-      {post.data.image && <img class="hero" src={post.data.image} alt="" />}
       <div class="content"><Content /></div>
+      {galleryItems.length > 0 && (
+        <section class="news-gallery" aria-label="Galeria de imagenes">
+          {galleryItems.map((item) => (
+            <figure>
+              <button
+                type="button"
+                data-photo-trigger
+                aria-label={`Ampliar fotografía: ${item.title || post.data.title}`}
+              >
+                <img src={item.image} alt={item.title || post.data.title} />
+              </button>
+              {item.title && <figcaption>{item.title}</figcaption>}
+            </figure>
+          ))}
+        </section>
+      )}
     </article>
   </main>
+  <PhotoLightbox />
 </SiteLayout>
 
 <style>
@@ -38,6 +56,29 @@ const { Content } = await render(post);
   article { background: #fff; margin-top: 1.25rem; padding: clamp(1.25rem, 5vw, 3rem); border-radius: 16px; }
   h1 { margin: .25rem 0 1.5rem; font-size: clamp(2.25rem, 7vw, 4rem); line-height: 1.05; }
   .date { color: var(--color-text); }
-  .hero { width: 100%; max-height: 430px; object-fit: cover; border-radius: 12px; }
   .content { line-height: 1.75; font-size: 1.08rem; }
+  .content :global(img) { display: none; }
+  .news-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  figure { margin: 0; }
+  button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+  button img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  figcaption { padding-top: .75rem; font-weight: 700; }
 </style>
