@@ -15,6 +15,7 @@ const pages = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
+    nav_label: z.string().optional(),
     order: z.coerce.number().optional().default(100),
     hide_from_navigation: z.boolean().optional().default(false),
     lede: z.string().optional(),

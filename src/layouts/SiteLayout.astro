@@ -21,7 +21,7 @@ const navigationItems = [
     .filter((page) => !page.data.hide_from_navigation)
     .sort((a, b) => a.data.order - b.data.order)
     .map((page) => ({
-    label: page.data.title,
+    label: page.data.nav_label || page.data.title,
     slug: page.id,
     })),
   { label: 'Noticias', slug: 'news' },
