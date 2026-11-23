@@ -1,0 +1,121 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const contactEmail = '14001487.edu@juntadeandalucia.es';
+---
+
+<SiteLayout
+  title="Contacto | Caballeros School"
+  description="Contacte con el CEIP Caballeros de Santiago."
+  active="contact"
+>
+  <main>
+    <header class="page-heading">
+      <p class="eyebrow">Estamos para ayudarle</p>
+      <h1>Contacto</h1>
+      <p class="lede">Envíenos un mensaje y nos pondremos en contacto con usted.</p>
+    </header>
+
+    <section class="contact-card" aria-label="Formulario de contacto">
+      <form>
+        <div class="field">
+          <label for="contact-name">Nombre</label>
+          <input id="contact-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="contact-email">Correo electrónico</label>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="contact-message">Mensaje</label>
+          <textarea id="contact-message" name="message" rows="6" required></textarea>
+        </div>
+        <button type="submit" disabled>Envío próximamente</button>
+        <p class="delivery-note">
+          El envío del formulario aún no está configurado. Mientras tanto, puede escribirnos a
+          <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+        </p>
+      </form>
+    </section>
+  </main>
+</SiteLayout>
+
+<style>
+  .contact-card {
+    width: min(100%, 760px);
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
+  }
+
+  form {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .field {
+    display: grid;
+    gap: .4rem;
+  }
+
+  label {
+    color: var(--color-heading);
+    font-weight: 600;
+  }
+
+  input,
+  textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: .8rem 1rem;
+    border: 1px solid #c9ced9;
+    border-radius: 8px;
+    color: var(--color-heading);
+    background: #fff;
+    font: inherit;
+  }
+
+  textarea {
+    min-height: 10rem;
+    resize: vertical;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 3px solid rgb(190 30 45 / 25%);
+    border-color: var(--color-accent);
+  }
+
+  button {
+    justify-self: start;
+    padding: .75rem 1.25rem;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    background: var(--color-accent);
+    font: inherit;
+    font-weight: 600;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: .6;
+  }
+
+  .delivery-note {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .delivery-note a {
+    color: var(--color-accent);
+    overflow-wrap: anywhere;
+  }
+</style>
