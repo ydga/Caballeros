@@ -182,7 +182,11 @@ collections:
             widget: datetime
             date_format: "YYYY-MM-DD"
             time_format: false
-          - { label: Hora, name: time, widget: string, required: false }
+          - label: Hora (24 horas)
+            name: time
+            widget: string
+            required: false
+            pattern: ["^(?:[01][0-9]|2[0-3]):[0-5][0-9]$", "Usa el formato HH:mm, por ejemplo 14:30"]
           - { label: Lugar, name: location, widget: string, required: false }
           - { label: Imagen principal, name: main_image, widget: image, required: false }
           - { label: Resumen, name: summary, widget: text, required: false }

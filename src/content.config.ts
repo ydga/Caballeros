@@ -24,7 +24,10 @@ const events = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
-    time: z.string().optional(),
+    time: z.string()
+      .regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/)
+      .or(z.literal(''))
+      .optional(),
     location: z.string().optional(),
     main_image: z.string().optional(),
     external_url: z.union([
