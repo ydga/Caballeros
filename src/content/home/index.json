@@ -5,14 +5,16 @@
       "title": "Inscripciones abiertas pare el ciclo escolar 2027-2028",
       "subtitle": "",
       "cta_label": "Registro nuevo ingreso",
-      "cta_url": "/registro"
+      "cta_type": "external",
+      "cta_external_url": "https://example.com/registro"
     },
     {
       "image": "https://www.spain.info/export/sites/segtur/.content/imagenes/cabeceras-grandes/andalucia/vistas-cordoba-s158982617.jpg",
       "title": "Ubicada en el centro histórico de Córdoba",
       "subtitle": "",
       "cta_label": "Mensaje de bienvenida",
-      "cta_url": "/Caballeros/welcome/"
+      "cta_type": "page",
+      "cta_page": "welcome"
     }
   ],
   "about_button_label": "Conozca nuestra escuela",

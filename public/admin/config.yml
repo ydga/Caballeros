@@ -27,7 +27,30 @@ collections:
               - { label: Título, name: title, widget: string }
               - { label: Subtítulo, name: subtitle, widget: text, required: false }
               - { label: Texto del botón, name: cta_label, widget: string }
-              - { label: Enlace del botón, name: cta_url, widget: string }
+              - label: Tipo de destino del botón
+                name: cta_type
+                widget: select
+                options:
+                  - { label: Página existente, value: page }
+                  - { label: Enlace externo, value: external }
+                default: page
+              - label: Página de destino
+                name: cta_page
+                widget: relation
+                collection: pages
+                search_fields: [title]
+                value_field: "{{slug}}"
+                display_fields: [title]
+                condition:
+                  field: cta_type
+                  value: page
+              - label: URL externa
+                name: cta_external_url
+                widget: string
+                pattern: ["^https?://.+$", "La URL debe comenzar con http:// o https://"]
+                condition:
+                  field: cta_type
+                  value: external
           - { label: Texto del botón de nuestra escuela, name: about_button_label, widget: string }
           - { label: Texto pequeño de noticias, name: news_eyebrow, widget: string }
           - { label: Título de noticias, name: news_title, widget: string }

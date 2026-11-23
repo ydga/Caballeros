@@ -42,13 +42,24 @@ const pages = defineCollection({
 const homepage = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/home' }),
   schema: z.object({
-    hero_slides: z.array(z.object({
-      image: z.string().min(1),
-      title: z.string(),
-      subtitle: z.string().optional(),
-      cta_label: z.string(),
-      cta_url: z.string().min(1),
-    })).min(1),
+    hero_slides: z.array(z.discriminatedUnion('cta_type', [
+      z.object({
+        image: z.string().min(1),
+        title: z.string(),
+        subtitle: z.string().optional(),
+        cta_label: z.string(),
+        cta_type: z.literal('page'),
+        cta_page: z.string().min(1),
+      }),
+      z.object({
+        image: z.string().min(1),
+        title: z.string(),
+        subtitle: z.string().optional(),
+        cta_label: z.string(),
+        cta_type: z.literal('external'),
+        cta_external_url: z.string().url(),
+      }),
+    ])).min(1),
     about_button_label: z.string(),
     news_eyebrow: z.string(),
     news_title: z.string(),
