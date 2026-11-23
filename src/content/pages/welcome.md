@@ -6,7 +6,7 @@ eyebrow: Direccion
 order: 1
 hide_from_navigation: false
 lede: ''
-main_image: /Caballeros/images/Watercolor School Courtyard Gathering.png
+main_image: ''
 items: []
 downloads: []
 ---
