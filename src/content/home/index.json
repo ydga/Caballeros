@@ -13,13 +13,6 @@
       "subtitle": "...",
       "cta_label": "Registro nuevo ingreso",
       "cta_url": "/registro"
-    },
-    {
-      "image": "https://www.cordoba.es/sites/default/files/inline-images/servicios/educacion-e-infancia/2026/Cartel_actividades_verano_2026.jpg",
-      "title": "Actividades de verano 2026",
-      "subtitle": "La solicitud se realiza a través de la Sede Electrónica del Ayuntamiento de Córdoba, utilizando certificado digital o Cl@ve. Del 4 al 29 de mayo de 2026.",
-      "cta_label": "Más informacion",
-      "cta_url": "/verano2026"
     }
   ],
   "about_button_label": "Conozca nuestra escuela",
