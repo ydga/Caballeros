@@ -1,6 +1,7 @@
 ---
 title: Bienvenidos/as a nuestra página web!
 nav_label: Bienvenida
+parent_page: about
 eyebrow: Direccion
 order: 1
 hide_from_navigation: false

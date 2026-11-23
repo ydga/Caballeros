@@ -1,6 +1,7 @@
 ---
 title: Consejo de padres
 nav_label: Consejo
+parent_page: about
 eyebrow: '2026'
 order: 4
 hide_from_navigation: false

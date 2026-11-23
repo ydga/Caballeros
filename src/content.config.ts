@@ -39,6 +39,7 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     nav_label: z.string().optional(),
+    parent_page: z.string().optional(),
     eyebrow: z.string().optional(),
     order: z.coerce.number().optional().default(100),
     hide_from_navigation: z.boolean().optional().default(false),

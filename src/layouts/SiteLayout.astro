@@ -38,7 +38,7 @@ const socialIcons = {
 const regularNavigationItems = [
   { label: 'Inicio', slug: 'home' },
   ...pages
-    .filter((page) => !page.data.hide_from_navigation)
+    .filter((page) => !page.data.hide_from_navigation && !page.data.parent_page)
     .sort((a, b) => a.data.order - b.data.order)
     .map((page) => ({
       label: page.data.nav_label || page.data.title,
@@ -47,12 +47,27 @@ const regularNavigationItems = [
   { label: 'Eventos', slug: 'events' },
   { label: 'Noticias', slug: 'news' },
 ];
+const activePage = pages.find((page) => page.id === active);
+const sideNavParent = activePage?.data.parent_page
+  ? pages.find((page) => page.id === activePage.data.parent_page)
+  : activePage;
+const sideNavItems = sideNavParent
+  ? pages
+      .filter(
+        (page) =>
+          page.data.parent_page === sideNavParent.id &&
+          !page.data.hide_from_navigation,
+      )
+      .sort((a, b) => a.data.order - b.data.order)
+  : [];
+const showSideNav =
+  Boolean(sideNavParent) &&
+  !sideNavParent?.data.hide_from_navigation &&
+  sideNavItems.length > 0;
 const contactNavigationItem = { label: 'Contacto', slug: 'contact' };
 
 const navigationHref = (slug: string) =>
   slug === 'home' ? `${base}/` : `${base}/${slug}/`;
-
-const activeSlug = active;
 ---
 
 <!doctype html>
@@ -84,7 +99,13 @@ const activeSlug = active;
         <div class="nav-pages">
           {regularNavigationItems.map((item) => (
             <a
-              class:list={[{ active: activeSlug === item.slug }]}
+              class:list={[
+                {
+                  active:
+                    active === item.slug ||
+                    activePage?.data.parent_page === item.slug,
+                },
+              ]}
               href={navigationHref(item.slug)}
             >
               {item.label}
@@ -95,14 +116,44 @@ const activeSlug = active;
       <a
         class:list={[
           'nav-contact',
-          { active: activeSlug === contactNavigationItem.slug },
+          { active: active === contactNavigationItem.slug },
         ]}
         href={navigationHref(contactNavigationItem.slug)}
       >
         {contactNavigationItem.label}
       </a>
     </header>
-    <slot />
+    <div
+      class:list={[
+        'page-content',
+        { 'page-content--with-sidenav': showSideNav },
+      ]}
+    >
+      <slot />
+      {showSideNav && sideNavParent && (
+        <aside class="page-sidenav">
+          <p class="page-sidenav-heading">
+            <a
+              class:list={[{ active: active === sideNavParent.id }]}
+              href={navigationHref(sideNavParent.id)}
+            >
+              {sideNavParent.data.nav_label || sideNavParent.data.title}
+            </a>
+          </p>
+          <nav aria-label={`Secciones de ${sideNavParent.data.nav_label || sideNavParent.data.title}`}>
+            {sideNavItems.map((item) => (
+              <a
+                class:list={[{ active: active === item.id }]}
+                href={navigationHref(item.id)}
+                aria-current={active === item.id ? 'page' : undefined}
+              >
+                {item.data.nav_label || item.data.title}
+              </a>
+            ))}
+          </nav>
+        </aside>
+      )}
+    </div>
     <footer class="site-footer">
       <div class="site-footer-content">
         <img
@@ -124,32 +175,32 @@ const activeSlug = active;
               </a>
             </p>
           </address>
+          {(socialLinks.instagram || socialLinks.youtube || socialLinks.facebook) && (
+            <nav class="footer-social-links" aria-label="Redes sociales">
+              {socialLinks.instagram && (
+                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <svg aria-hidden="true" viewBox={socialIcons.instagram.viewBox} width="16" height="16">
+                    {socialIcons.instagram.paths.map((path) => <path fill="currentColor" d={path} />)}
+                  </svg>
+                </a>
+              )}
+              {socialLinks.youtube && (
+                <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <svg aria-hidden="true" viewBox={socialIcons.youtube.viewBox} width="16" height="16">
+                    {socialIcons.youtube.paths.map((path) => <path fill="currentColor" d={path} />)}
+                  </svg>
+                </a>
+              )}
+              {socialLinks.facebook && (
+                <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <svg aria-hidden="true" viewBox={socialIcons.facebook.viewBox} width="16" height="16">
+                    {socialIcons.facebook.paths.map((path) => <path fill="currentColor" d={path} />)}
+                  </svg>
+                </a>
+              )}
+            </nav>
+          )}
         </div>
-        {(socialLinks.instagram || socialLinks.youtube || socialLinks.facebook) && (
-          <nav class="footer-social-links" aria-label="Redes sociales">
-            {socialLinks.instagram && (
-              <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <svg aria-hidden="true" viewBox={socialIcons.instagram.viewBox} width="32" height="32">
-                  {socialIcons.instagram.paths.map((path) => <path fill="currentColor" d={path} />)}
-                </svg>
-              </a>
-            )}
-            {socialLinks.youtube && (
-              <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                <svg aria-hidden="true" viewBox={socialIcons.youtube.viewBox} width="32" height="32">
-                  {socialIcons.youtube.paths.map((path) => <path fill="currentColor" d={path} />)}
-                </svg>
-              </a>
-            )}
-            {socialLinks.facebook && (
-              <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                <svg aria-hidden="true" viewBox={socialIcons.facebook.viewBox} width="32" height="32">
-                  {socialIcons.facebook.paths.map((path) => <path fill="currentColor" d={path} />)}
-                </svg>
-              </a>
-            )}
-          </nav>
-        )}
         <img
           class="footer-jda"
           src={`${base}/images/JdA.svg`}
@@ -294,6 +345,66 @@ const activeSlug = active;
     padding: 3.5rem 1.25rem 5rem;
   }
 
+  .page-content {
+    flex: 1;
+    width: 100%;
+  }
+
+  .page-content--with-sidenav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    align-items: start;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .page-content--with-sidenav > main {
+    max-width: none;
+    margin: 0;
+  }
+
+  .page-sidenav {
+    position: sticky;
+    top: 7rem;
+    margin: 3.5rem 1.25rem 5rem 0;
+    padding: 1rem;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
+  }
+
+  .page-sidenav-heading {
+    margin: 0 0 .75rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid #e8e5df;
+    font-weight: 600;
+  }
+
+  .page-sidenav nav {
+    display: grid;
+    gap: .25rem;
+  }
+
+  .page-sidenav a {
+    display: block;
+    padding: .5rem .65rem;
+    border-radius: 8px;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .page-sidenav a:hover {
+    background: #f6f7fb;
+    color: var(--color-heading);
+  }
+
+  .page-sidenav a.active {
+    color: var(--color-accent);
+    background: #f6f7fb;
+    font-weight: 600;
+  }
+
   .page-heading {
     max-width: 760px;
     margin: 0 0 2.5rem;
@@ -342,7 +453,7 @@ const activeSlug = active;
 
   .site-footer-content {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     column-gap: 2rem;
     row-gap: 1rem;
@@ -364,22 +475,30 @@ const activeSlug = active;
   }
 
   .footer-school-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
     font-size: 14px;
     font-weight: 300;
     text-align: left;
   }
 
+  .footer-school-details address {
+    flex: 1 1 20rem;
+    min-width: 0;
+  }
+
   .footer-social-links {
-    display: grid;
-    grid-column: 3;
-    grid-template-columns: repeat(2, 32px);
-    grid-auto-rows: 32px;
-    place-items: center;
-    gap: .75rem;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: .5rem;
   }
 
   .footer-social-links a {
     display: inline-flex;
+    flex-shrink: 0;
     transition: opacity 150ms ease;
   }
 
@@ -394,7 +513,7 @@ const activeSlug = active;
   }
 
   .footer-jda {
-    grid-column: 4;
+    grid-column: 3;
     justify-self: end;
     display: block;
     width: auto;
@@ -414,12 +533,12 @@ const activeSlug = active;
 
   @media (max-width: 900px) {
     .site-footer-content {
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: auto minmax(0, 1fr);
     }
 
-    .footer-social-links,
     .footer-jda {
       grid-column: 2;
+      justify-self: start;
     }
   }
 
@@ -450,6 +569,21 @@ const activeSlug = active;
     .nav-contact {
       align-self: flex-end;
     }
+
+    .page-content--with-sidenav {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .page-content--with-sidenav > main {
+      grid-row: 2;
+    }
+
+    .page-sidenav {
+      position: static;
+      grid-row: 1;
+      margin: 1rem 1.25rem 0;
+    }
   }
 
   @media (max-width: 640px) {
@@ -458,7 +592,6 @@ const activeSlug = active;
       justify-items: start;
     }
 
-    .footer-social-links,
     .footer-jda {
       grid-column: 1;
     }
