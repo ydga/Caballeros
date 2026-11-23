@@ -4,9 +4,7 @@ nav_label: ''
 eyebrow: Direccion
 order: 1
 hide_from_navigation: false
-lede: |-
-  Estimadas familias y queridísimos alumnos sean
-  bienvenidos/as a nuestra página WEB!
+lede: ''
 items: []
 ---
 
