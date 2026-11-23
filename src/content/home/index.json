@@ -10,15 +10,6 @@
       "cta_external_url": "https://example.com/registro"
     },
     {
-      "image": "/Caballeros/images/Sunlit Orange Tree Courtyard.png",
-      "title": "Nuestra directora te da la bienvenida!",
-      "subtitle": "",
-      "cta_label": "Leer mensaje",
-      "cta_type": "page",
-      "cta_page": "welcome",
-      "cta_external_url": ""
-    },
-    {
       "image": "https://images.trvl-media.com/place/6121510/22c7dcea-b61e-46ad-bd47-41defae9a44e.jpg",
       "title": "Ubicada en el centro histórico de Córdoba",
       "subtitle": "",
