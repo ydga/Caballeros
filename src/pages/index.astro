@@ -93,15 +93,15 @@ const getFullMonth = (date: Date) =>
         <p class="eyebrow">{aboutPage.data.eyebrow ?? 'Nuestra escuela'}</p>
         <h2>{aboutPage.data.title}</h2>
         {aboutPage.data.lede && <p class="row-copy">{aboutPage.data.lede}</p>}
+        <a class="button" href={`${base}/about/`}>{home.about_button_label}</a>
       </div>
       <img
         class="about-logo"
         src={`${base}/images/Asset 3.svg`}
         alt=""
-        width="168"
-        height="168"
+        width="200"
+        height="200"
       />
-      <a class="button" href={`${base}/about/`}>{home.about_button_label}</a>
     </section>
 
     <section class="home-row">
