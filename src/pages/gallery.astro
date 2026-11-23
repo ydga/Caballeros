@@ -1,5 +1,6 @@
 ---
 import { getEntry } from 'astro:content';
+import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
 const page = await getEntry('pages', 'gallery');
@@ -25,7 +26,13 @@ const galleryItems = page.data.items ?? [];
       {galleryItems.map((item) => (
         <figure>
           {item.image ? (
-            <img class="gallery-image" src={item.image} alt={item.title} />
+            <button
+              type="button"
+              data-photo-trigger
+              aria-label={`Ampliar fotografía: ${item.title}`}
+            >
+              <img class="gallery-image" src={item.image} alt={item.title} />
+            </button>
           ) : (
             <div class="placeholder" role="img" aria-label={item.title}>
               <span>{item.label}</span>
@@ -36,6 +43,7 @@ const galleryItems = page.data.items ?? [];
       ))}
     </div>
   </main>
+  <PhotoLightbox />
 </SiteLayout>
 
 <style>

@@ -98,7 +98,8 @@ const activeSlug = active;
     padding: .75rem .75rem .75rem 1.25rem;
     background: #fff;
     border: 1px solid #dde2ec;
-    border-radius: 8px;
+    border-radius: 999px;
+    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
   }
 
   .brand {
@@ -119,7 +120,8 @@ const activeSlug = active;
     align-items: center;
     gap: .25rem;
     padding: .25rem;
-    border-radius: 8px;
+    background: #f6f7fb;
+    border-radius: 999px;
   }
 
   .site-header nav a {
@@ -127,7 +129,7 @@ const activeSlug = active;
     font-weight: 500;
     text-decoration: none;
     padding: .55rem .75rem;
-    border-radius: 8px;
+    border-radius: 999px;
   }
 
   .site-header nav a:hover {
@@ -136,8 +138,9 @@ const activeSlug = active;
   }
 
   .site-header nav a.active {
-    background: transparent;
+    background: #fff;
     color: var(--color-accent);
+    box-shadow: 0 4px 16px rgb(23 32 54 / 8%);
   }
 
   main {
