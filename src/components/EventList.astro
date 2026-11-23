@@ -13,34 +13,34 @@ const { events } = Astro.props;
   {events.map(({ data }, index) => (
     <div class="event-entry">
       <article class="event-card">
-        <div class="event-heading">
+        <div class="event-date-column">
           <time class="event-date" datetime={data.date.toISOString().slice(0, 10)}>
             <span class="event-day">{data.date.toLocaleDateString('es-ES', { day: 'numeric', timeZone: 'UTC' })}</span>
-          </time>
-          <h3>{data.title}</h3>
-        </div>
-        <div class="event-details">
-          <div class="event-meta-group">
             <span class="event-month-year">
               <span class="event-month">
                 {data.date.toLocaleDateString('es-ES', { month: 'long', timeZone: 'UTC' }).slice(0, 3).toLocaleUpperCase('es-ES')}
               </span>
               <span class="event-year">{data.date.toLocaleDateString('es-ES', { year: 'numeric', timeZone: 'UTC' })}</span>
             </span>
-            {data.time && (
-              <p class="event-meta">
-                <Clock3 aria-hidden="true" size={16} />
-                <span>{data.time}</span>
-              </p>
-            )}
-            {data.location && (
-              <p class="event-meta">
-                <MapPin aria-hidden="true" size={16} />
-                <span>{data.location}</span>
-              </p>
-            )}
-          </div>
+          </time>
+        </div>
+        <div class="event-content">
+          <h3>{data.title}</h3>
           {data.summary && <p class="event-summary">{data.summary}</p>}
+        </div>
+        <div class="event-meta-group">
+          {data.time && (
+            <p class="event-meta">
+              <Clock3 aria-hidden="true" size={16} />
+              <span>{data.time}</span>
+            </p>
+          )}
+          {data.location && (
+            <p class="event-meta">
+              <MapPin aria-hidden="true" size={16} />
+              <span>{data.location}</span>
+            </p>
+          )}
         </div>
         <button
           class="event-card-trigger"
@@ -135,7 +135,7 @@ const { events } = Astro.props;
 <style>
   .event-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    grid-template-columns: 1fr;
     gap: 1.25rem;
   }
 
@@ -146,8 +146,9 @@ const { events } = Astro.props;
   .event-card {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: .5rem;
+    grid-template-columns: max-content minmax(0, 1fr) minmax(0, 15rem);
+    align-items: center;
+    gap: 1.25rem;
     box-sizing: border-box;
     width: 100%;
     padding: 1.25rem;
@@ -173,15 +174,15 @@ const { events } = Astro.props;
     outline-offset: 3px;
   }
 
-  .event-heading {
-    display: grid;
-    grid-template-columns: max-content minmax(0, 1fr);
-    align-items: center;
-    gap: .75rem;
+  .event-date-column {
+    padding-right: 1.25rem;
+    border-right: 1px solid rgb(23 32 54 / 18%);
   }
 
   .event-date {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: var(--color-accent);
     line-height: 1.15;
   }
@@ -203,11 +204,11 @@ const { events } = Astro.props;
     font-weight: 500;
   }
 
-  .event-details {
+  .event-content {
     min-width: 0;
   }
 
-  .event-details h3 {
+  .event-content h3 {
     margin: 0;
     font-size: 2rem;
     line-height: 1.25;
@@ -215,10 +216,12 @@ const { events } = Astro.props;
 
   .event-meta-group {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: .5rem 1rem;
-    margin-bottom: .35rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-self: end;
+    gap: .5rem;
+    min-width: 0;
+    width: min(15rem, 100%);
   }
 
   .event-month-year {
@@ -243,10 +246,14 @@ const { events } = Astro.props;
     align-items: center;
     gap: .35rem;
     margin: 0;
-    white-space: nowrap;
     color: var(--color-heading);
     font-size: .95rem;
     font-weight: 500;
+  }
+
+  .event-meta span {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .event-meta svg {
@@ -260,6 +267,30 @@ const { events } = Astro.props;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-clamp: 2;
+  }
+
+  @media (max-width: 640px) {
+    .event-card {
+      grid-template-columns: max-content minmax(0, 1fr);
+      align-items: start;
+      gap: .75rem 1rem;
+    }
+
+    .event-date-column {
+      grid-row: 1 / span 2;
+      padding-right: 1rem;
+    }
+
+    .event-content {
+      grid-column: 2;
+    }
+
+    .event-meta-group {
+      grid-column: 2;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-self: start;
+    }
   }
 
   .event-dialog {
