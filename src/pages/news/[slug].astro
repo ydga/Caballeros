@@ -62,7 +62,7 @@ const galleryItems = post.data.gallery ?? [];
   .content :global(img) { display: none; }
   .news-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
     margin-top: 2rem;
   }
@@ -83,4 +83,10 @@ const galleryItems = post.data.gallery ?? [];
     border-radius: 12px;
   }
   figcaption { padding-top: .75rem; font-weight: 700; }
+
+  @media (max-width: 640px) {
+    .news-gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
 </style>

@@ -27,7 +27,7 @@ for (const slide of heroSlides) {
 const posts = (await getCollection('news'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
-const galleryItems = (galleryPage.data.items ?? []).slice(0, 3);
+const galleryItems = (galleryPage.data.items ?? []).slice(0, 4);
 const getFullMonth = (date: Date) =>
   date.toLocaleDateString('es', { month: 'long' });
 const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
@@ -589,6 +589,10 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
     gap: 1.25rem;
   }
 
+  .gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .card {
     border-radius: 16px;
     overflow: hidden;
@@ -677,6 +681,10 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
   }
 
   @media (max-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .about-row,
     .section-heading {
       align-items: flex-start;

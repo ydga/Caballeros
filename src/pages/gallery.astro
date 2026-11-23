@@ -51,7 +51,7 @@ const galleryItems = page.data.items ?? [];
 <style>
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1.25rem;
   }
 
@@ -85,5 +85,11 @@ const galleryItems = page.data.items ?? [];
   figcaption {
     padding-top: .75rem;
     font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 </style>

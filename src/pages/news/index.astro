@@ -88,9 +88,10 @@ const getFullMonth = (date: Date) =>
   .date { display: flex; flex-direction: column; align-items: flex-start; width: fit-content; margin: 0 0 .75rem; color: var(--color-text); line-height: 1; }
   .date-day { color: var(--color-accent); font-family: Parkinsans, sans-serif; font-size: clamp(2.25rem, 5vw, 3.25rem); font-weight: 500; }
   .date-month { margin-top: .25rem; color: var(--color-accent); font-size: .8rem; font-weight: 500; }
-  .news-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: .5rem; padding: 0 1.25rem 1.25rem; }
+  .news-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; padding: 0 1.25rem 1.25rem; }
   .news-gallery figure { min-width: 0; margin: 0; }
   .news-gallery button { border-radius: 8px; }
   .news-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; }
   .news-gallery figcaption { padding-top: .4rem; font-size: .8rem; }
+  @media (max-width: 640px) { .news-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>

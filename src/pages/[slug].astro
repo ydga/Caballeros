@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry, render } from 'astro:content';
 import DownloadFiles from '../components/DownloadFiles.astro';
+import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
 export async function getStaticPaths() {
@@ -25,6 +26,7 @@ if (!page && !activePage) {
 
 const currentPage = page ?? activePage!;
 const { Content } = await render(currentPage);
+const galleryItems = currentPage.data.items ?? [];
 ---
 
 <SiteLayout
@@ -40,9 +42,32 @@ const { Content } = await render(currentPage);
     </header>
     <article class="page-card">
       <div class="content"><Content /></div>
+      {galleryItems.length > 0 && (
+        <div class="gallery-grid">
+          {galleryItems.map((item) => (
+            <figure>
+              {item.image ? (
+                <button
+                  type="button"
+                  data-photo-trigger
+                  aria-label={`Ampliar fotografía: ${item.title}`}
+                >
+                  <img class="gallery-image" src={item.image} alt={item.title} />
+                </button>
+              ) : (
+                <div class="placeholder" role="img" aria-label={item.title}>
+                  <span>{item.label}</span>
+                </div>
+              )}
+              <figcaption>{item.title}</figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
       <DownloadFiles files={currentPage.data.downloads} />
     </article>
   </main>
+  <PhotoLightbox />
 </SiteLayout>
 
 <style>
@@ -52,5 +77,53 @@ const { Content } = await render(currentPage);
     border-radius: 16px;
     box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
     line-height: 1.75;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  .gallery-image,
+  .placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+  }
+
+  .gallery-image {
+    object-fit: cover;
+  }
+
+  .placeholder {
+    display: grid;
+    place-items: end start;
+    box-sizing: border-box;
+    padding: 1rem;
+    background:
+      linear-gradient(135deg, rgb(190 30 45 / 20%), rgb(23 32 54 / 70%)),
+      #f1e7e8;
+  }
+
+  .placeholder span {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  figcaption {
+    padding-top: .75rem;
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 </style>
