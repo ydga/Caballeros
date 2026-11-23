@@ -188,7 +188,7 @@ const getFullMonth = (date: Date) =>
         <strong>CEIP Caballeros de Santiago</strong>
         <address>Pl. de Valdelasgranas, 3 · Centro · 14002 Córdoba</address>
         <p>
-          Tel.: <a href="tel:+34957379954">957 379 954</a>
+          Tel.: <a href="tel:+34957379954">957 379 954</a>,
           Móvil: <a href="tel:+34671565544">671 565 544</a>
         </p>
         <p>
@@ -651,22 +651,28 @@ const getFullMonth = (date: Date) =>
 
   .footer-brand {
     display: block;
-    width: 200px;
+    width: auto;
     max-width: 100%;
-    height: auto;
+    height: 36px;
   }
 
   .footer-school-details {
     font-size: 12px;
+    font-weight: 300;
     text-align: left;
+  }
+
+  .footer-school-details strong,
+  .site-footer .footer-school-details a {
+    font-weight: 300;
   }
 
   .footer-jda {
     justify-self: end;
     display: block;
-    width: 135px;
+    width: auto;
     max-width: 100%;
-    height: auto;
+    height: 36px;
   }
 
   .footer-school-details p {
