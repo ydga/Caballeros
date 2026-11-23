@@ -1,5 +1,5 @@
 ---
-title: Acerca de nuestra escuela
+title: Acerca
 order: 2
 hide_from_navigation: false
 eyebrow: De nuestra escuela
