@@ -7,6 +7,7 @@ const news = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     summary: z.string().optional(),
+    main_image: z.string().optional(),
     gallery: z.array(z.object({
       title: z.string().optional(),
       image: z.string().min(1),
@@ -42,6 +43,7 @@ const pages = defineCollection({
     order: z.coerce.number().optional().default(100),
     hide_from_navigation: z.boolean().optional().default(false),
     lede: z.string().optional(),
+    main_image: z.string().optional(),
     items: z.array(z.object({
       title: z.string(),
       label: z.string().optional(),

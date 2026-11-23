@@ -16,5 +16,3 @@ items:
     label: Comunidad
     image: /Caballeros/images/whatsapp-image-2026-04-08-at-09.19.03-2.webp
 ---
-
-?

@@ -1,6 +1,8 @@
 ---
-import { getEntry } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import DownloadFiles from '../components/DownloadFiles.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import MainImage from '../components/MainImage.astro';
 import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
@@ -8,6 +10,7 @@ const page = await getEntry('pages', 'gallery');
 if (!page) {
   throw new Error('Missing gallery page content');
 }
+const { Content } = await render(page);
 const galleryItems = page.data.items ?? [];
 ---
 
@@ -23,73 +26,23 @@ const galleryItems = page.data.items ?? [];
       {page.data.lede && <p class="lede">{page.data.lede}</p>}
     </header>
 
-    <div class="gallery-grid">
-      {galleryItems.map((item) => (
-        <figure>
-          {item.image ? (
-            <button
-              type="button"
-              data-photo-trigger
-              aria-label={`Ampliar fotografía: ${item.title}`}
-            >
-              <img class="gallery-image" src={item.image} alt={item.title} />
-            </button>
-          ) : (
-            <div class="placeholder" role="img" aria-label={item.title}>
-              <span>{item.label}</span>
-            </div>
-          )}
-          <figcaption>{item.title}</figcaption>
-        </figure>
-      ))}
+    <div class="gallery-content">
+      <MainImage src={page.data.main_image} alt={page.data.title} />
+      <div class="content"><Content /></div>
     </div>
+    <GalleryGrid items={galleryItems} />
     <DownloadFiles files={page.data.downloads} />
   </main>
   <PhotoLightbox />
 </SiteLayout>
 
 <style>
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.25rem;
-  }
-
-  figure {
-    margin: 0;
-  }
-
-  .placeholder {
-    display: grid;
-    place-items: end start;
-    aspect-ratio: 4 / 3;
-    padding: 1rem;
+  .gallery-content {
+    margin-bottom: 2rem;
+    padding: clamp(1.5rem, 5vw, 3rem);
     border-radius: 16px;
-    background:
-      linear-gradient(135deg, rgb(190 30 45 / 20%), rgb(23 32 54 / 70%)),
-      #f1e7e8;
-  }
-
-  .placeholder span {
-    color: #fff;
-    font-weight: 800;
-  }
-
-  .gallery-image {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 16px;
-  }
-
-  figcaption {
-    padding-top: .75rem;
-    font-weight: 700;
-  }
-
-  @media (max-width: 640px) {
-    .gallery-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    background: #fff;
+    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
+    line-height: 1.75;
   }
 </style>

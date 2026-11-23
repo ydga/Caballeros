@@ -1,6 +1,9 @@
 ---
 import { getEntry, render } from 'astro:content';
 import DownloadFiles from '../components/DownloadFiles.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import MainImage from '../components/MainImage.astro';
+import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
 const page = await getEntry('pages', 'welcome');
@@ -8,6 +11,7 @@ if (!page) {
   throw new Error('Missing welcome page content');
 }
 const { Content } = await render(page);
+const galleryItems = page.data.items ?? [];
 ---
 
 <SiteLayout
@@ -22,10 +26,13 @@ const { Content } = await render(page);
     </header>
     <article class="welcome-card">
       {page.data.lede && <p class="lede">{page.data.lede}</p>}
+      <MainImage src={page.data.main_image} alt={page.data.title} />
       <div class="content"><Content /></div>
+      <GalleryGrid items={galleryItems} />
       <DownloadFiles files={page.data.downloads} />
     </article>
   </main>
+  <PhotoLightbox />
 </SiteLayout>
 
 <style>

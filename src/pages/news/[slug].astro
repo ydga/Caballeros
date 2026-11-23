@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import DownloadFiles from '../../components/DownloadFiles.astro';
+import GalleryGrid from '../../components/GalleryGrid.astro';
+import MainImage from '../../components/MainImage.astro';
 import PhotoLightbox from '../../components/PhotoLightbox.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 
@@ -29,23 +31,9 @@ const galleryItems = post.data.gallery ?? [];
         })}
       </p>
       <h1>{post.data.title}</h1>
+      <MainImage src={post.data.main_image} alt={post.data.title} />
       <div class="content"><Content /></div>
-      {galleryItems.length > 0 && (
-        <section class="news-gallery" aria-label="Galeria de imagenes">
-          {galleryItems.map((item) => (
-            <figure>
-              <button
-                type="button"
-                data-photo-trigger
-                aria-label={`Ampliar fotografía: ${item.title || post.data.title}`}
-              >
-                <img src={item.image} alt={item.title || post.data.title} />
-              </button>
-              {item.title && <figcaption>{item.title}</figcaption>}
-            </figure>
-          ))}
-        </section>
-      )}
+      <GalleryGrid items={galleryItems} />
       <DownloadFiles files={post.data.downloads} />
     </article>
   </main>
@@ -60,33 +48,4 @@ const galleryItems = post.data.gallery ?? [];
   .date { color: var(--color-text); }
   .content { line-height: 1.75; font-size: 1.08rem; }
   .content :global(img) { display: none; }
-  .news-gallery {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-  figure { margin: 0; }
-  button {
-    display: block;
-    width: 100%;
-    padding: 0;
-    border: 0;
-    background: none;
-    cursor: zoom-in;
-  }
-  button img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 12px;
-  }
-  figcaption { padding-top: .75rem; font-weight: 700; }
-
-  @media (max-width: 640px) {
-    .news-gallery {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
 </style>
