@@ -626,9 +626,9 @@ const getFullMonth = (date: Date) =>
 
   .site-footer-content {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     box-sizing: border-box;
     max-width: 1200px;
     margin: 0 auto;
@@ -653,7 +653,8 @@ const getFullMonth = (date: Date) =>
   }
 
   .footer-school-details {
-    text-align: center;
+    font-size: 12px;
+    text-align: left;
   }
 
   .footer-jda {
@@ -683,12 +684,11 @@ const getFullMonth = (date: Date) =>
 
     .site-footer-content {
       grid-template-columns: 1fr;
-      justify-items: center;
-      text-align: center;
+      justify-items: start;
     }
 
     .footer-jda {
-      justify-self: center;
+      justify-self: start;
     }
 
     .about-logo {
