@@ -58,6 +58,13 @@ collections:
           - { label: Titulo, name: title, widget: string }
           - { label: Texto, name: label, widget: string, required: false }
           - { label: Imagen, name: image, widget: image, required: false }
+      - label: Archivos para descargar
+        name: downloads
+        widget: list
+        required: false
+        fields:
+          - { label: Nombre para mostrar, name: title, widget: string, required: false }
+          - { label: Archivo, name: file, widget: file }
       - { label: Contenido, name: body, widget: markdown }
   - name: news
     label: Noticias
@@ -75,6 +82,13 @@ collections:
         fields:
           - { label: Titulo, name: title, widget: string, required: false }
           - { label: Imagen, name: image, widget: image }
+      - label: Archivos para descargar
+        name: downloads
+        widget: list
+        required: false
+        fields:
+          - { label: Nombre para mostrar, name: title, widget: string, required: false }
+          - { label: Archivo, name: file, widget: file }
       - label: Articulo
         name: body
         widget: markdown

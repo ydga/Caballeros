@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import PhotoLightbox from '../../components/PhotoLightbox.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 
 const base = '/Caballeros';
@@ -32,6 +33,26 @@ const getFullMonth = (date: Date) =>
               <h2><a href={`${base}/news/${post.id}/`}>{post.data.title}</a></h2>
               {post.data.summary && <p>{post.data.summary}</p>}
             </div>
+            {post.data.gallery && post.data.gallery.length > 0 && (
+              <div class="news-gallery" aria-label={`Galeria: ${post.data.title}`}>
+                {post.data.gallery.map((item) => (
+                  <figure>
+                    <button
+                      type="button"
+                      data-photo-trigger
+                      aria-label={`Ampliar fotografía: ${item.title || post.data.title}`}
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.title || post.data.title}
+                        loading="lazy"
+                      />
+                    </button>
+                    {item.title && <figcaption>{item.title}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            )}
           </article>
         ))}
       </div>
@@ -39,10 +60,11 @@ const getFullMonth = (date: Date) =>
       <p>Todavía no hay noticias.</p>
     )}
   </main>
+  <PhotoLightbox />
 </SiteLayout>
 
 <style>
-  .intro { margin-bottom: 2.5rem; text-align: center; }
+  .intro { margin-bottom: 2.5rem; }
   .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
   .card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgb(23 32 54 / 8%); }
   .card-content { padding: 1.25rem; }
@@ -51,4 +73,9 @@ const getFullMonth = (date: Date) =>
   .date { display: flex; flex-direction: column; align-items: flex-start; width: fit-content; margin: 0 0 .75rem; color: var(--color-text); line-height: 1; }
   .date-day { color: var(--color-accent); font-family: Parkinsans, sans-serif; font-size: clamp(2.25rem, 5vw, 3.25rem); font-weight: 500; }
   .date-month { margin-top: .25rem; color: var(--color-accent); font-size: .8rem; font-weight: 500; }
+  .news-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: .5rem; padding: 0 1.25rem 1.25rem; }
+  .news-gallery figure { min-width: 0; margin: 0; }
+  .news-gallery button { border-radius: 8px; }
+  .news-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; }
+  .news-gallery figcaption { padding-top: .4rem; font-size: .8rem; }
 </style>

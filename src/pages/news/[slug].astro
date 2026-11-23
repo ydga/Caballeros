@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import DownloadFiles from '../../components/DownloadFiles.astro';
 import PhotoLightbox from '../../components/PhotoLightbox.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 
@@ -29,6 +30,7 @@ const galleryItems = post.data.gallery ?? [];
       </p>
       <h1>{post.data.title}</h1>
       <div class="content"><Content /></div>
+      <DownloadFiles files={post.data.downloads} />
       {galleryItems.length > 0 && (
         <section class="news-gallery" aria-label="Galeria de imagenes">
           {galleryItems.map((item) => (

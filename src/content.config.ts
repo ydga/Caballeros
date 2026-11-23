@@ -11,6 +11,10 @@ const news = defineCollection({
       title: z.string().optional(),
       image: z.string().min(1),
     })).optional(),
+    downloads: z.array(z.object({
+      title: z.string().optional(),
+      file: z.string().min(1),
+    })).optional(),
   }),
 });
 
@@ -27,6 +31,10 @@ const pages = defineCollection({
       title: z.string(),
       label: z.string().optional(),
       image: z.string().optional(),
+    })).optional(),
+    downloads: z.array(z.object({
+      title: z.string().optional(),
+      file: z.string().min(1),
     })).optional(),
   }),
 });

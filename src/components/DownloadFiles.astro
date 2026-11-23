@@ -1,0 +1,48 @@
+---
+interface Props {
+  files?: Array<{ title?: string; file: string }>;
+}
+
+const { files = [] } = Astro.props;
+const getFileName = (path: string) => path.split('/').pop() || 'Archivo';
+---
+
+{files.length > 0 && (
+  <section class="downloads" aria-labelledby="downloads-title">
+    <h2 id="downloads-title">Archivos para descargar</h2>
+    <ul>
+      {files.map((item) => (
+        <li>
+          <a href={item.file} download>
+            {item.title || getFileName(item.file)}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .downloads {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  h2 {
+    margin: 0 0 .75rem;
+    font-size: 1.25rem;
+  }
+
+  ul {
+    display: grid;
+    gap: .5rem;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  a {
+    color: var(--color-accent);
+  }
+</style>

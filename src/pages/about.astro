@@ -1,5 +1,6 @@
 ---
 import { getEntry, render } from 'astro:content';
+import DownloadFiles from '../components/DownloadFiles.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
 const page = await getEntry('pages', 'about');
@@ -21,6 +22,7 @@ const { Content } = await render(page);
       {page.data.lede && <p class="lede">{page.data.lede}</p>}
     </header>
     <div class="about-content"><Content /></div>
+    <DownloadFiles files={page.data.downloads} />
   </main>
 </SiteLayout>
 

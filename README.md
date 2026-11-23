@@ -23,4 +23,5 @@ including their cover photos, titles, subtitles, and CTA links. You can also edi
 the other home page button labels there. The slideshow advances automatically
 and includes pause, arrow, and dot controls. The welcome message, school
 introduction, and gallery content are edited under **Paginas**; the news section
-is populated from **Noticias**.
+is populated from **Noticias**. Both collections support one or more uploaded
+files that appear as download links on the corresponding page or article.

@@ -1,5 +1,6 @@
 ---
 import { getEntry } from 'astro:content';
+import DownloadFiles from '../components/DownloadFiles.astro';
 import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
@@ -42,6 +43,7 @@ const galleryItems = page.data.items ?? [];
         </figure>
       ))}
     </div>
+    <DownloadFiles files={page.data.downloads} />
   </main>
   <PhotoLightbox />
 </SiteLayout>
