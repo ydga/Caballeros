@@ -185,13 +185,16 @@ const getFullMonth = (date: Date) =>
         height="59"
       />
       <div class="footer-school-details">
+        <strong>CEIP Caballeros de Santiago</strong>
+        <address>Pl. de Valdelasgranas, 3 · Centro · 14002 Córdoba</address>
         <p>
-          <strong>CEIP Caballeros de Santiago</strong>
-          <address>
-            Pl. de Valdelasgranas, 3 · Centro · 14002 Córdoba
-          </address>
-          <a href="tel:+34957379954">957 379 954</a><br/>
+          Tel.: <a href="tel:+34957379954">957 379 954</a>
           Móvil: <a href="tel:+34671565544">671 565 544</a>
+        </p>
+        <p>
+          <a href="mailto:14001487.edu@juntadeandalucia.es">
+            14001487.edu@juntadeandalucia.es
+          </a>
         </p>
       </div>
       <img
@@ -628,7 +631,8 @@ const getFullMonth = (date: Date) =>
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 1rem;
+    column-gap: 2rem;
+    row-gap: 1rem;
     box-sizing: border-box;
     max-width: 1200px;
     margin: 0 auto;
