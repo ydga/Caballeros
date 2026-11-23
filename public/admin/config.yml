@@ -96,7 +96,7 @@ collections:
         fields:
           - { label: Nombre para mostrar, name: title, widget: string, required: false }
           - { label: Archivo, name: file, widget: file }
-      - { label: Contenido, name: body, widget: markdown }
+      - { label: Contenido, name: body, widget: markdown, required: false }
   - name: news
     label: Noticias
     folder: src/content/news
