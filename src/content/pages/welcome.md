@@ -1,6 +1,6 @@
 ---
-title: Bienvenidos/as a nuestra página WEB!
-nav_label: ''
+title: Bienvenidos/as a nuestra nueva página WEB!
+nav_label: Bienvenida
 eyebrow: Direccion
 order: 1
 hide_from_navigation: false
