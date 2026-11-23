@@ -2,7 +2,6 @@
 import { getEntry, render } from 'astro:content';
 import DownloadFiles from '../components/DownloadFiles.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
-import MainImage from '../components/MainImage.astro';
 import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
@@ -27,7 +26,6 @@ const galleryItems = page.data.items ?? [];
     </header>
 
     <div class="gallery-content">
-      <MainImage src={page.data.main_image} alt={page.data.title} />
       <div class="content"><Content /></div>
     </div>
     <GalleryGrid items={galleryItems} />
