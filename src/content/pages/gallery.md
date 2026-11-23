@@ -1,8 +1,9 @@
 ---
-title: Fotos
+title: Galería
 order: 3
-eyebrow: Galería fotográfica
-lede: Una mirada a la vida cotidiana y al aprendizaje en Caballeros School.
+hide_from_navigation: false
+eyebrow: Fotografias
+lede: Una mirada a la vida cotidiana y al aprendizaje en nuestra escuela.
 items:
   - title: Comunidad escolar
     label: Vida en el plantel
