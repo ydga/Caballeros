@@ -168,16 +168,19 @@ const getFullMonth = (date: Date) =>
 
   <footer class="site-footer">
     <div class="site-footer-content">
-      <a class="footer-brand" href={`${base}/`}>Caballeros School</a>
+      <img
+        class="footer-brand"
+        src={`${base}/images/cds_white.svg`}
+        alt="CEIP Caballeros de Santiago"
+        width="129"
+        height="38"
+      />
       <div class="footer-school-details">
-        <address>Dirección: Pl. de Valdelasgranas, 3, Centro, 14002 Córdoba</address>
+        <address>Pl. de Valdelasgranas, 3, Centro, 14002 Córdoba</address>
+        <p>Teléfono: 957379954</p>
+        <p>Móvil: 671565544</p>
         <p>CEIP Caballeros de Santiago</p>
       </div>
-      <nav aria-label="Enlaces del pie de página">
-        <a href={`${base}/about/`}>Acerca</a>
-        <a href={`${base}/news/`}>Noticias</a>
-        <a href={`${base}/gallery/`}>Fotos</a>
-      </nav>
     </div>
   </footer>
 </SiteLayout>
@@ -619,6 +622,13 @@ const getFullMonth = (date: Date) =>
 
   .site-footer address {
     font-style: normal;
+  }
+
+  .footer-brand {
+    display: block;
+    width: 160px;
+    max-width: 100%;
+    height: auto;
   }
 
   .footer-school-details p {
