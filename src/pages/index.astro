@@ -33,8 +33,6 @@ const posts = (await getCollection('news'))
   .slice(0, 3);
 const upcomingEvents = getUpcomingEvents(allEvents);
 const galleryItems = (galleryPage.data.items ?? []).slice(0, 4);
-const getShortMonth = (date: Date) =>
-  date.toLocaleDateString('es', { month: 'long' }).slice(0, 3).toLocaleUpperCase('es');
 const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
   slide.cta_type === 'page'
     ? `${base}/${slide.cta_page}/`
@@ -163,10 +161,14 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
                 </a>
               )}
               <div class="card-content">
-                <p class="date">
-                  <span class="date-day">{post.data.date.getDate()}</span>
-                  <span class="date-month">{getShortMonth(post.data.date)}</span>
-                </p>
+                <time class="date" datetime={post.data.date.toISOString().slice(0, 10)}>
+                  {post.data.date.toLocaleDateString('es-ES', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    timeZone: 'UTC',
+                  })}
+                </time>
                 <h3><a href={`${base}/news/${post.id}/`}>{post.data.title}</a></h3>
                 {post.data.summary && <p>{post.data.summary}</p>}
               </div>
@@ -647,27 +649,12 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
   }
 
   .date {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: block;
     width: fit-content;
     margin: 0 0 .75rem;
     color: var(--color-text);
-    line-height: 1;
-  }
-
-  .date-day {
-    color: var(--color-accent);
-    font-family: Parkinsans, sans-serif;
-    font-size: clamp(2.25rem, 5vw, 3.25rem);
-    font-weight: 500;
-  }
-
-  .date-month {
-    margin-top: .25rem;
-    color: var(--color-accent);
-    font-size: .8rem;
-    font-weight: 500;
+    font-size: .85rem;
+    line-height: 1.4;
   }
 
   figure {

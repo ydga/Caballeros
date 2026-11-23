@@ -16,11 +16,16 @@ const { events } = Astro.props;
         <div class="event-sidebar">
           <time class="event-date" datetime={data.date.toISOString().slice(0, 10)}>
             <span class="event-day">{data.date.toLocaleDateString('es-ES', { day: 'numeric', timeZone: 'UTC' })}</span>
-            <span class="event-month">
-              {data.date.toLocaleDateString('es-ES', { month: 'long', timeZone: 'UTC' }).slice(0, 3).toLocaleUpperCase('es-ES')}
+            <span class="event-month-year">
+              <span class="event-month">
+                {data.date.toLocaleDateString('es-ES', { month: 'long', timeZone: 'UTC' }).slice(0, 3).toLocaleUpperCase('es-ES')}
+              </span>
+              <span class="event-year">{data.date.toLocaleDateString('es-ES', { year: 'numeric', timeZone: 'UTC' })}</span>
             </span>
-            <span class="event-year">{data.date.toLocaleDateString('es-ES', { year: 'numeric', timeZone: 'UTC' })}</span>
           </time>
+        </div>
+        <div class="event-details">
+          <h3>{data.title}</h3>
           {(data.time || data.location) && (
             <div class="event-meta-group">
               {data.time && (
@@ -37,9 +42,6 @@ const { events } = Astro.props;
               )}
             </div>
           )}
-        </div>
-        <div class="event-details">
-          <h3>{data.title}</h3>
           {data.summary && <p class="event-summary">{data.summary}</p>}
         </div>
         <button
@@ -199,14 +201,21 @@ const { events } = Astro.props;
   }
 
   .event-month {
+    color: var(--color-accent);
     font-size: .85rem;
     font-weight: 500;
   }
 
+  .event-month-year {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .35rem;
+  }
+
   .event-year {
-    margin-top: .2rem;
-    color: var(--color-text);
-    font-size: .75rem;
+    color: var(--color-accent);
+    font-size: .85rem;
+    font-weight: 500;
   }
 
   .event-details {
@@ -221,8 +230,10 @@ const { events } = Astro.props;
 
   .event-meta-group {
     display: flex;
-    flex-direction: column;
-    gap: .35rem;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: .5rem 1rem;
+    margin-bottom: .35rem;
   }
 
   .event-meta,
@@ -234,6 +245,8 @@ const { events } = Astro.props;
     display: flex;
     align-items: flex-start;
     gap: .35rem;
+    margin: 0;
+    white-space: nowrap;
     color: var(--color-heading);
     font-size: .95rem;
     font-weight: 500;
