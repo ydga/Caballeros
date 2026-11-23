@@ -23,7 +23,7 @@ collections:
             widget: list
             min: 1
             fields:
-              - { label: Foto de fondo, name: image, widget: image }
+              - { label: Imagen o video MP4 de fondo, name: image, widget: file }
               - { label: Título, name: title, widget: string }
               - { label: Subtítulo, name: subtitle, widget: text }
               - { label: Texto del botón, name: cta_label, widget: string }

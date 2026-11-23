@@ -45,12 +45,25 @@ const getFullMonth = (date: Date) =>
     >
       {heroSlides.map((slide, index) => (
         <article class="hero-slide" data-slide hidden={index !== 0} aria-hidden={index !== 0}>
-          <img
-            class="hero-image"
-            src={slide.image}
-            alt=""
-            loading={index === 0 ? 'eager' : 'lazy'}
-          />
+          {/\.(mp4)(?:[?#]|$)/i.test(slide.image) ? (
+            <video
+              class="hero-image"
+              src={slide.image}
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-hidden="true"
+            />
+          ) : (
+            <img
+              class="hero-image"
+              src={slide.image}
+              alt=""
+              loading={index === 0 ? 'eager' : 'lazy'}
+            />
+          )}
           <div class="hero-content">
             <h2>{slide.title}</h2>
             <p class="hero-copy">{slide.subtitle}</p>
