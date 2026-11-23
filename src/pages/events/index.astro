@@ -2,26 +2,26 @@
 import { getCollection } from 'astro:content';
 import EventList from '../../components/EventList.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { getUpcomingEvents } from '../../utils/events';
 
-const events = getUpcomingEvents(await getCollection('events'));
+const events = (await getCollection('events'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <SiteLayout
   title="Eventos escolares | CEIP Caballeros de Santiago"
-  description="Próximos eventos del CEIP Caballeros de Santiago."
+  description="Eventos y actividades del CEIP Caballeros de Santiago."
   active="events"
 >
   <main>
     <header class="page-heading">
       <p class="eyebrow">Agenda escolar</p>
-      <h1>Próximos eventos</h1>
-      <p class="lede">Consulta las próximas actividades y fechas importantes del colegio.</p>
+      <h1>Eventos</h1>
+      <p class="lede">Consulta las actividades y fechas importantes del colegio.</p>
     </header>
     {events.length > 0 ? (
       <EventList events={events} />
     ) : (
-      <p class="empty-state">Todavía no hay próximos eventos publicados.</p>
+      <p class="empty-state">Todavía no hay eventos publicados.</p>
     )}
   </main>
 </SiteLayout>
