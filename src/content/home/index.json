@@ -6,15 +6,17 @@
       "subtitle": "",
       "cta_label": "Registro nuevo ingreso",
       "cta_type": "external",
+      "cta_page": "",
       "cta_external_url": "https://example.com/registro"
     },
     {
-      "image": "https://www.spain.info/export/sites/segtur/.content/imagenes/cabeceras-grandes/andalucia/vistas-cordoba-s158982617.jpg",
+      "image": "/Caballeros/images/Sunlit Orange Tree Courtyard.png",
       "title": "Ubicada en el centro histórico de Córdoba",
       "subtitle": "",
       "cta_label": "Mensaje de bienvenida",
       "cta_type": "page",
-      "cta_page": "welcome"
+      "cta_page": "welcome",
+      "cta_external_url": ""
     }
   ],
   "about_button_label": "Conozca nuestra escuela",
