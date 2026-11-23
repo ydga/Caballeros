@@ -2,6 +2,7 @@
 title: Bienvenida
 order: 1
 hide_from_navigation: false
+eyebrow: Direccion
 lede: |-
   Estimadas familias y queridísimos alumnos sean
   bienvenidos/as a nuestra página WEB!

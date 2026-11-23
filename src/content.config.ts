@@ -16,6 +16,7 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     nav_label: z.string().optional(),
+    eyebrow: z.string().optional(),
     order: z.coerce.number().optional().default(100),
     hide_from_navigation: z.boolean().optional().default(false),
     lede: z.string().optional(),
@@ -38,6 +39,7 @@ const homepage = defineCollection({
       cta_url: z.string().min(1),
     })).min(1),
     about_button_label: z.string(),
+    news_eyebrow: z.string(),
     news_title: z.string(),
     news_link_label: z.string(),
     gallery_link_label: z.string(),

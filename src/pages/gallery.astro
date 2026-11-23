@@ -16,6 +16,7 @@ const galleryItems = page.data.items ?? [];
 >
   <main>
     <header class="page-heading">
+      {page.data.eyebrow && <p class="eyebrow">{page.data.eyebrow}</p>}
       <h1>{page.data.title}</h1>
       {page.data.lede && <p class="lede">{page.data.lede}</p>}
     </header>
