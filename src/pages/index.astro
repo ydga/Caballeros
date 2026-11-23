@@ -90,8 +90,8 @@ const getFullMonth = (date: Date) =>
 
     <section class="home-row about-row">
       <div>
-        <p class="eyebrow">{aboutPage.data.eyebrow ?? 'Nuestra escuela'}</p>
         <h2>{aboutPage.data.title}</h2>
+        <p class="eyebrow">{aboutPage.data.eyebrow ?? 'Nuestra escuela'}</p>
         {aboutPage.data.lede && <p class="row-copy">{aboutPage.data.lede}</p>}
         <a class="button" href={`${base}/about/`}>{home.about_button_label}</a>
       </div>
@@ -107,8 +107,8 @@ const getFullMonth = (date: Date) =>
     <section class="home-row">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">{home.news_eyebrow}</p>
           <h2>{home.news_title}</h2>
+          <p class="eyebrow">{home.news_eyebrow}</p>
         </div>
         <a class="text-link" href={`${base}/news/`}>{home.news_link_label}</a>
       </div>
@@ -135,8 +135,8 @@ const getFullMonth = (date: Date) =>
     <section class="home-row">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Nuestra comunidad</p>
           <h2>{galleryPage.data.title}</h2>
+          <p class="eyebrow">Nuestra comunidad</p>
           {galleryPage.data.lede && <p class="row-copy">{galleryPage.data.lede}</p>}
         </div>
         <a class="text-link" href={`${base}/gallery/`}>{home.gallery_link_label}</a>
@@ -428,8 +428,8 @@ const getFullMonth = (date: Date) =>
 
   .about-logo {
     order: 3;
-    width: 168px;
-    height: 168px;
+    width: 240px;
+    height: 240px;
     flex-shrink: 0;
     border-radius: 50%;
   }
@@ -445,8 +445,12 @@ const getFullMonth = (date: Date) =>
   }
 
   .home-row h2 {
-    margin: .25rem 0 1rem;
+    margin: .25rem 0 0;
     font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+
+  .home-row .eyebrow {
+    margin: .75rem 0 0;
   }
 
   .row-copy {
