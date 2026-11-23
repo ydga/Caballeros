@@ -17,7 +17,7 @@ items:
     image: ''
   - title: Celebraciones escolares
     label: Comunidad
-    image: ''
+    image: /Caballeros/images/whatsapp-image-2026-04-08-at-09.19.03-2.webp
 ---
 
 ?
