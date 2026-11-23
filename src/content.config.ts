@@ -18,6 +18,17 @@ const news = defineCollection({
   }),
 });
 
+const events = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/events' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    time: z.string().optional(),
+    location: z.string().optional(),
+    summary: z.string().optional(),
+  }),
+});
+
 const pages = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
   schema: z.object({
@@ -86,4 +97,4 @@ const social = defineCollection({
   }),
 });
 
-export const collections = { news, pages, homepage, social };
+export const collections = { news, events, pages, homepage, social };

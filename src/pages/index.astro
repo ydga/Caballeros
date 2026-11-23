@@ -2,15 +2,18 @@
 import { getCollection, getEntry } from 'astro:content';
 import { ChevronLeft, ChevronRight, Pause, Play } from '@lucide/astro';
 import DownloadFiles from '../components/DownloadFiles.astro';
+import EventList from '../components/EventList.astro';
 import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { getUpcomingEvents } from '../utils/events';
 
 const base = '/Caballeros';
-const [homeContent, welcomePage, aboutPage, galleryPage] = await Promise.all([
+const [homeContent, welcomePage, aboutPage, galleryPage, allEvents] = await Promise.all([
   getEntry('homepage', 'index'),
   getEntry('pages', 'welcome'),
   getEntry('pages', 'about'),
   getEntry('pages', 'gallery'),
+  getCollection('events'),
 ]);
 
 if (!homeContent || !welcomePage || !aboutPage || !galleryPage) {
@@ -28,6 +31,7 @@ for (const slide of heroSlides) {
 const posts = (await getCollection('news'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
+const upcomingEvents = getUpcomingEvents(allEvents);
 const galleryItems = (galleryPage.data.items ?? []).slice(0, 4);
 const getFullMonth = (date: Date) =>
   date.toLocaleDateString('es', { month: 'long' });
@@ -171,6 +175,21 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
         </div>
       ) : (
         <p>Todavía no hay noticias.</p>
+      )}
+    </section>
+
+    <section class="home-row">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Agenda escolar</p>
+          <h2>Próximos eventos</h2>
+        </div>
+        <a class="text-link" href={`${base}/events/`}>Ver todos los eventos</a>
+      </div>
+      {upcomingEvents.length > 0 ? (
+        <EventList events={upcomingEvents.slice(0, 3)} />
+      ) : (
+        <p>Todavía no hay próximos eventos publicados.</p>
       )}
     </section>
 

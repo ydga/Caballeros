@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import EventList from '../../components/EventList.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { getUpcomingEvents } from '../../utils/events';
+
+const events = getUpcomingEvents(await getCollection('events'));
+---
+
+<SiteLayout
+  title="Eventos escolares | CEIP Caballeros de Santiago"
+  description="Próximos eventos del CEIP Caballeros de Santiago."
+  active="events"
+>
+  <main>
+    <header class="page-heading">
+      <p class="eyebrow">Agenda escolar</p>
+      <h1>Próximos eventos</h1>
+      <p class="lede">Consulta las próximas actividades y fechas importantes del colegio.</p>
+    </header>
+    {events.length > 0 ? (
+      <EventList events={events} />
+    ) : (
+      <p class="empty-state">Todavía no hay próximos eventos publicados.</p>
+    )}
+  </main>
+</SiteLayout>
+
+<style>
+  .empty-state {
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: #fff;
+    line-height: 1.6;
+  }
+</style>

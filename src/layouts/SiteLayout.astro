@@ -44,6 +44,7 @@ const regularNavigationItems = [
       label: page.data.nav_label || page.data.title,
       slug: page.id,
     })),
+  { label: 'Eventos', slug: 'events' },
   { label: 'Noticias', slug: 'news' },
 ];
 const contactNavigationItem = { label: 'Contacto', slug: 'contact' };
@@ -324,6 +325,7 @@ const activeSlug = active;
     color: var(--color-heading);
     font-family: Parkinsans, sans-serif;
     font-weight: 400;
+    letter-spacing: -.04em;
   }
 
   .lede {

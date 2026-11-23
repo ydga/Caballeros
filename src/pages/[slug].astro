@@ -5,7 +5,7 @@ import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
 export async function getStaticPaths() {
-  const reserved = new Set(['about', 'gallery', 'welcome', 'contact', 'news', 'index']);
+  const reserved = new Set(['about', 'events', 'gallery', 'welcome', 'contact', 'news', 'index']);
   const pages = await getCollection('pages');
 
   return pages

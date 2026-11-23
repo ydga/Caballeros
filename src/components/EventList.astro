@@ -1,0 +1,98 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  events: CollectionEntry<'events'>[];
+}
+
+const { events } = Astro.props;
+---
+
+<div class="event-list">
+  {events.map(({ data }) => (
+    <article class="event-card">
+      <time class="event-date" datetime={data.date.toISOString().slice(0, 10)}>
+        <span class="event-day">{data.date.toLocaleDateString('es-ES', { day: 'numeric', timeZone: 'UTC' })}</span>
+        <span class="event-month">{data.date.toLocaleDateString('es-ES', { month: 'long', timeZone: 'UTC' })}</span>
+        <span class="event-year">{data.date.toLocaleDateString('es-ES', { year: 'numeric', timeZone: 'UTC' })}</span>
+      </time>
+      <div class="event-details">
+        <h3>{data.title}</h3>
+        {data.time && <p class="event-meta">{data.time}</p>}
+        {data.location && <p class="event-meta">{data.location}</p>}
+        {data.summary && <p class="event-summary">{data.summary}</p>}
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .event-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 1.25rem;
+  }
+
+  .event-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
+  }
+
+  .event-date {
+    display: flex;
+    flex: 0 0 4.25rem;
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem .25rem;
+    border-right: 1px solid rgb(26 25 23 / 14%);
+    color: var(--color-accent);
+    line-height: 1.15;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  .event-day {
+    font-family: Parkinsans, sans-serif;
+    font-size: 2rem;
+  }
+
+  .event-month {
+    font-size: .85rem;
+    font-weight: 500;
+  }
+
+  .event-year {
+    margin-top: .2rem;
+    color: var(--color-text);
+    font-size: .75rem;
+  }
+
+  .event-details {
+    min-width: 0;
+  }
+
+  .event-details h3 {
+    margin: 0 0 .5rem;
+    line-height: 1.25;
+  }
+
+  .event-meta,
+  .event-summary {
+    margin: .35rem 0 0;
+  }
+
+  .event-meta {
+    color: var(--color-heading);
+    font-size: .95rem;
+    font-weight: 500;
+  }
+
+  .event-summary {
+    line-height: 1.5;
+  }
+</style>

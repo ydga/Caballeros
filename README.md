@@ -25,3 +25,8 @@ and includes pause, arrow, and dot controls. The welcome message, school
 introduction, and gallery content are edited under **Paginas**; the news section
 is populated from **Noticias**. Both collections support one or more uploaded
 files that appear as download links on the corresponding page or article.
+
+School events are managed under **Eventos escolares**. Add the event title and
+date, and optionally include its time, location, and a short summary. Upcoming
+events appear on the home page and at `/events/`; events dated before today are
+hidden from the agenda.
