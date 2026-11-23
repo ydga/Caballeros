@@ -25,6 +25,10 @@ const events = defineCollection({
     date: z.coerce.date(),
     time: z.string().optional(),
     location: z.string().optional(),
+    external_url: z.union([
+      z.string().url().refine((value) => /^https?:\/\//i.test(value)),
+      z.literal(''),
+    ]).optional(),
     summary: z.string().optional(),
   }),
 });

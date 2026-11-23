@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { Clock3, MapPin } from '@lucide/astro';
+import { Clock3, ExternalLink, MapPin, X } from '@lucide/astro';
 
 interface Props {
   events: CollectionEntry<'events'>[];
@@ -10,19 +10,75 @@ const { events } = Astro.props;
 ---
 
 <div class="event-list">
-  {events.map(({ data }) => (
-    <article class="event-card">
-      <time class="event-date" datetime={data.date.toISOString().slice(0, 10)}>
-        <span class="event-day">{data.date.toLocaleDateString('es-ES', { day: 'numeric', timeZone: 'UTC' })}</span>
-        <span class="event-month">
-          {data.date.toLocaleDateString('es-ES', { month: 'long', timeZone: 'UTC' }).slice(0, 3).toLocaleUpperCase('es-ES')}
-        </span>
-        <span class="event-year">{data.date.toLocaleDateString('es-ES', { year: 'numeric', timeZone: 'UTC' })}</span>
-      </time>
-      <div class="event-details">
-        <h3>{data.title}</h3>
+  {events.map(({ data }, index) => (
+    <div class="event-entry">
+      <article class="event-card">
+        <div class="event-sidebar">
+          <time class="event-date" datetime={data.date.toISOString().slice(0, 10)}>
+            <span class="event-day">{data.date.toLocaleDateString('es-ES', { day: 'numeric', timeZone: 'UTC' })}</span>
+            <span class="event-month">
+              {data.date.toLocaleDateString('es-ES', { month: 'long', timeZone: 'UTC' }).slice(0, 3).toLocaleUpperCase('es-ES')}
+            </span>
+            <span class="event-year">{data.date.toLocaleDateString('es-ES', { year: 'numeric', timeZone: 'UTC' })}</span>
+          </time>
+          {(data.time || data.location) && (
+            <div class="event-meta-group">
+              {data.time && (
+                <p class="event-meta">
+                  <Clock3 aria-hidden="true" size={16} />
+                  <span>{data.time}</span>
+                </p>
+              )}
+              {data.location && (
+                <p class="event-meta">
+                  <MapPin aria-hidden="true" size={16} />
+                  <span>{data.location}</span>
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+        <div class="event-details">
+          <h3>{data.title}</h3>
+          {data.summary && <p class="event-summary">{data.summary}</p>}
+        </div>
+        <button
+          class="event-card-trigger"
+          type="button"
+          data-event-trigger
+          aria-haspopup="dialog"
+          aria-controls={`event-dialog-${index}`}
+          aria-label={`Ver detalles de ${data.title}`}
+        />
+      </article>
+      <dialog
+        class="event-dialog"
+        id={`event-dialog-${index}`}
+        data-event-dialog
+        aria-labelledby={`event-dialog-title-${index}`}
+      >
+        <button
+          class="event-dialog-close"
+          type="button"
+          data-event-dialog-close
+          aria-label="Cerrar detalles del evento"
+        >
+          <X aria-hidden="true" size={20} />
+        </button>
+        <time
+          class="event-dialog-date"
+          datetime={data.date.toISOString().slice(0, 10)}
+        >
+          {data.date.toLocaleDateString('es-ES', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'UTC',
+          })}
+        </time>
+        <h2 id={`event-dialog-title-${index}`}>{data.title}</h2>
         {(data.time || data.location) && (
-          <div class="event-meta-group">
+          <div class="event-dialog-meta">
             {data.time && (
               <p class="event-meta">
                 <Clock3 aria-hidden="true" size={16} />
@@ -37,11 +93,44 @@ const { events } = Astro.props;
             )}
           </div>
         )}
-        {data.summary && <p class="event-summary">{data.summary}</p>}
-      </div>
-    </article>
+        {data.summary && <p class="event-dialog-summary">{data.summary}</p>}
+        {data.external_url && (
+          <a
+            class="event-dialog-link"
+            href={data.external_url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Enlace externo
+            <ExternalLink aria-hidden="true" size={16} />
+          </a>
+        )}
+      </dialog>
+    </div>
   ))}
 </div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.event-entry').forEach((entry) => {
+    const trigger = entry.querySelector<HTMLButtonElement>('[data-event-trigger]');
+    const dialog = entry.querySelector<HTMLDialogElement>('[data-event-dialog]');
+    const close = entry.querySelector<HTMLButtonElement>('[data-event-dialog-close]');
+
+    if (!trigger || !dialog || !close) {
+      throw new Error('Event card dialog controls are missing.');
+    }
+
+    trigger.addEventListener('click', () => {
+      dialog.showModal();
+      close.focus();
+    });
+    close.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => trigger.focus());
+  });
+</script>
 
 <style>
   .event-list {
@@ -50,26 +139,57 @@ const { events } = Astro.props;
     gap: 1.25rem;
   }
 
+  .event-entry {
+    min-width: 0;
+  }
+
   .event-card {
-    display: flex;
-    align-items: flex-start;
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     gap: 1rem;
+    box-sizing: border-box;
+    width: 100%;
     padding: 1.25rem;
     border-radius: 16px;
     background: #fff;
     box-shadow: 0 8px 30px rgb(23 32 54 / 8%);
   }
 
+  .event-card-trigger {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .event-card-trigger:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .event-sidebar {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .75rem;
+    padding-right: 1rem;
+    border-right: 1px solid rgb(26 25 23 / 14%);
+  }
+
   .event-date {
     display: flex;
-    flex: 0 0 4.25rem;
     flex-direction: column;
-    align-items: center;
-    padding: .5rem .25rem;
-    border-right: 1px solid rgb(26 25 23 / 14%);
+    align-items: flex-start;
+    padding: .5rem 0;
     color: var(--color-accent);
     line-height: 1.15;
-    text-align: center;
     text-transform: uppercase;
   }
 
@@ -101,9 +221,8 @@ const { events } = Astro.props;
 
   .event-meta-group {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: .35rem 1rem;
+    flex-direction: column;
+    gap: .35rem;
   }
 
   .event-meta,
@@ -113,14 +232,92 @@ const { events } = Astro.props;
 
   .event-meta {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: .35rem;
     color: var(--color-heading);
     font-size: .95rem;
     font-weight: 500;
   }
 
+  .event-meta svg {
+    flex: 0 0 auto;
+  }
+
   .event-summary {
     line-height: 1.5;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .event-dialog {
+    box-sizing: border-box;
+    width: min(42rem, calc(100vw - 2rem));
+    max-width: none;
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 2.5rem;
+    overflow-y: auto;
+    border: 0;
+    border-radius: 20px;
+    color: var(--color-text);
+    background: #fff;
+    box-shadow: 0 20px 70px rgb(23 32 54 / 24%);
+  }
+
+  .event-dialog::backdrop {
+    background: rgb(23 32 54 / 65%);
+  }
+
+  .event-dialog-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    color: var(--color-heading);
+    background: #f1f1f1;
+    cursor: pointer;
+  }
+
+  .event-dialog-date {
+    color: var(--color-accent);
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  .event-dialog h2 {
+    margin: .5rem 2rem 1rem 0;
+  }
+
+  .event-dialog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 1.25rem;
+  }
+
+  .event-dialog-summary {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+
+  .event-dialog-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    color: var(--color-heading);
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .event-dialog {
+      padding: 2.5rem 1.25rem 1.5rem;
+    }
   }
 </style>
