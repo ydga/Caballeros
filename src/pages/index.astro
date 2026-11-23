@@ -98,8 +98,8 @@ const getFullMonth = (date: Date) =>
         class="about-logo"
         src={`${base}/images/Asset 3.svg`}
         alt=""
-        width="140"
-        height="140"
+        width="168"
+        height="168"
       />
       <a class="button" href={`${base}/about/`}>{home.about_button_label}</a>
     </section>
@@ -427,10 +427,19 @@ const getFullMonth = (date: Date) =>
   }
 
   .about-logo {
-    width: 140px;
-    height: 140px;
+    order: 3;
+    width: 168px;
+    height: 168px;
     flex-shrink: 0;
     border-radius: 50%;
+  }
+
+  .about-row > .button {
+    order: 2;
+  }
+
+  .about-row > div {
+    order: 1;
   }
 
   .home-row h2 {
@@ -614,8 +623,8 @@ const getFullMonth = (date: Date) =>
     }
 
     .about-logo {
-      width: 112px;
-      height: 112px;
+      width: 134px;
+      height: 134px;
     }
   }
 </style>
