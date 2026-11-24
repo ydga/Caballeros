@@ -284,10 +284,22 @@ const navigationHref = (slug: string) =>
     <script>
       const menu = document.querySelector<HTMLElement>('[data-site-menu]');
       const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+      const navFade = document.querySelector<HTMLElement>('.nav-fade');
 
       if (!menu || !menuToggle) {
         throw new Error('Mobile navigation controls are missing.');
       }
+
+      if (!navFade) {
+        throw new Error('Navigation fade is missing.');
+      }
+
+      const updateNavFade = () => {
+        navFade.classList.toggle('is-visible', window.scrollY > 0);
+      };
+
+      window.addEventListener('scroll', updateNavFade, { passive: true });
+      updateNavFade();
 
       const mobileViewport = window.matchMedia('(max-width: 760px)');
       const setMenuOpen = (isOpen: boolean, restoreFocus = true) => {
@@ -363,12 +375,18 @@ const navigationHref = (slug: string) =>
     left: 0;
     height: 8rem;
     pointer-events: none;
+    opacity: 0;
     background: linear-gradient(
       to bottom,
       rgb(248 246 241 / 100%) 0,
       rgb(248 246 241 / 96%) 52%,
       rgb(248 246 241 / 0%) 100%
     );
+    transition: opacity 180ms ease;
+  }
+
+  .nav-fade.is-visible {
+    opacity: 1;
   }
 
   .site-header {
@@ -861,7 +879,7 @@ const navigationHref = (slug: string) =>
     }
 
     .site-menu-panel .mobile-nav-pages a {
-      font-size: 2em;
+      font-size: 20px;
     }
 
     .site-menu-panel nav a {
