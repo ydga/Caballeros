@@ -236,8 +236,9 @@ const { events, filterable = false } = Astro.props;
 
   .event-month-year {
     display: inline-flex;
-    align-items: baseline;
-    gap: .35rem;
+    flex-direction: column;
+    align-items: center;
+    gap: .1rem;
     color: var(--color-accent);
     font-size: .85rem;
     font-weight: 500;
@@ -277,30 +278,6 @@ const { events, filterable = false } = Astro.props;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-clamp: 2;
-  }
-
-  @media (max-width: 640px) {
-    .event-card {
-      grid-template-columns: max-content minmax(0, 1fr);
-      align-items: start;
-      gap: .75rem 1rem;
-    }
-
-    .event-date-column {
-      grid-row: 1 / span 2;
-      padding-right: 1rem;
-    }
-
-    .event-content {
-      grid-column: 2;
-    }
-
-    .event-meta-group {
-      grid-column: 2;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-self: start;
-    }
   }
 
   .event-dialog {
