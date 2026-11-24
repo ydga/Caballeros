@@ -154,7 +154,7 @@ const { events, filterable = false } = Astro.props;
   .event-card {
     position: relative;
     display: grid;
-    grid-template-columns: max-content minmax(0, 1fr) minmax(0, 15rem);
+    grid-template-columns: max-content minmax(0, 1fr) max-content;
     align-items: center;
     gap: 1.25rem;
     box-sizing: border-box;
@@ -229,7 +229,7 @@ const { events, filterable = false } = Astro.props;
     justify-self: end;
     gap: .5rem;
     min-width: 0;
-    width: min(15rem, 100%);
+    width: max-content;
   }
 
   .event-month-year {
