@@ -36,17 +36,15 @@ const { events, filterable = false } = Astro.props;
           <h3>{data.title}</h3>
           {data.summary && <p class="event-summary">{data.summary}</p>}
         </div>
-        <div class="event-meta-group">
+        <div class="event-meta-group" aria-hidden="true">
           {data.time && (
             <p class="event-meta">
               <Clock3 aria-hidden="true" size={16} />
-              <span>{data.time}</span>
             </p>
           )}
           {data.location && (
             <p class="event-meta">
               <MapPin aria-hidden="true" size={16} />
-              <span>{data.location}</span>
             </p>
           )}
         </div>
