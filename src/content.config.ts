@@ -66,13 +66,11 @@ const pages = defineCollection({
   }),
 });
 
-const homepageLink = z.string().refine((value) =>
-  /^\/Caballeros\/.+/.test(value) || /^https?:\/\//i.test(value),
-);
-
 const homepage = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/home' }),
   schema: z.object({
+    intro_title: z.string(),
+    intro_tagline: z.string(),
     hero_slides: z.array(z.discriminatedUnion('cta_type', [
       z.object({
         image: z.string().min(1),
@@ -93,20 +91,22 @@ const homepage = defineCollection({
     ])).min(1),
     about_eyebrow: z.string(),
     about_title: z.string(),
+    about_copy: z.string(),
     about_button_label: z.string(),
-    about_link_url: homepageLink,
     news_eyebrow: z.string(),
     news_title: z.string(),
     news_link_label: z.string(),
-    news_link_url: homepageLink,
+    news_empty_message: z.string(),
     events_eyebrow: z.string(),
     events_title: z.string(),
     events_link_label: z.string(),
-    events_link_url: homepageLink,
+    events_empty_message: z.string(),
     gallery_eyebrow: z.string(),
     gallery_title: z.string(),
+    gallery_copy: z.string(),
     gallery_link_label: z.string(),
-    gallery_link_url: homepageLink,
+    gallery_empty_message: z.string(),
+    downloads_title: z.string(),
     downloads: z.array(z.object({
       title: z.string().optional(),
       file: z.string().min(1),

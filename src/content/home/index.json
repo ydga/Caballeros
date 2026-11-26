@@ -1,4 +1,6 @@
 {
+  "intro_title": "Pequeñas mentes, grandes sueños, infinitas posibilidades.",
+  "intro_tagline": "¡Enseñanza que deja huella!",
   "hero_slides": [
     {
       "image": "/Caballeros/images/8499773-hd_1920_1080_30fps.mp4",
@@ -39,19 +41,21 @@
   ],
   "about_eyebrow": "Acerca de",
   "about_title": "Nuestro colegio",
+  "about_copy": "Conozca nuestra misión, nuestros valores y nuestro compromiso de ayudar a cada estudiante a aprender, crecer y alcanzar sus metas.",
   "about_button_label": "Leer mas",
-  "about_link_url": "/Caballeros/about/",
   "news_eyebrow": "Mantengase al dia",
   "news_title": "Noticias escolares",
   "news_link_label": "Mas noticias →",
-  "news_link_url": "/Caballeros/news/",
+  "news_empty_message": "Todavía no hay noticias.",
   "events_eyebrow": "Agenda escolar",
   "events_title": "Próximos eventos",
   "events_link_label": "Mas eventos →",
-  "events_link_url": "/Caballeros/events/",
+  "events_empty_message": "Todavía no hay próximos eventos publicados.",
   "gallery_eyebrow": "Nuestra comunidad",
   "gallery_title": "Fotografías",
+  "gallery_copy": "Una mirada a la vida cotidiana y al aprendizaje en nuestro colegio.",
   "gallery_link_label": "Mas fotos →",
-  "gallery_link_url": "/Caballeros/gallery/",
+  "gallery_empty_message": "Próximamente compartiremos momentos de nuestra comunidad escolar.",
+  "downloads_title": "Archivos para descargar",
   "downloads": []
 }
