@@ -272,13 +272,20 @@ const navigationHref = (slug: string) =>
             </nav>
           )}
         </div>
-        <img
-          class="footer-jda"
-          src={`${base}/images/JdA.svg`}
-          alt="Junta de Andalucía"
-          width="135"
-          height="36"
-        />
+        <a
+          href="https://www.juntadeandalucia.es/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Junta de Andalucía (abre en una pestaña nueva)"
+        >
+          <img
+            class="footer-jda"
+            src={`${base}/images/JdA.svg`}
+            alt="Junta de Andalucía"
+            width="135"
+            height="36"
+          />
+        </a>
       </div>
     </footer>
     <script>
