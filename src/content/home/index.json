@@ -2,11 +2,11 @@
   "hero_slides": [
     {
       "image": "/Caballeros/images/8499773-hd_1920_1080_30fps.mp4",
-      "title": "Inscripciones abiertas pare el ciclo escolar 2027-2028",
-      "subtitle": "",
-      "cta_label": "Registro nuevo ingreso",
-      "cta_type": "external",
-      "cta_page": "",
+      "title": "Nuestro Proyecto: Comunidad de Aprendizaje",
+      "subtitle": "Educar es una tarea compartida. Construimos un modelo abierto e inclusivo basado en el diálogo entre docentes, familias y barrio.",
+      "cta_label": "Conócenos",
+      "cta_type": "page",
+      "cta_page": "about",
       "cta_external_url": "https://example.com/registro"
     },
     {
