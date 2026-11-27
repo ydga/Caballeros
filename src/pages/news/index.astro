@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import PhotoLightbox from '../../components/PhotoLightbox.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 
-const base = '/Caballeros';
+const base = '/caballeros';
 const posts = (await getCollection('news')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );

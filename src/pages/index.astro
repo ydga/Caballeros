@@ -7,7 +7,7 @@ import PhotoLightbox from '../components/PhotoLightbox.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { getUpcomingEvents } from '../utils/events';
 
-const base = '/Caballeros';
+const base = '/caballeros';
 const [homeContent, welcomePage, galleryPage, allEvents] = await Promise.all([
   getEntry('homepage', 'index'),
   getEntry('pages', 'welcome'),

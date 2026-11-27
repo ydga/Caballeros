@@ -15,7 +15,7 @@ const {
   active,
 } = Astro.props;
 
-const base = '/Caballeros';
+const base = '/caballeros';
 const [pages, socialEntry] = await Promise.all([
   getCollection('pages'),
   getEntry('social', 'index'),

@@ -1,7 +1,7 @@
 {
   "hero_slides": [
     {
-      "image": "/Caballeros/images/8499773-hd_1920_1080_30fps.mp4",
+      "image": "/caballeros/images/8499773-hd_1920_1080_30fps.mp4",
       "title": "Educamos en Comunidad",
       "subtitle": "Educar es una tarea compartida. Construimos un modelo abierto e inclusivo basado en el diálogo entre docentes, familias y barrio.",
       "cta_label": "Descubre cómo educamos",
@@ -19,7 +19,7 @@
       "cta_external_url": ""
     },
     {
-      "image": "/Caballeros/images/04.jpeg",
+      "image": "/caballeros/images/04.jpeg",
       "title": "Un colegio con siglos de vida",
       "subtitle": "Antiguo palacio de los Condes de Valdelasgranas, restaurado en 1956 como colegio público en el corazón de Córdoba.",
       "cta_label": "Nuestra historia",
