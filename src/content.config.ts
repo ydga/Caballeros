@@ -69,8 +69,6 @@ const pages = defineCollection({
 const homepage = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/home' }),
   schema: z.object({
-    intro_title: z.string(),
-    intro_tagline: z.string(),
     hero_slides: z.array(z.discriminatedUnion('cta_type', [
       z.object({
         image: z.string().min(1),
@@ -89,28 +87,38 @@ const homepage = defineCollection({
         cta_external_url: z.string().url(),
       }),
     ])).min(1),
-    about_eyebrow: z.string(),
-    about_title: z.string(),
-    about_copy: z.string(),
-    about_button_label: z.string(),
-    news_eyebrow: z.string(),
-    news_title: z.string(),
-    news_link_label: z.string(),
-    news_empty_message: z.string(),
-    events_eyebrow: z.string(),
-    events_title: z.string(),
-    events_link_label: z.string(),
-    events_empty_message: z.string(),
-    gallery_eyebrow: z.string(),
-    gallery_title: z.string(),
-    gallery_copy: z.string(),
-    gallery_link_label: z.string(),
-    gallery_empty_message: z.string(),
-    downloads_title: z.string(),
-    downloads: z.array(z.object({
-      title: z.string().optional(),
-      file: z.string().min(1),
-    })).optional(),
+    about: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      copy: z.string(),
+      button_label: z.string(),
+    }),
+    news: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      link_label: z.string(),
+      empty_message: z.string(),
+    }),
+    events: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      link_label: z.string(),
+      empty_message: z.string(),
+    }),
+    gallery: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      copy: z.string(),
+      link_label: z.string(),
+      empty_message: z.string(),
+    }),
+    downloads: z.object({
+      title: z.string(),
+      files: z.array(z.object({
+        title: z.string().optional(),
+        file: z.string().min(1),
+      })).optional(),
+    }),
   }),
 });
 

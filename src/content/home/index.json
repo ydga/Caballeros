@@ -1,6 +1,4 @@
 {
-  "intro_title": "Pequeñas mentes, grandes sueños, infinitas posibilidades.",
-  "intro_tagline": "¡Enseñanza que deja huella!",
   "hero_slides": [
     {
       "image": "/Caballeros/images/8499773-hd_1920_1080_30fps.mp4",
@@ -39,23 +37,33 @@
       "cta_external_url": "https://www.diariocordoba.com/educacion/2026/04/15/aventura-salir-aula-ceip-caballeros-129098156.html"
     }
   ],
-  "about_eyebrow": "Acerca de",
-  "about_title": "Nuestro colegio",
-  "about_copy": "Descubre nuestra forma de educar, nuestros valores y cómo trabajamos junto a las familias para acompañar el crecimiento de cada niño y niña.",
-  "about_button_label": "Leer mas",
-  "news_eyebrow": "Mantengase al dia",
-  "news_title": "Noticias escolares",
-  "news_link_label": "Mas noticias →",
-  "news_empty_message": "Todavía no hay noticias.",
-  "events_eyebrow": "Agenda escolar",
-  "events_title": "Próximos eventos",
-  "events_link_label": "Mas eventos →",
-  "events_empty_message": "Todavía no hay próximos eventos publicados.",
-  "gallery_eyebrow": "Nuestra comunidad",
-  "gallery_title": "Fotografías",
-  "gallery_copy": "Una mirada a la vida cotidiana y al aprendizaje en nuestro colegio.",
-  "gallery_link_label": "Mas fotos →",
-  "gallery_empty_message": "Próximamente compartiremos momentos de nuestra comunidad escolar.",
-  "downloads_title": "Archivos para descargar",
-  "downloads": []
+  "about": {
+    "eyebrow": "Acerca de",
+    "title": "Nuestro colegio",
+    "copy": "Descubre nuestra forma de educar, nuestros valores y cómo trabajamos junto a las familias para acompañar el crecimiento de cada niño y niña.",
+    "button_label": "Leer mas"
+  },
+  "news": {
+    "eyebrow": "Mantengase al dia",
+    "title": "Noticias escolares",
+    "link_label": "Mas noticias →",
+    "empty_message": "Todavía no hay noticias."
+  },
+  "events": {
+    "eyebrow": "Agenda escolar",
+    "title": "Próximos eventos",
+    "link_label": "Mas eventos →",
+    "empty_message": "Todavía no hay próximos eventos publicados."
+  },
+  "gallery": {
+    "eyebrow": "Nuestra comunidad",
+    "title": "Fotografías",
+    "copy": "Una mirada a la vida cotidiana y al aprendizaje en nuestro colegio.",
+    "link_label": "Mas fotos →",
+    "empty_message": "Próximamente compartiremos momentos de nuestra comunidad escolar."
+  },
+  "downloads": {
+    "title": "Archivos para descargar",
+    "files": []
+  }
 }

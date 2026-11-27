@@ -18,8 +18,6 @@ collections:
         label: Contenido de la página de inicio
         file: src/content/home/index.json
         fields:
-          - { label: Título de bienvenida, name: intro_title, widget: string }
-          - { label: Lema de bienvenida, name: intro_tagline, widget: string }
           - label: Diapositivas principales
             name: hero_slides
             widget: list
@@ -53,31 +51,51 @@ collections:
                 condition:
                   field: cta_type
                   value: external
-          - { label: Encabezado pequeño de nuestra escuela, name: about_eyebrow, widget: string }
-          - { label: Título de nuestra escuela, name: about_title, widget: string }
-          - { label: Descripción de nuestra escuela, name: about_copy, widget: text }
-          - { label: Texto del botón de nuestra escuela, name: about_button_label, widget: string }
-          - { label: Texto pequeño de noticias, name: news_eyebrow, widget: string }
-          - { label: Título de noticias, name: news_title, widget: string }
-          - { label: Enlace a todas las noticias, name: news_link_label, widget: string }
-          - { label: Mensaje cuando no hay noticias, name: news_empty_message, widget: string }
-          - { label: Texto pequeño de eventos, name: events_eyebrow, widget: string }
-          - { label: Título de eventos, name: events_title, widget: string }
-          - { label: Enlace a todos los eventos, name: events_link_label, widget: string }
-          - { label: Mensaje cuando no hay próximos eventos, name: events_empty_message, widget: string }
-          - { label: Texto pequeño de galería, name: gallery_eyebrow, widget: string }
-          - { label: Título de galería, name: gallery_title, widget: string }
-          - { label: Descripción de galería, name: gallery_copy, widget: text }
-          - { label: Enlace a la galería, name: gallery_link_label, widget: string }
-          - { label: Mensaje cuando no hay fotografías, name: gallery_empty_message, widget: string }
-          - { label: Título de archivos para descargar, name: downloads_title, widget: string }
-          - label: Archivos para descargar
-            name: downloads
-            widget: list
-            required: false
+          - label: Nuestra escuela
+            name: about
+            widget: object
             fields:
-              - { label: Nombre para mostrar, name: title, widget: string, required: false }
-              - { label: Archivo, name: file, widget: file }
+              - { label: Encabezado pequeño, name: eyebrow, widget: string }
+              - { label: Título, name: title, widget: string }
+              - { label: Descripción, name: copy, widget: text }
+              - { label: Texto del botón, name: button_label, widget: string }
+          - label: Noticias
+            name: news
+            widget: object
+            fields:
+              - { label: Texto pequeño, name: eyebrow, widget: string }
+              - { label: Título, name: title, widget: string }
+              - { label: Enlace a todas las noticias, name: link_label, widget: string }
+              - { label: Mensaje cuando no hay noticias, name: empty_message, widget: string }
+          - label: Eventos
+            name: events
+            widget: object
+            fields:
+              - { label: Texto pequeño, name: eyebrow, widget: string }
+              - { label: Título, name: title, widget: string }
+              - { label: Enlace a todos los eventos, name: link_label, widget: string }
+              - { label: Mensaje cuando no hay próximos eventos, name: empty_message, widget: string }
+          - label: Galería
+            name: gallery
+            widget: object
+            fields:
+              - { label: Texto pequeño, name: eyebrow, widget: string }
+              - { label: Título, name: title, widget: string }
+              - { label: Descripción, name: copy, widget: text }
+              - { label: Enlace a la galería, name: link_label, widget: string }
+              - { label: Mensaje cuando no hay fotografías, name: empty_message, widget: string }
+          - label: Descargas
+            name: downloads
+            widget: object
+            fields:
+              - { label: Título, name: title, widget: string }
+              - label: Archivos para descargar
+                name: files
+                widget: list
+                required: false
+                fields:
+                  - { label: Nombre para mostrar, name: title, widget: string, required: false }
+                  - { label: Archivo, name: file, widget: file }
   - name: pages
     label: Paginas
     folder: src/content/pages

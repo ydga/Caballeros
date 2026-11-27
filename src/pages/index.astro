@@ -58,8 +58,8 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
 >
   <main class="home">
     <section class="home-intro" aria-labelledby="home-title">
-      <h1 id="home-title">{home.intro_title}</h1>
-      <p class="home-tagline">{home.intro_tagline}</p>
+      <h1 id="home-title">Pequeñas mentes, grandes sueños, infinitas posibilidades.</h1>
+      <p class="home-tagline">¡Enseñanza que deja huella!</p>
     </section>
 
     <section
@@ -133,10 +133,10 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
 
     <section class="home-row about-row">
       <div>
-        <p class="eyebrow">{home.about_eyebrow}</p>
-        <h2>{home.about_title}</h2>
-        {home.about_copy && <p class="row-copy">{home.about_copy}</p>}
-        <a class="button" href={`${base}/about/`}>{home.about_button_label}</a>
+        <p class="eyebrow">{home.about.eyebrow}</p>
+        <h2>{home.about.title}</h2>
+        {home.about.copy && <p class="row-copy">{home.about.copy}</p>}
+        <a class="button" href={`${base}/about/`}>{home.about.button_label}</a>
       </div>
       <img
         class="about-logo"
@@ -150,10 +150,10 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
     <section class="home-row">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">{home.news_eyebrow}</p>
-          <h2>{home.news_title}</h2>
+          <p class="eyebrow">{home.news.eyebrow}</p>
+          <h2>{home.news.title}</h2>
         </div>
-        <a class="text-link" href={`${base}/news/`}>{home.news_link_label}</a>
+        <a class="text-link" href={`${base}/news/`}>{home.news.link_label}</a>
       </div>
       {posts.length > 0 ? (
         <div class="post-grid">
@@ -191,33 +191,33 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
           })}
         </div>
       ) : (
-        <p>{home.news_empty_message}</p>
+        <p>{home.news.empty_message}</p>
       )}
     </section>
 
     <section class="home-row">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">{home.events_eyebrow}</p>
-          <h2>{home.events_title}</h2>
+          <p class="eyebrow">{home.events.eyebrow}</p>
+          <h2>{home.events.title}</h2>
         </div>
-        <a class="text-link" href={`${base}/events/`}>{home.events_link_label}</a>
+        <a class="text-link" href={`${base}/events/`}>{home.events.link_label}</a>
       </div>
       {upcomingEvents.length > 0 ? (
         <EventList events={upcomingEvents.slice(0, 3)} />
       ) : (
-        <p>{home.events_empty_message}</p>
+        <p>{home.events.empty_message}</p>
       )}
     </section>
 
     <section class="home-row">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">{home.gallery_eyebrow}</p>
-          <h2>{home.gallery_title}</h2>
-          {home.gallery_copy && <p class="row-copy">{home.gallery_copy}</p>}
+          <p class="eyebrow">{home.gallery.eyebrow}</p>
+          <h2>{home.gallery.title}</h2>
+          {home.gallery.copy && <p class="row-copy">{home.gallery.copy}</p>}
         </div>
-        <a class="text-link" href={`${base}/gallery/`}>{home.gallery_link_label}</a>
+        <a class="text-link" href={`${base}/gallery/`}>{home.gallery.link_label}</a>
       </div>
       {galleryItems.length > 0 ? (
         <div class="gallery-grid">
@@ -241,11 +241,11 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
           ))}
         </div>
       ) : (
-        <p>{home.gallery_empty_message}</p>
+        <p>{home.gallery.empty_message}</p>
       )}
     </section>
     <div class="home-row">
-      <DownloadFiles files={home.downloads} heading={home.downloads_title} />
+      <DownloadFiles files={home.downloads.files} heading={home.downloads.title} />
     </div>
   </main>
 
