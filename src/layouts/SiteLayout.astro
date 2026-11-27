@@ -98,12 +98,6 @@ const navigationHref = (slug: string) =>
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400&family=Playwrite+BE+VLG:wght@100..400&family=Source+Sans+3:wght@300..900&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div class="nav-fade" aria-hidden="true"></div>
@@ -371,6 +365,30 @@ const navigationHref = (slug: string) =>
 </html>
 
 <style is:global>
+  @font-face {
+    font-family: Parkinsans;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../assets/fonts/parkinsans-latin.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Playwrite BE VLG';
+    font-style: normal;
+    font-weight: 100 400;
+    font-display: swap;
+    src: url('../assets/fonts/playwrite-be-vlg.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 300 900;
+    font-display: swap;
+    src: url('../assets/fonts/source-sans-3-latin.woff2') format('woff2');
+  }
+
   :root {
     --color-accent: #be1e2d;
     --color-heading: #1a1917;
