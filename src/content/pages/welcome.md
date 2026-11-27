@@ -3,7 +3,7 @@ title: Bienvenidos/as a nuestra página web!
 nav_label: Bienvenida
 parent_page: about
 eyebrow: Direccion
-order: 4
+order: 2
 hide_from_navigation: false
 lede: ''
 main_image: ''
