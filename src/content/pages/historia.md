@@ -6,8 +6,17 @@ eyebrow: Conozca
 order: 3
 hide_from_navigation: false
 lede: El CEIP Caballeros de Santiago ocupa un edificio mudéjar declarado Bien de Interés Cultural (BIC) cuyos orígenes se remontan a 1254. Antiguo palacio de los Condes de Valdelasgranas, fue restaurado en 1956 para convertirse en colegio público, ofreciendo hoy un entorno histórico único en pleno centro de Córdoba.
-main_image: /Caballeros/images/Watercolor School Courtyard Gathering.png
-items: []
+main_image: /Caballeros/images/04.jpeg
+items:
+  - title: Patios
+    label: Fotografía de Ladis Hijo
+    image: /Caballeros/images/03.jpeg
+  - title: Patios
+    label: Fotografía de Ladis Hijo
+    image: /Caballeros/images/02.jpeg
+  - title: Entrada
+    label: Fotografía de Ladis Hijo
+    image: /Caballeros/images/01.jpeg
 downloads: []
 ---
 
