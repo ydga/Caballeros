@@ -92,7 +92,14 @@ const getSlideCtaHref = (slide: (typeof heroSlides)[number]) =>
           <div class="hero-content">
             <h2>{slide.title}</h2>
             {slide.subtitle && <p class="hero-copy">{slide.subtitle}</p>}
-            <a class="button button-light" href={getSlideCtaHref(slide)}>{slide.cta_label}</a>
+            <a
+              class="button button-light"
+              href={getSlideCtaHref(slide)}
+              target={slide.cta_type === 'external' ? '_blank' : undefined}
+              rel={slide.cta_type === 'external' ? 'noopener noreferrer' : undefined}
+            >
+              {slide.cta_label}
+            </a>
           </div>
         </article>
       ))}

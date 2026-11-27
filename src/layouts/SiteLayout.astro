@@ -343,6 +343,24 @@ const navigationHref = (slug: string) =>
       });
     </script>
   </body>
+  <script>
+    document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      let url: URL;
+      try {
+        url = new URL(href, window.location.href);
+      } catch {
+        return;
+      }
+
+      if (url.origin !== window.location.origin) {
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      }
+    });
+  </script>
 </html>
 
 <style is:global>
