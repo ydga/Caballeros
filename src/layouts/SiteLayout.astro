@@ -687,8 +687,15 @@ const navigationHref = (slug: string) =>
   }
 
   .site-footer-credit a {
+    opacity: .5;
     text-decoration: underline;
     text-underline-offset: .15em;
+    transition: opacity 150ms ease;
+  }
+
+  .site-footer-credit a:hover,
+  .site-footer-credit a:focus-visible {
+    opacity: 1;
   }
 
   .site-footer address {
