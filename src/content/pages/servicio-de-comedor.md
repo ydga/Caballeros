@@ -11,8 +11,6 @@ items: []
 downloads: []
 ---
 
-## Menú del comedor escolar – Mayo 2026
-
 ### Semana del 1 de mayo
 
 **Viernes 1 de mayo**
