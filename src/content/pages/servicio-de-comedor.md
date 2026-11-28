@@ -1,31 +1,25 @@
 ---
-title: Servicio de comedor
-nav_label: Comedor
+title: Comedor escolar
+nav_label: Menú mayo 2026
 parent_page: about
-eyebrow: ''
+eyebrow: Mayo 2026
 order: 100
 hide_from_navigation: false
-lede: ''
+lede: Este mes, el alumnado disfrutará de un menú variado que incluye verduras, legumbres, pasta, arroz, pescado, carne, huevos y fruta. A continuación, podéis consultar el menú de cada día.
 main_image: ''
 items: []
 downloads: []
 ---
 
-# Menú del comedor escolar – Mayo 2026
+## Menú del comedor escolar – Mayo 2026
 
-Ya está disponible el menú del comedor escolar de Educación Primaria para el mes de mayo de 2026.
-
-Este mes, el alumnado disfrutará de un menú variado que incluye verduras, legumbres, pasta, arroz, pescado, carne, huevos y fruta.
-
-A continuación, podéis consultar el menú de cada día.
-
-## Semana del 1 de mayo
+### Semana del 1 de mayo
 
 **Viernes 1 de mayo**
 
 Festivo.
 
-## Semana del 4 al 8 de mayo
+### Semana del 4 al 8 de mayo
 
 **Lunes 4 de mayo**
 
@@ -66,7 +60,7 @@ Festivo.
 - Pan integral.
 - Pera.
 
-## Semana del 11 al 15 de mayo
+### Semana del 11 al 15 de mayo
 
 **Lunes 11 de mayo**
 
@@ -107,7 +101,7 @@ Festivo.
 - Pan integral.
 - Plátano.
 
-## Semana del 18 al 22 de mayo
+### Semana del 18 al 22 de mayo
 
 **Lunes 18 de mayo**
 
@@ -148,7 +142,7 @@ Festivo.
 - Pan integral.
 - Plátano.
 
-## Semana del 25 al 29 de mayo
+### Semana del 25 al 29 de mayo
 
 **Lunes 25 de mayo**
 
@@ -188,13 +182,3 @@ Festivo.
 - Ensalada de lechuga.
 - Pan integral.
 - Manzana.
-
-## Hábitos saludables y alimentación
-
-Desde el comedor escolar se recomienda beber agua para hidratarse, consumir frutas y verduras a diario, incorporar alimentos integrales, reducir el consumo de azúcar y sal y mantener una actividad física regular.
-
-Los platos se elaboran con aceite de oliva virgen extra, salvo excepciones. El pan integral del menú contiene un 50 % de harina integral.
-
-Para consultar la información sobre alérgenos, valores nutricionales y recomendaciones para las cenas, podéis consultar el documento original del menú elaborado por Mediterránea.
-
-¡Buen provecho!
